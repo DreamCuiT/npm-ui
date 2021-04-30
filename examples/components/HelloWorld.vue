@@ -10,7 +10,7 @@
                      <div>dddd</div>
                    </template>
                    </p8-dragdialog> -->
-    <p8-formgenerator :record='{"id": "efee05aa45d95985ad141460db59d253"}'></p8-formgenerator>
+    <!-- <p8-formgenerator :record='{"id": "efee05aa45d95985ad141460db59d253"}'></p8-formgenerator> -->
     <!-- <p8-formApplication :form-conf="formConf"
                         @setPageData="setPageData"
                         @submit="save"></p8-formApplication> -->
@@ -18,14 +18,14 @@
 </template>
 
 <script>
-import {Button, Dialog, FormGenerator, FormApplication} from '../../dist/index'
+import {Button, Dialog, P8FormGenerator, P8FormParser} from '../../dist/index'
 export default {
   name: 'HelloWorld',
   components: {
     'p8-button': Button,
     'p8-dragdialog': Dialog,
-    'p8-formgenerator': FormGenerator,
-    'p8-formApplication': FormApplication
+    'p8-formgenerator': P8FormGenerator,
+    'p8-formApplication': P8FormParser
   },
   data () {
     return {

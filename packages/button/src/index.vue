@@ -76,6 +76,10 @@ export default {
     customButtonData: { // 智能报表中新增按钮
       type: Array,
       default: () => []
+    },
+    buttonDisabledLimit: {
+      type: Array,
+      default: () => []
     }
   },
   data () {
@@ -151,8 +155,7 @@ export default {
   mounted () {
     this._initButtonSize()
     window.addEventListener('resize', this._initButtonSize)
-    // let resourceName = this.$route.name
-    let resourceName = null
+    let resourceName = this.$route.name
     if (this.specialRoteName && this.specialRoteName !== '') {
       resourceName = this.specialRoteName
     }
@@ -163,6 +166,7 @@ export default {
     }
     this.$api['button.info'](params).then(res => {
       that.buttonData = res.filter(item => item.location === 'head')
+
       // 给每个行按钮绑定相应的禁用规则
       that.buttonData.map(item => {
         that.buttonDisabledLimit.map(i => {

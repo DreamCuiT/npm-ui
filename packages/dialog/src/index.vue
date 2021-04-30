@@ -67,8 +67,8 @@
 <script>
 import { Dialog, Button } from 'element-ui'
 export default {
-  name: 'P8Dragdialog',
-  componentName: 'P8Dragdialog',
+  name: 'P8Dialog',
+  componentName: 'P8Dialog',
   components: {
     'el-dialog': Dialog,
     'el-button': Button
@@ -116,6 +116,7 @@ export default {
   watch: {
     visible (val) {
       if (val) {
+        // console.log(val, '-------------我的显示值')
         const el = this.$refs.dragDialog.$el.querySelector('.el-dialog')
         el.style.left = 0
         el.style.top = 0

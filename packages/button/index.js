@@ -1,8 +1,8 @@
-import Button from './src/index';
+import P8Button from './src/index';
 
 /* istanbul ignore next */
-Button.install = function(Vue) {
-  Vue.component(Button.name, Button);
+P8Button.install = function(Vue) {
+  Vue.component(P8Button.name, P8Button);
 };
 
-export default Button;
+export default P8Button;
