@@ -86,7 +86,7 @@ export default {
     return {
       docWidth: document.documentElement.clientWidth,
       buttonData: [],
-      // buttonDisabledLimit: this.$store.state.project.buttonLimit,
+      buttonDisabledLimit: this.$store.state.project.buttonLimit,
       buttonLimitFlag: false, // 判断行按钮是否需要禁用，默认不绑定禁用逻辑
       buttonMoreLen: 7
     }
@@ -309,4 +309,3 @@ export default {
   }
 }
 </script>
-
