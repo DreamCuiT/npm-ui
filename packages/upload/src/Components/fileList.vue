@@ -40,7 +40,8 @@
 
 <script>
 import { Row, Col, Select, Option } from 'element-ui'
-import { downloadFile, getConfidentialiteLabel } from './Function'
+// import { downloadFile, getConfidentialiteLabel } from './Function'
+import upLoad from '~/mixins/upload'
 export default {
   components: {
     'el-row': Row,
@@ -48,6 +49,7 @@ export default {
     'el-select': Select,
     'el-option': Option
   },
+  mixins:[upLoad],
   props: {
     files: {
       type: Array,
@@ -66,13 +68,13 @@ export default {
       this.$set(file, 'confidentialite', value)
     },
     fileDownload (file) {
-      downloadFile(file, this)
+      this.downloadFile(file, this)
     },
     removeSecret (file, fileIndex) {
       this.$emit('remove', file, fileIndex)
     },
     handleConfidentialite (file) {
-      return `密级: ${getConfidentialiteLabel(file)}`
+      return `密级: ${this.getConfidentialiteLabel(file)}`
     }
   }
 }

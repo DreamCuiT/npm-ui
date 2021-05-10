@@ -344,18 +344,11 @@
 
 <script>
 import { Table, TableColumn, Pagination, Button, Tooltip, Divider, Dropdown, DropdownMenu, DropdownItem, Input, Popover } from 'element-ui'
-import { generateTree } from '../../../src/utils/generateTree'
+import { generateTree } from '~/utils/generateTree'
 import TableSetting from './TableSetting'
 // import { API_DEFAULT_CONFIG } from '@/config/settings'
 import { handleTableSpan, handleObjectSpanMethod } from './Function.js'
 import SearchFieldRender from './SearchFieldRender'
-const API_DEFAULT_CONFIG  = {
-  devBaseUrl: 'http://192.168.0.96:9090',
-  prodBaseUrl: 'http://192.168.0.96:9090',
-  isDevMode: process.env.NODE_ENV !== 'production',
-  isDebug: true,
-  sep: '.'
-}
 export default {
   name: 'P8Table',
   componentName: 'P8Table',
@@ -486,6 +479,7 @@ export default {
     }
   },
   data () {
+    const { API_DEFAULT_CONFIG } = this.$sysConfig
     const mh = document.documentElement.clientHeight - this.flex > this.minHeight
       ? document.documentElement.clientHeight - this.flex
       : this.minHeight
@@ -1060,7 +1054,7 @@ export default {
         value: JSON.stringify({ columns: tableSettingData })
       }]
       /** 使用$ajax请求: 是因为 this.$api请求会将请求参数处理成对象, 而保存设置接口请求参数为数组 */
-      _this.$ajax.post(obj.postUrl, params, { headers: { 'Authorization': this.$store.user.state.token } }).then(res => {
+      _this.$ajax.post(obj.postUrl, params, { headers: { 'Authorization': this.$store.getters.token } }).then(res => {
         _this.tableSettingVisible = false
         _this.$nextTick(function () {
           _this.renderColumns = updateColumns.map((item, index) => {

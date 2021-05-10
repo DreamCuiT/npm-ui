@@ -1,6 +1,6 @@
 <template>
   <div class="common-upload">
-    <el-upload :action="uploadUrl" size="mini" name='thefile'
+    <el-upload :action="uploadUrl()" size="mini" name='thefile'
       :class="{'el-upload--drag': uploadConfig.drag}"
       with-credentials
       :headers="headers"
@@ -36,11 +36,13 @@
 
 <script>
 import { Upload, Button, Dialog } from 'element-ui'
-import { uploadUrl, downloadFile } from './Components/Function'
+// import { uploadUrl, downloadFile } from './Components/Function'
+import upLoad from '~/mixins/upload'
 import FileList from './Components/fileList'
 export default {
   name: 'P8Upload',
   componentName: 'P8Upload',
+  mixins:[upLoad],
   components: {
     FileList,
     'el-upload': Upload,
@@ -91,7 +93,7 @@ export default {
       uploadListType: 'text',
       dialogImageVisible: false,
       dialogImageUrl: '',
-      uploadUrl: uploadUrl(),
+      // uploadUrl: this.uploadUrl(),
       headers: { 'Authorization': this.$store.getters.token }
     }
   },
@@ -192,7 +194,7 @@ export default {
 
       let downloadFileItem = this.files.filter(item => item.filePath === file.url)
       if (downloadFileItem && downloadFileItem.length) {
-        downloadFile(downloadFileItem[0], this)
+        this.downloadFile(downloadFileItem[0], this)
       }
     },
     handleRemoveSecret (file) {

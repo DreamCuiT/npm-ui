@@ -116,8 +116,8 @@
 import Vue from 'vue'
 import { FormItem, Input, InputNumber, Radio, RadioGroup, RadioButton, Checkbox, CheckboxGroup, Switch, Select, Option, DatePicker } from 'element-ui'
 import TreeSelect from '../../../form/src/Components/TreeSelect'
-import { generateTree } from '../../../../src/utils/generateTree'
-import Validate from '../../../../src/utils/extendValidate/extendValidate'
+import { generateTree } from '~/utils/generateTree'
+import Validate from '~/utils/extendValidate/extendValidate'
 // 表单校验
 Vue.use(Validate)
 export default {

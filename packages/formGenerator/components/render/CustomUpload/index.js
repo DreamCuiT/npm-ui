@@ -2,13 +2,6 @@ import Vue from 'vue'
 // import { API_DEFAULT_CONFIG } from '@/config/settings'
 import { Upload, Button, Row, Col } from 'element-ui'
 import FilesListComp from './Components/filesList'
-const API_DEFAULT_CONFIG  = {
-  devBaseUrl: 'http://192.168.0.96:9090',
-  prodBaseUrl: 'http://192.168.0.96:9090',
-  isDevMode: process.env.NODE_ENV !== 'production',
-  isDebug: true,
-  sep: '.'
-}
 export default Vue.component('CustomUpload', {
   props: {
     config: {
@@ -61,6 +54,7 @@ export default Vue.component('CustomUpload', {
     }
   },
   data () {
+    const { API_DEFAULT_CONFIG } = this.$sysConfig
     return {
       uploadApi: '',
       actionApi: '',

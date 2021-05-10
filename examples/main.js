@@ -13,9 +13,10 @@ import p8 from '../dist/index'
 import inject from '../dist/inject'
 import api from '../dist/api'
 import APIOBJ from './api'
+
+Vue.use(api, {...sysConfig,...{APIOBJ}})
 Vue.use(p8)
 Vue.use(inject)
-Vue.use(api, {...sysConfig,...{APIOBJ}})
 Vue.use(Vuex)
 Vue.config.productionTip = false
 new Vue({

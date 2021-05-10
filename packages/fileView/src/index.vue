@@ -20,10 +20,12 @@
 </template>
 <script>
 import { Link } from 'element-ui'
-import { getConfidentialiteLabel, downloadFile } from '../../upload/src/Components/Function'
+// import { getConfidentialiteLabel, downloadFile } from '../../upload/src/Components/Function'
+import upLoad from '~/mixins/upload'
 export default {
   name: 'P8FileView',
   componentName: 'P8FileView',
+  mixins:[upLoad],
   components: {
     'el-link': Link
   },
@@ -80,10 +82,10 @@ export default {
     },
     downloadfileHandle (item) {
       let bingKeyObj = this.fileDownloadKey
-      downloadFile(item, this, { fileIdKey: bingKeyObj.id, fileNameKey: bingKeyObj.fileName, confValueKey: bingKeyObj.confValueKey })
+      this.downloadFile(item, this, { fileIdKey: bingKeyObj.id, fileNameKey: bingKeyObj.fileName, confValueKey: bingKeyObj.confValueKey })
     },
     confidentialiteLabel (file) {
-      return getConfidentialiteLabel(file, 'confidentialite')
+      return this.getConfidentialiteLabel(file, 'confidentialite')
     }
   }
 }

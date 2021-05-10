@@ -88,16 +88,17 @@
     </el-row>
   </el-form>
 </template>
-
 <script>
 import { Form, FormItem, Row, Col, Button, Alert } from 'element-ui'
 import FieldRender from './Components/FieldRender'
 import AddField from './Components/AddField'
 import CommonUpload from '../../upload'
-import { uploadDefaultRules } from '../../upload/src/Components/Function.js'
+import upLoad from '~/mixins/upload'
+// import { uploadDefaultRules } from '../../upload/src/Components/Function.js'
 export default {
   name: 'P8Form',
   componentName: 'P8Form',
+  mixins:[upLoad],
   props: {
     comp: {
       type: Object
@@ -143,7 +144,7 @@ export default {
       viewData: {},
       isDisable: false,
       loadingVisible: '',
-      uploadDefaultRules: uploadDefaultRules()
+      uploadDefaultRules: this.uploadDefaultRules()
     }
   },
   mounted () {

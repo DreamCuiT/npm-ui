@@ -10,10 +10,11 @@
                      <div>dddd</div>
                    </template>
                    </p8-dragdialog> -->
-    <!-- <p8-formgenerator :record='{"id": "efee05aa45d95985ad141460db59d253"}'></p8-formgenerator> -->
+<!--     <p8-formgenerator :record='{"id": "efee05aa45d95985ad141460db59d253"}'></p8-formgenerator>-->
     <!-- <p8-formApplication :form-conf="formConf"
                         @setPageData="setPageData"
                         @submit="save"></p8-formApplication> -->
+    <p8-upload></p8-upload>
   </div>
 </template>
 
@@ -45,7 +46,7 @@ export default {
       this.visible = false
     },
     save (data, childData) {
-      
+
     },
      setPageData (pageData) {
 

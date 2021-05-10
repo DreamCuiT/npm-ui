@@ -51,9 +51,11 @@
 import { Row, Col, Button, FormItem } from 'element-ui'
 import AddFieldRender from './AddFieldRender'
 import CommonUpload from '../../../upload'
-import { uploadDefaultRules } from '../../../upload/src/Components/Function'
+import upLoad from '~/mixins/upload'
+// import { uploadDefaultRules } from '../../../upload/src/Components/Function'
 export default {
   name: 'AddField',
+  mixins:[upLoad],
   components: {
     'el-row': Row,
     'el-col': Col,
@@ -89,7 +91,7 @@ export default {
   data () {
     return {
       addValue: {},
-      uploadDefaultRules: uploadDefaultRules()
+      uploadDefaultRules: this.uploadDefaultRules()
     }
   },
   mounted () {

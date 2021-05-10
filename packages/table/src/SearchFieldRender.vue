@@ -81,7 +81,6 @@
 <script>
 
 import { Input, Select, Option, DatePicker } from 'element-ui'
-// import TreeSelect from '@/p8Components/form/Components/TreeSelect'
 import { generateTree } from '../../../src/utils/generateTree'
 export default {
   name: 'TableSearchFieldRender',
@@ -171,7 +170,6 @@ export default {
     'el-select': Select,
     'el-option': Option,
     'el-date-picker': DatePicker
-    // TreeSelect
 
   }
 }

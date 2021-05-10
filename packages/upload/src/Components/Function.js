@@ -1,12 +1,6 @@
 // import { API_DEFAULT_CONFIG } from '@/config/settings'
-import store from '../../../../examples/store/store'
-const API_DEFAULT_CONFIG  = {
-  devBaseUrl: 'http://192.168.0.96:9090',
-  prodBaseUrl: 'http://192.168.0.96:9090',
-  isDevMode: process.env.NODE_ENV !== 'production',
-  isDebug: true,
-  sep: '.'
-}
+import store from '~/store'
+const { API_DEFAULT_CONFIG } = store.state.sysConfig
 const uploadUrl = () => {
   let { devBaseUrl, prodBaseUrl, isDevMode } = API_DEFAULT_CONFIG
   let urlPrefix = isDevMode ? `${devBaseUrl}` : `${prodBaseUrl}`

@@ -59,13 +59,6 @@
 <script>
 import { Form, FormItem, Upload, Button, Row, Col, Select, Option } from 'element-ui'
 // import { API_DEFAULT_CONFIG } from '@/config/settings'
-const API_DEFAULT_CONFIG  = {
-  devBaseUrl: 'http://192.168.0.96:9090',
-  prodBaseUrl: 'http://192.168.0.96:9090',
-  isDevMode: process.env.NODE_ENV !== 'production',
-  isDebug: true,
-  sep: '.'
-}
 
 export default {
   name: 'CommonImport',
@@ -91,6 +84,7 @@ export default {
     }
   },
   data () {
+    const { API_DEFAULT_CONFIG } = this.$sysConfig
     return {
       urlPrefix: '',
       api_default_config: API_DEFAULT_CONFIG,

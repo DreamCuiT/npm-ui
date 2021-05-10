@@ -58,13 +58,13 @@ const install = function (Vue, opts = {}) {
           this.buildApiWidthNamespace({ namespace, apis: apis[namespace], isDevMode, isDebug, devBaseUrl, prodBaseUrl, sep })
         })
       }
-    
+
       buildApiWidthNamespace ({ namespace, apis, devBaseUrl, prodBaseUrl, isDevMode, isDebug, sep }) {
         apis.forEach(api => {
           const { name, method, path, mockPath, params, desc } = api
           const apiNamespace = `${namespace}${sep}${name}`
           const url = isDevMode ? `${devBaseUrl}${mockPath}` : `${prodBaseUrl}${path}`
-    
+
           Object.defineProperty(this.api, apiNamespace, {
             value (outerParams, outerOptions) {
               // 如果没传入参数 则传递默认参数
@@ -80,6 +80,7 @@ const install = function (Vue, opts = {}) {
       }
     }
     Vue.prototype.$api = apiProxy(new ApiCounstructor({ apis: opts.APIOBJ, ...opts.API_DEFAULT_CONFIG })['api'])
+    Vue.prototype.$sysConfig = opts
 }
 
 function axiosParamBuilder (options, data) {
