@@ -95,6 +95,7 @@ export default {
       dialogImageUrl: '',
       // uploadUrl: this.uploadUrl(),
       headers: { 'Authorization': this.$store.getters.token }
+
     }
   },
   mounted () {
