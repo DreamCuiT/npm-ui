@@ -47,7 +47,7 @@
                         :label="item.labelText"
                         :prop="item.fieldName"
                         :label-width="item.labelWidth ? item.labelWidth : ''"
-                        :rules="item.rules || item.listType === 'secret' ? uploadDefaultRules : []">
+                        :rules="item.rules || item.listType === 'secret' ? uploadDefaultRules() : []">
             <common-upload ref="commonupload"
                            :files="form[item.fieldName] || []"
                            :listType="item.listType"
@@ -144,7 +144,7 @@ export default {
       viewData: {},
       isDisable: false,
       loadingVisible: '',
-      uploadDefaultRules: this.uploadDefaultRules()
+      // uploadDefaultRules: this.uploadDefaultRules()
     }
   },
   mounted () {

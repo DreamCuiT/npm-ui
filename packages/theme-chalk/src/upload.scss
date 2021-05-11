@@ -5,7 +5,7 @@
   flex-direction: column ;
 }
 .el-upload--drag {
-  & /deep/ .el-upload-list--text {
+  & .el-upload-list--text {
     margin-left: 0;
     padding: 10px 0;
   }
@@ -119,7 +119,7 @@ $blue-color: #4a8dff;
         min-height: 28px;
         line-height: 28px;
       }
-      & /deep/ .el-input.is-disabled .el-input__inner {
+      & .el-input.is-disabled .el-input__inner {
         background-color: #fafafa;
         color:#606266;
       }

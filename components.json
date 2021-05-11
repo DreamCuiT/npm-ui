@@ -1,4 +1,20 @@
 {
   "button": "./packages/button/index.js",
-  "dialog": "./packages/dialog/index.js"
+  "card": "./packages/card/index.js",
+  "dialog": "./packages/dialog/index.js",
+  "ListLayout": "./packages/list-layout/index.js",
+  "NormalLayout": "./packages/normal-layout/index.js",
+  "tree": "./packages/tree/index.js",
+  "table": "./packages/table/index.js",
+  "drawer": "./packages/drawer/index.js",
+  "form": "./packages/form/index.js",
+  "upload": "./packages/upload/index.js",
+  "fileView": "./packages/fileView/index.js",
+  "search": "./packages/search/index.js",
+  "infiniteScroll": "./packages/infiniteScroll/index.js",
+  "statusIcon": "./packages/statusIcon/index.js",
+  "tabs": "./packages/tabs/index.js",
+  "editTable": "./packages/editTable/index.js",
+  "formApplication": "./packages/formApplication/index.js",
+  "formGenerator": "./packages/formGenerator/index.js"
 }
