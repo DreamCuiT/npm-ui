@@ -1,0 +1,23 @@
+@import "commonStyle/common.scss";
+
+##list-layout {
+  height:100%;
+  background: #ffffff;
+}
+#list-header {
+  padding:10px;
+  width:100%;
+  height:50px;
+  box-sizing: border-box;
+  background: #E9ECEF;
+  border-bottom:1px solid #e1e1e1;
+}
+#list-main {
+  width:100%;
+  height:calc(100% - 50px);
+  position:relative;
+
+  &.fullHeight{
+    height:calc(100% - 20px);
+  }
+}

@@ -1,0 +1,19 @@
+@import "commonStyle/common.scss";
+
+.el-icon-delete{
+ font-size:20px;
+ line-height:24px;
+ cursor:pointer;
+
+ &:hover{
+   color: $base-light-color;
+ }
+
+ &.is-disabled {
+   cursor: not-allowed;
+   color: #999;
+   &:hover {
+     color: #999
+   }
+ }
+}
