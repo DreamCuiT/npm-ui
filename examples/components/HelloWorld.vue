@@ -2,35 +2,35 @@
   <div class="hello">
     <!-- <h1>{{ msg }}</h1>
     <h2>Essential Links</h2> -->
-    <p8-normal-layout>
-      <template #west></template>
-      <template #center>
-        <p8-form ref="form"
-                 labelWidth="150px"
-                 @rendered="rendered"
-                 @saved="saved"
-                 :dataSource="dataSource"
-                 :api="saveApi"
-                 :form="formData"></p8-form>
-      </template>
-    </p8-normal-layout>
-    <p8-drawer :visible="visible"
-               @close="handleClose">
-      <template #drawer>
-        <p8-normal-layout>
-          <template #west></template>
-          <template #center>
-            <p8-form ref="form"
-                     labelWidth="150px"
-                     @rendered="rendered"
-                     @saved="saved"
-                     :dataSource="dataSource"
-                     :api="saveApi"
-                     :form="formData"></p8-form>
-          </template>
-        </p8-normal-layout>
-      </template>
-    </p8-drawer>
+<!--    <p8-normal-layout>-->
+<!--      <template #west></template>-->
+<!--      <template #center>-->
+<!--        <p8-form ref="form"-->
+<!--                 labelWidth="150px"-->
+<!--                 @rendered="rendered"-->
+<!--                 @saved="saved"-->
+<!--                 :dataSource="dataSource"-->
+<!--                 :api="saveApi"-->
+<!--                 :form="formData"></p8-form>-->
+<!--      </template>-->
+<!--    </p8-normal-layout>-->
+<!--    <p8-drawer :visible="visible"-->
+<!--               @close="handleClose">-->
+<!--      <template #drawer>-->
+<!--        <p8-normal-layout>-->
+<!--          <template #west></template>-->
+<!--          <template #center>-->
+<!--            <p8-form ref="form"-->
+<!--                     labelWidth="150px"-->
+<!--                     @rendered="rendered"-->
+<!--                     @saved="saved"-->
+<!--                     :dataSource="dataSource"-->
+<!--                     :api="saveApi"-->
+<!--                     :form="formData"></p8-form>-->
+<!--          </template>-->
+<!--        </p8-normal-layout>-->
+<!--      </template>-->
+<!--    </p8-drawer>-->
     <!-- <p8-dragdialog :visible="visible"
                    @handle-cancel="handleCancel"
                    @handle-ok="handleOk"
@@ -42,8 +42,8 @@
 <!--     <p8-formgenerator :record='{"id": "efee05aa45d95985ad141460db59d253"}'></p8-formgenerator>-->
     <!-- <p8-formApplication :form-conf="formConf"
                         @setPageData="setPageData"
-                        @submit="save"></p8-formApplication>
-<!--<p8-upload></p8-upload>-->
+                        @submit="save"></p8-formApplication>-->
+    <p8-upload></p8-upload>
   </div>
 </template>
 
