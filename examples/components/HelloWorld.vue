@@ -43,16 +43,19 @@
     <!-- <p8-formApplication :form-conf="formConf"
                         @setPageData="setPageData"
                         @submit="save"></p8-formApplication>-->
-    <p8-upload></p8-upload>
+    <!-- <p8-upload></p8-upload> -->
     <!-- <p8-menu-layout></p8-menu-layout> -->
     <!-- <p8-select-user :visible='true'></p8-select-user> -->
     <!-- <p8-nlcr-layout></p8-nlcr-layout> -->
-    <p8-split-pane split='vertical'></p8-split-pane>
+    <!-- <p8-split-pane split='vertical'></p8-split-pane> -->
+    <!-- <p8-bpm></p8-bpm> -->
+    <!-- <p8-process-approval></p8-process-approval> -->
+    <p8-process-definition></p8-process-definition>
   </div>
 </template>
 
 <script>
-import {Button, Dialog, P8FormGenerator, P8FormParser, P8NormalLayout, P8MenuLayout, P8SelectUser,
+import {Button, Dialog, P8FormGenerator, P8FormParser, P8NormalLayout, P8MenuLayout, P8SelectUser, P8Bpm, P8ProcessApproval, P8ProcessDefinition,
   P8NlcrLayout,
   P8SplitPane,} from '../../dist/index'
 
@@ -68,6 +71,9 @@ export default {
     P8SelectUser,
     P8NlcrLayout,
     P8SplitPane,
+    P8Bpm,
+    P8ProcessApproval, 
+    P8ProcessDefinition
   },
   data () {
     return {
