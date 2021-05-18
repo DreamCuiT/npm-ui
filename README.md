@@ -14,6 +14,10 @@ nrm use rangzhi
 # install dependencies
 npm install p8-components-ui
 
+安装成功后删除package-lock.json
+
+cnpm i
+
 # serve with hot reload at localhost:8080
 npm run dev
 

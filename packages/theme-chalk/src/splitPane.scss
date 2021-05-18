@@ -1,0 +1,25 @@
+@import "commonStyle/common.scss";
+
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.vue-splitter-container {
+  height: 100%;
+  position: relative;
+}
+
+.vue-splitter-container-mask {
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

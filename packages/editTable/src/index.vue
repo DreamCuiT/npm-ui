@@ -45,7 +45,7 @@
 </template>
 <script>
   import { Button, Table, TableColumn } from 'element-ui'
-  import ListLayout from 'packages/list-layout/src'
+  import ListLayout from 'packages/listLayout/src'
   export default {
     name: 'P8EditTable',
     componentName: 'P8EditTable',

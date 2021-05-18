@@ -3,8 +3,11 @@ import 'babel-polyfill'
 import P8Button from '../packages/button/index.js';
 import P8Card from '../packages/card/index.js';
 import P8Dialog from '../packages/dialog/index.js';
-import P8ListLayout from '../packages/list-layout/index.js';
-import P8NormalLayout from '../packages/normal-layout/index.js';
+import P8ListLayout from '../packages/listLayout/index.js';
+import P8NormalLayout from '../packages/normalLayout/index.js';
+import P8MenuLayout from '../packages/menuLayout/index.js';
+import P8NlcrLayout from '../packages/nlcrLayout/index.js';
+import P8SplitPane from '../packages/splitPane/index.js';
 import P8Tree from '../packages/tree/index.js';
 import P8Table from '../packages/table/index.js';
 import P8Drawer from '../packages/drawer/index.js';
@@ -12,6 +15,7 @@ import P8Form from '../packages/form/index.js';
 import P8Upload from '../packages/upload/index.js';
 import P8FileView from '../packages/fileView/index.js';
 import P8Search from '../packages/search/index.js';
+import P8SelectUser from '../packages/selectUser/index.js';
 import P8InfiniteScroll from '../packages/infiniteScroll/index.js';
 import P8StatusIcon from '../packages/statusIcon/index.js';
 import P8Tabs from '../packages/tabs/index.js';
@@ -25,6 +29,9 @@ const components = [
   P8Dialog,
   P8ListLayout,
   P8NormalLayout,
+  P8MenuLayout,
+  P8NlcrLayout,
+  P8SplitPane,
   P8Tree,
   P8Table,
   P8Drawer,
@@ -32,6 +39,7 @@ const components = [
   P8Upload,
   P8FileView,
   P8Search,
+  P8SelectUser,
   P8InfiniteScroll,
   P8StatusIcon,
   P8Tabs,
@@ -59,6 +67,9 @@ export default {
   P8Dialog,
   P8ListLayout,
   P8NormalLayout,
+  P8MenuLayout,
+  P8NlcrLayout,
+  P8SplitPane,
   P8Tree,
   P8Table,
   P8Drawer,
@@ -66,6 +77,7 @@ export default {
   P8Upload,
   P8FileView,
   P8Search,
+  P8SelectUser,
   P8InfiniteScroll,
   P8StatusIcon,
   P8Tabs,

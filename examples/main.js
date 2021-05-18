@@ -6,7 +6,7 @@ import App from './App'
 import router from './router'
 import store from './store/store'
 import sysConfig from './sysConfig'
-import 'element-ui/lib/theme-chalk/index.css'
+import 'element-ui/lib/theme-chalk/index.css';
 // import '../dist/theme-chalk/lib/index.css'
 import './p8-variables.scss'
 import p8 from '../dist/index'

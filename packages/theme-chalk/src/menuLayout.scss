@@ -1,0 +1,54 @@
+@import "commonStyle/common.scss";
+
+  $menu-text-color:#333333;
+  .menuLayout.el-container{
+    height:100%;
+
+    .el-header{
+      height:50px!important;
+      padding:0;
+    }
+
+    .el-main{
+      padding:0;
+      overflow:hidden;
+      background:$base-bg-color;
+      height: 100%;
+      >div{
+        height:100%!important;
+
+        >div{
+          height:100%;
+        }
+      }
+    }
+  }
+
+.el-menu-demo.el-menu--horizontal{
+  border-bottom:$base-line-color;
+
+  &::before{
+    height: 1px;
+    width: 100%;
+    background: $base-line-color;
+    position: absolute;
+    top: 49px;
+    left: 0;
+  }
+
+  >.el-menu-item{
+    line-height:50px!important;
+    height:50px!important;
+    color:$menu-text-color;
+    font-weight:bold;
+
+    &.is-active{
+      color:$base-light-color;
+    }
+
+    &:hover{
+      color:$base-light-color;
+      border-bottom:2px solid $base-light-color!important;
+    }
+  }
+}

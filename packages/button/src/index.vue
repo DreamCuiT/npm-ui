@@ -77,10 +77,10 @@ export default {
       type: Array,
       default: () => []
     },
-    buttonDisabledLimit: {
-      type: Array,
-      default: () => []
-    }
+    // buttonDisabledLimit: {
+    //   type: Array,
+    //   default: () => []
+    // }
   },
   data () {
     return {

@@ -2,8 +2,6 @@
 
 module.exports = {
   "plugins": {
-    "postcss-import": {},
-    "postcss-url": {},
     // to edit target browsers: use "browserslist" field in package.json
     // 兼容浏览器，添加前缀
     'autoprefixer':{

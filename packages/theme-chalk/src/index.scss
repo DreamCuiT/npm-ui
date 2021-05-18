@@ -2,8 +2,11 @@
 @import "./button.scss";
 @import "./card.scss";
 @import "./dialog.scss";
-@import "./ListLayout.scss";
-@import "./NormalLayout.scss";
+@import "./listLayout.scss";
+@import "./normalLayout.scss";
+@import "./menuLayout.scss";
+@import "./nlcrLayout.scss";
+@import "./splitPane.scss";
 @import "./tree.scss";
 @import "./table.scss";
 @import "./drawer.scss";
@@ -11,6 +14,7 @@
 @import "./upload.scss";
 @import "./fileView.scss";
 @import "./search.scss";
+@import "./selectUser.scss";
 @import "./infiniteScroll.scss";
 @import "./statusIcon.scss";
 @import "./tabs.scss";

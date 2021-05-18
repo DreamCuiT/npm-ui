@@ -44,11 +44,17 @@
                         @setPageData="setPageData"
                         @submit="save"></p8-formApplication>-->
     <p8-upload></p8-upload>
+    <!-- <p8-menu-layout></p8-menu-layout> -->
+    <!-- <p8-select-user :visible='true'></p8-select-user> -->
+    <!-- <p8-nlcr-layout></p8-nlcr-layout> -->
+    <p8-split-pane split='vertical'></p8-split-pane>
   </div>
 </template>
 
 <script>
-import {Button, Dialog, P8FormGenerator, P8FormParser, P8NormalLayout} from '../../dist/index'
+import {Button, Dialog, P8FormGenerator, P8FormParser, P8NormalLayout, P8MenuLayout, P8SelectUser,
+  P8NlcrLayout,
+  P8SplitPane,} from '../../dist/index'
 
 export default {
   name: 'HelloWorld',
@@ -57,7 +63,11 @@ export default {
     'p8-dragdialog': Dialog,
     'p8-formgenerator': P8FormGenerator,
     'p8-normal-layout': P8NormalLayout,
-    'p8-formApplication': P8FormParser
+    'p8-formApplication': P8FormParser,
+    P8MenuLayout,
+    P8SelectUser,
+    P8NlcrLayout,
+    P8SplitPane,
   },
   data () {
     return {

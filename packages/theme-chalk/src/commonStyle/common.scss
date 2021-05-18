@@ -215,6 +215,11 @@ body{padding-right:0 !important;}
 }
 
 // element ui tree样式覆盖
+.el-tree{
+  color: #000000;
+  font-size:13px;
+}
+
 .el-tree-node {
   .el-tree-node__content {
     height: 30px;
@@ -230,9 +235,14 @@ body{padding-right:0 !important;}
 }
 
 //element ui table样式覆盖
+.el-table{
+  color: #000000;
+  font-size:13px;
+}
+
 .el-table--small th {
   padding: 13px 0;
-  background: #D8DCE3;
+  background: #133B78;
 }     
 
 .el-table--striped .el-table__body tr.el-table__row--striped td {
@@ -240,25 +250,34 @@ body{padding-right:0 !important;}
 }
 
 .el-table--border th, .el-table--border td {
-  border-right: 1px solid #E1E1E1;
+  border-right: 1px solid #C6C6C6;
 }
 
-.el-table th.is-leaf, .el-table td {
-  border-bottom: 1px solid #E1E1E1;
+.el-table td {
+  border-bottom: 1px solid #C6C6C6;
+}
+
+.el-table th.is-leaf {
+  border-bottom: 2px solid #133B78;
 }
 
 .el-table thead{
-  color:#5D5D5D;
+  color:#ffffff;
 }
 
+// 选中
 .el-table--striped .el-table__body tr.el-table__row--striped.current-row td,
-.el-table__body tr.current-row>td,
+.el-table__body tr.current-row>td{
+  background-color:#FFE96A;
+}
+
+// hover
 .el-table__body tr.hover-row.current-row>td,
 .el-table__body tr.hover-row.el-table__row--striped.current-row>td,
 .el-table__body tr.hover-row.el-table__row--striped>td,
 .el-table__body tr.hover-row>td,
 .el-table--enable-row-transition .el-table__body tr:hover td{
-  background-color:#D3E4F5;
+  background-color:#FFF6C7;
 }
 
 // element ui table--列固定时, 层级处理
@@ -327,22 +346,22 @@ body{padding-right:0 !important;}
 
 // gantt页面列表样式优化
 .gantt_grid_scale, .gantt_task_scale, .gantt_task_vscroll{
-  background:#f5f7fa;
+  background:#133B78;
 }
 
 .gantt_grid_scale, .gantt_task_scale {
-  border-bottom: 1px solid #EBEEF5;
+  border-bottom: 1px solid #133B78;
 }
 
 .gantt_grid_scale .gantt_grid_head_cell, .gantt_task .gantt_task_scale .gantt_scale_cell {
   font-size: 13px;
-  color: #909399;
-  font-family: "Source Han Sans CN-Normal","Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft Yahei", "STXihei" !important;
+  color: #ffffff;
+  font-family: "Source Han Sans CN", "Source Han Sans CN-Normal","Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft Yahei", "STXihei" !important;
 }
 
 .gantt_tree_content, .gantt_tree_icon {
-  color: #606266;
-  font-size: 12px;
+  color: #000000;
+  font-size: 13px;
   font-family: "Source Han Sans CN-Normal","Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft Yahei", "STXihei" !important;
 }
 

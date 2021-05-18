@@ -1,5 +1,5 @@
 const API_DEFAULT_CONFIG  = {
-  devBaseUrl: 'http://192.168.0.189:9090',
+  devBaseUrl: 'http://192.168.0.18:9090',
   prodBaseUrl: 'http://192.168.0.96:9090',
   isDevMode: process.env.NODE_ENV !== 'production',
   isDebug: false,
@@ -10,7 +10,7 @@ const AXIOS_DEFAULT_CONFIG = {
 }
 const GLOBAL_CONST = {
   token: {
-    tokenKey: `科研生产综合管理系统_PLATFORM`
+    tokenKey: `基于流程精益化管理系统_PLATFORM`
   },
 }
 

@@ -40,7 +40,7 @@ module.exports = {
       packages: path.resolve(__dirname, '../packages'),
       examples: path.resolve(__dirname, '../examples'),
       '~': path.resolve('src'),
-      vue$: "vue/dist/vue.esm.js",
+      // vue$: "vue/dist/vue.esm.js",
       // "@": resolve("../packages")
 
     },
