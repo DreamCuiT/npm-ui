@@ -1,4 +1,7 @@
-@import "commonStyle/common.scss";
+@charset "UTF-8";
+@import "commonStyle/common";
+@import "mixins/mixins";
+
 // upload
 .common-upload {
   display: flex;
@@ -11,9 +14,6 @@
   }
 }
 
-$blue-color: #4a8dff;
-  $orange-color: #fb4c2f;
-  $green-color: #63a45c;
   .files-type--row {
     .files-item--row {
       box-sizing: border-box;
@@ -56,13 +56,13 @@ $blue-color: #4a8dff;
         border-radius: 2px;
         font-size: 16px;
         &.blue {
-          background-color: $blue-color;
+          background-color: $base-download-blue-color;
         }
         &.orange {
-          background-color: $orange-color;
+          background-color: $base-download-orange-color;
         }
         &.green {
-          background-color: $green-color;
+          background-color: $base-download-green-color;
         }
       }
       &:hover {
@@ -78,13 +78,13 @@ $blue-color: #4a8dff;
         border-right: 30px solid #ffffff;
       }
       &.blue::after {
-        border-top: 26px solid $blue-color;
+        border-top: 26px solid $base-download-blue-color;
       }
       &.orange::after {
-        border-top: 26px solid $orange-color;
+        border-top: 26px solid $base-download-orange-color;
       }
       &.green::after {
-        border-top: 26px solid $green-color;
+        border-top: 26px solid $base-download-green-color;
       }
       &::before{
         position: absolute;

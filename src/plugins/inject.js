@@ -1,5 +1,6 @@
 // import websocket from '@/plugins/websocket'
 // import promise from './promise'
+import contextmenu from '../directives/contextmenu.js';
 import { Loading, MessageBox, Message } from 'element-ui'
 // 系统错误捕获
 const errorHandler = (error, vm, info) => {
@@ -21,6 +22,7 @@ export default {
     // Vue.use(websocket)
     Vue.use(Loading.directive)
     // elementUI select下拉框选择图标回显
+    Vue.directive('contextmenu', contextmenu)
     Vue.directive('select-icon', {
       /**
        * 指令的钩子函数

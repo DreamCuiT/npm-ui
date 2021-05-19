@@ -2,7 +2,7 @@
   <div class="hello">
     <!-- <h1>{{ msg }}</h1>
     <h2>Essential Links</h2> -->
-<!--    <p8-normal-layout>-->
+   <!-- <p8-normal-layout>-->
 <!--      <template #west></template>-->
 <!--      <template #center>-->
 <!--        <p8-form ref="form"-->
@@ -30,7 +30,7 @@
 <!--          </template>-->
 <!--        </p8-normal-layout>-->
 <!--      </template>-->
-<!--    </p8-drawer>-->
+<!--    </p8-drawer> -->
     <!-- <p8-dragdialog :visible="visible"
                    @handle-cancel="handleCancel"
                    @handle-ok="handleOk"
@@ -44,19 +44,32 @@
                         @setPageData="setPageData"
                         @submit="save"></p8-formApplication>-->
     <!-- <p8-upload></p8-upload> -->
-    <!-- <p8-menu-layout></p8-menu-layout> -->
+    <p8-menu-layout></p8-menu-layout>
     <!-- <p8-select-user :visible='true'></p8-select-user> -->
-    <!-- <p8-nlcr-layout></p8-nlcr-layout> -->
+    <p8-nlcr-layout></p8-nlcr-layout>
     <!-- <p8-split-pane split='vertical'></p8-split-pane> -->
     <!-- <p8-bpm></p8-bpm> -->
     <!-- <p8-process-approval></p8-process-approval> -->
-    <p8-process-definition></p8-process-definition>
+    <!-- <p8-process-definition></p8-process-definition> -->
+    <!-- <p8-anchor></p8-anchor> -->
+    <!-- <p8-cron></p8-cron> -->
+    <!-- <p8-icon-selector></p8-icon-selector> -->
+    <!-- <p8-wrapper :full="true"></p8-wrapper> -->
+    <!-- <p8-contextmenu>
+       <p8-contextmenu-item></p8-contextmenu-item>
+          </p8-contextmenu> -->
+    <!-- <p8-contextmenu-group></p8-contextmenu-group> -->
+    <!-- <p8-contextmenu-submenu></p8-contextmenu-submenu>  -->
   </div>
 </template>
 
 <script>
-import {Button, Dialog, P8FormGenerator, P8FormParser, P8NormalLayout, P8MenuLayout, P8SelectUser, P8Bpm, P8ProcessApproval, P8ProcessDefinition,
+import {Button, Dialog, P8FormGenerator, P8FormParser, P8NormalLayout, P8MenuLayout, P8SelectUser, P8Bpm, P8ProcessApproval, P8ProcessDefinition, P8Anchor, P8Cron,P8IconSelector,      P8Wrapper,
   P8NlcrLayout,
+  P8Contextmenu,
+  P8ContextmenuGroup,
+  P8ContextmenuItem,
+  P8ContextmenuSubmenu,
   P8SplitPane,} from '../../dist/index'
 
 export default {
@@ -73,7 +86,15 @@ export default {
     P8SplitPane,
     P8Bpm,
     P8ProcessApproval, 
-    P8ProcessDefinition
+    P8ProcessDefinition,
+    P8Anchor,
+    P8Cron,
+    P8IconSelector,
+    P8Wrapper,
+    P8Contextmenu,
+    P8ContextmenuGroup,
+    P8ContextmenuItem,
+    P8ContextmenuSubmenu,
   },
   data () {
     return {

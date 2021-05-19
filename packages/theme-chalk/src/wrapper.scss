@@ -1,0 +1,16 @@
+@charset "UTF-8";
+@import "commonStyle/common";
+@import "mixins/mixins";
+
+.common-wrapper{
+  padding:10px 10px 0 10px;
+  margin:10px;
+  box-sizing: border-box;
+  border-radius:8px;
+  border: 1px solid darken($base-light-color, 10%);
+
+  &.full {
+     padding:0 !important;
+     border: none !important;
+  }
+}

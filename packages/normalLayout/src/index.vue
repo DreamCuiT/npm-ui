@@ -1,9 +1,9 @@
 <template>
-  <div id="normal-layout">
-    <div id="normal-header" v-show="headerVisible">
+  <div class="normal-layout">
+    <div class="normal-header" v-show="headerVisible">
       <slot name="north"></slot>
     </div>
-    <div id="normal-main" :class="{ fullHeight: !headerVisible }">
+    <div class="normal-main" :class="{ fullHeight: !headerVisible }">
       <el-row>
         <el-col
           :xs="layout.west.xs"
@@ -11,9 +11,9 @@
           :md="layout.west.md"
           :lg="layout.west.lg"
           :xl="layout.west.xl"
-          style="overflow:hidden;"
+          style="overflow:hclassden;"
         >
-          <div id="normal-west" :class="{ fullHeight: westFullHeight }">
+          <div class="normal-west" :class="{ fullHeight: westFullHeight }">
             <VuePerfectScrollbar class="scroll-area">
               <slot name="west"></slot>
             </VuePerfectScrollbar>
@@ -26,10 +26,10 @@
           :lg="layout.center.lg"
           :xl="layout.center.xl"
         >
-          <div id="splitBtn" @click="splitClick">
+          <div class="splitBtn" @click="splitClick">
             <i class="p8" :class="{ 'icon-left': expandWest, 'icon-right': !expandWest}"></i>
           </div>
-          <div id="normal-center">
+          <div class="normal-center">
             <slot name="center"></slot>
           </div>
         </el-col>
@@ -72,7 +72,7 @@ export default {
       type: Boolean,
       default: false
     },
-    splitDefaultLeftWidth: {
+    splitDefaultLeftWclassth: {
       type: Number,
       default: 15
     }

@@ -1,4 +1,6 @@
-@import "commonStyle/common.scss";
+@charset "UTF-8";
+@import "commonStyle/common";
+@import "mixins/mixins";
 
 .el-icon-delete{
  font-size:20px;

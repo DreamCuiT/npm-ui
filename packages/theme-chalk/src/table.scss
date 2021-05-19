@@ -1,7 +1,6 @@
-@import "commonStyle/common.scss";
-
-$pagination-bg-color: #e9edf6;
-$pagination-text-color: #9b9b9b;
+@charset "UTF-8";
+@import "commonStyle/common";
+@import "mixins/mixins";
 
 .common-table {
   position: relative;
@@ -59,8 +58,8 @@ $pagination-text-color: #9b9b9b;
       .el-input__inner {
         height: 25px;
         line-height: 25px;
-        border-color: $pagination-bg-color;
-        background-color: $pagination-bg-color;
+        border-color: $base-pagination-bg-color;
+        background-color: $base-pagination-bg-color;
       }
     }
   }
@@ -69,14 +68,14 @@ $pagination-text-color: #9b9b9b;
     .btn-prev,
     .btn-next,
     .el-pager li {
-      background-color: $pagination-bg-color;
+      background-color: $base-pagination-bg-color;
       height: 25px;
       line-height: 25px;
       padding: 0;
       min-width: 25px;
       margin: 0 3px;
       border-radius: 4px;
-      color: $pagination-text-color;
+      color: $base-pagination-text-color;
     }
   }
 

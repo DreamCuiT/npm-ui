@@ -1,9 +1,9 @@
 <template>
-  <div id="list-layout">
-    <div id="list-header" v-show="headerVisible">
+  <div class="list-layout">
+    <div class="list-header" v-show="headerVisible">
       <slot name="north"></slot>
     </div>
-    <div id="list-main" :class="headerVisible?'':'fullHeight'">
+    <div class="list-main" :class="headerVisible?'':'fullHeight'">
       <slot name="center"></slot>
       <slot name="drawer-panel"></slot>
     </div>

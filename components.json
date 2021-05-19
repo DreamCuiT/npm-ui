@@ -1,6 +1,8 @@
 {
+  "anchor": "./packages/anchor/index.js",
   "button": "./packages/button/index.js",
   "card": "./packages/card/index.js",
+  "corn": "./packages/corn/index.js",
   "dialog": "./packages/dialog/index.js",
   "listLayout": "./packages/listLayout/index.js",
   "normalLayout": "./packages/normalLayout/index.js",
@@ -20,5 +22,6 @@
   "tabs": "./packages/tabs/index.js",
   "editTable": "./packages/editTable/index.js",
   "formApplication": "./packages/formApplication/index.js",
-  "formGenerator": "./packages/formGenerator/index.js"
+  "formGenerator": "./packages/formGenerator/index.js",
+  "wrapper": "./packages/wrapper/index.js"
 }

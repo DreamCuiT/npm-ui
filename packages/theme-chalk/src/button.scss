@@ -2,10 +2,6 @@
 @import "commonStyle/common";
 @import "mixins/mixins";
 
-
-//@include b(Button){
-//
-//}
 .commonButton {
   .el-button--primary {
     background-color: $base-light-color;

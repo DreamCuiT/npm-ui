@@ -1,9 +1,9 @@
 <template>
-  <div id="normal-layout">
-    <div id="normal-header" v-show="headerVisible">
+  <div class="normal-nlcr-layout">
+    <div class="normal-nlcr-header" v-show="headerVisible">
       <slot name="north"></slot>
     </div>
-    <div id="normal-main" :class="headerVisible?'':'fullHeight'">
+    <div class="normal-nlcr-main" :class="headerVisible?'':'fullHeight'">
       <el-row>
         <el-col
           :xs="layout.left.xs"
@@ -12,7 +12,7 @@
           :lg="layout.left.lg"
           :xl="layout.left.xl"
         >
-          <div id="normal-left">
+          <div class="normal-nlcr-left">
             <VuePerfectScrollbar class="scroll-area" v-if="leftUsePerfectScrollbar">
               <slot name="left"></slot>
             </VuePerfectScrollbar>
@@ -26,10 +26,10 @@
           :lg="layout.center.lg"
           :xl="layout.center.xl"
         >
-          <div id="splitBtn" @click="splitClick">
+          <div class="splitBtn" @click="splitClick">
             <i class="p8" :class="{ 'icon-left': expandWest, 'icon-right': !expandWest}"></i>
           </div>
-          <div id="normal-center">
+          <div class="normal-nlcr-center">
             <slot name="center"></slot>
           </div>
         </el-col>
@@ -40,7 +40,7 @@
           :lg="layout.right.lg"
           :xl="layout.right.xl"
         >
-          <div id="normal-right">
+          <div class="normal-nlcr-right">
             <slot name="right"></slot>
           </div>
         </el-col>

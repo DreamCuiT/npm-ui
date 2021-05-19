@@ -1,6 +1,8 @@
-@import "commonStyle/common.scss";
+@charset "UTF-8";
+@import "commonStyle/common";
+@import "mixins/mixins";
 
-  $menu-text-color:#333333;
+
   .menuLayout.el-container{
     height:100%;
 
@@ -39,7 +41,7 @@
   >.el-menu-item{
     line-height:50px!important;
     height:50px!important;
-    color:$menu-text-color;
+    color:$base-menu-text-color;
     font-weight:bold;
 
     &.is-active{

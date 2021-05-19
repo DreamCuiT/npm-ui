@@ -30,7 +30,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .el-card__header,.el-card__body{
     padding:10px;
   }
