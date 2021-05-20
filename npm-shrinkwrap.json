@@ -1225,32 +1225,6 @@
       "integrity": "sha1-eJ/fsR0GPz3CVWANVymX74++rS0=",
       "dev": true
     },
-    "@nodelib/fs.scandir": {
-      "version": "2.1.4",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/@nodelib/fs.scandir/-/fs.scandir-2.1.4.tgz",
-      "integrity": "sha1-1LNUml213iaD4MEHGrTxQJBLv2k=",
-      "dev": true,
-      "requires": {
-        "@nodelib/fs.stat": "2.0.4",
-        "run-parallel": "^1.1.9"
-      }
-    },
-    "@nodelib/fs.stat": {
-      "version": "2.0.4",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/@nodelib/fs.stat/-/fs.stat-2.0.4.tgz",
-      "integrity": "sha1-o/LdYbq0O424+hCKEhz//kxnZlU=",
-      "dev": true
-    },
-    "@nodelib/fs.walk": {
-      "version": "1.2.6",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/@nodelib/fs.walk/-/fs.walk-1.2.6.tgz",
-      "integrity": "sha1-zOk5azCqWv6eN1Zgj1gxrctT0GM=",
-      "dev": true,
-      "requires": {
-        "@nodelib/fs.scandir": "2.1.4",
-        "fastq": "^1.6.0"
-      }
-    },
     "@types/json-schema": {
       "version": "7.0.7",
       "resolved": "http://192.168.0.191:8888/repository/npm-group/@types/json-schema/-/json-schema-7.0.7.tgz",
@@ -1261,18 +1235,6 @@
       "version": "1.5.4",
       "resolved": "http://192.168.0.191:8888/repository/npm-group/@types/q/-/q-1.5.4.tgz",
       "integrity": "sha1-FZJUFOCtLNdlv+9YhC9+JqesyyQ=",
-      "dev": true
-    },
-    "@types/strip-bom": {
-      "version": "3.0.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/@types/strip-bom/-/strip-bom-3.0.0.tgz",
-      "integrity": "sha1-FKjsOVbC6B7bdSB5CuzyHCkK69I=",
-      "dev": true
-    },
-    "@types/strip-json-comments": {
-      "version": "0.0.30",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/@types/strip-json-comments/-/strip-json-comments-0.0.30.tgz",
-      "integrity": "sha1-mqMMBNshKpoGSdaub9UKzMQHSKE=",
       "dev": true
     },
     "@vue/babel-helper-vue-jsx-merge-props": {
@@ -2371,133 +2333,6 @@
         }
       }
     },
-    "babel-helper-builder-binary-assignment-operator-visitor": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-helper-builder-binary-assignment-operator-visitor/-/babel-helper-builder-binary-assignment-operator-visitor-6.24.1.tgz",
-      "integrity": "sha1-zORReto1b0IgvK6KAsKzRvmlZmQ=",
-      "dev": true,
-      "requires": {
-        "babel-helper-explode-assignable-expression": "^6.24.1",
-        "babel-runtime": "^6.22.0",
-        "babel-types": "^6.24.1"
-      }
-    },
-    "babel-helper-call-delegate": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-helper-call-delegate/-/babel-helper-call-delegate-6.24.1.tgz",
-      "integrity": "sha1-7Oaqzdx25Bw0YfiL/Fdb0Nqi340=",
-      "dev": true,
-      "requires": {
-        "babel-helper-hoist-variables": "^6.24.1",
-        "babel-runtime": "^6.22.0",
-        "babel-traverse": "^6.24.1",
-        "babel-types": "^6.24.1"
-      }
-    },
-    "babel-helper-define-map": {
-      "version": "6.26.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-helper-define-map/-/babel-helper-define-map-6.26.0.tgz",
-      "integrity": "sha1-pfVtq0GiX5fstJjH66ypgZ+Vvl8=",
-      "dev": true,
-      "requires": {
-        "babel-helper-function-name": "^6.24.1",
-        "babel-runtime": "^6.26.0",
-        "babel-types": "^6.26.0",
-        "lodash": "^4.17.4"
-      }
-    },
-    "babel-helper-explode-assignable-expression": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-helper-explode-assignable-expression/-/babel-helper-explode-assignable-expression-6.24.1.tgz",
-      "integrity": "sha1-8luCz33BBDPFX3BZLVdGQArCLKo=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0",
-        "babel-traverse": "^6.24.1",
-        "babel-types": "^6.24.1"
-      }
-    },
-    "babel-helper-function-name": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-helper-function-name/-/babel-helper-function-name-6.24.1.tgz",
-      "integrity": "sha1-00dbjAPtmCQqJbSDUasYOZ01gKk=",
-      "dev": true,
-      "requires": {
-        "babel-helper-get-function-arity": "^6.24.1",
-        "babel-runtime": "^6.22.0",
-        "babel-template": "^6.24.1",
-        "babel-traverse": "^6.24.1",
-        "babel-types": "^6.24.1"
-      }
-    },
-    "babel-helper-get-function-arity": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-helper-get-function-arity/-/babel-helper-get-function-arity-6.24.1.tgz",
-      "integrity": "sha1-j3eCqpNAfEHTqlCQj4mwMbG2hT0=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0",
-        "babel-types": "^6.24.1"
-      }
-    },
-    "babel-helper-hoist-variables": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-helper-hoist-variables/-/babel-helper-hoist-variables-6.24.1.tgz",
-      "integrity": "sha1-HssnaJydJVE+rbyZFKc/VAi+enY=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0",
-        "babel-types": "^6.24.1"
-      }
-    },
-    "babel-helper-optimise-call-expression": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-helper-optimise-call-expression/-/babel-helper-optimise-call-expression-6.24.1.tgz",
-      "integrity": "sha1-96E0J7qfc/j0+pk8VKl4gtEkQlc=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0",
-        "babel-types": "^6.24.1"
-      }
-    },
-    "babel-helper-regex": {
-      "version": "6.26.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-helper-regex/-/babel-helper-regex-6.26.0.tgz",
-      "integrity": "sha1-MlxZ+QL4LyS3T6zu0DY5VPZJXnI=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.26.0",
-        "babel-types": "^6.26.0",
-        "lodash": "^4.17.4"
-      }
-    },
-    "babel-helper-remap-async-to-generator": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-helper-remap-async-to-generator/-/babel-helper-remap-async-to-generator-6.24.1.tgz",
-      "integrity": "sha1-XsWBgnrXI/7N04HxySg5BnbkVRs=",
-      "dev": true,
-      "requires": {
-        "babel-helper-function-name": "^6.24.1",
-        "babel-runtime": "^6.22.0",
-        "babel-template": "^6.24.1",
-        "babel-traverse": "^6.24.1",
-        "babel-types": "^6.24.1"
-      }
-    },
-    "babel-helper-replace-supers": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-helper-replace-supers/-/babel-helper-replace-supers-6.24.1.tgz",
-      "integrity": "sha1-v22/5Dk40XNpohPKiov3S2qQqxo=",
-      "dev": true,
-      "requires": {
-        "babel-helper-optimise-call-expression": "^6.24.1",
-        "babel-messages": "^6.23.0",
-        "babel-runtime": "^6.22.0",
-        "babel-template": "^6.24.1",
-        "babel-traverse": "^6.24.1",
-        "babel-types": "^6.24.1"
-      }
-    },
     "babel-helper-vue-jsx-merge-props": {
       "version": "2.0.3",
       "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-2.0.3.tgz",
@@ -2545,15 +2380,6 @@
         "babel-runtime": "^6.22.0"
       }
     },
-    "babel-plugin-check-es2015-constants": {
-      "version": "6.22.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-check-es2015-constants/-/babel-plugin-check-es2015-constants-6.22.0.tgz",
-      "integrity": "sha1-NRV7EBQm/S/9PaP3XH0ekYNbv4o=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0"
-      }
-    },
     "babel-plugin-dynamic-import-node": {
       "version": "2.3.3",
       "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-dynamic-import-node/-/babel-plugin-dynamic-import-node-2.3.3.tgz",
@@ -2579,29 +2405,6 @@
       "version": "21.2.0",
       "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-jest-hoist/-/babel-plugin-jest-hoist-21.2.0.tgz",
       "integrity": "sha1-LO9jclm9S2KKbKzgOd5fzRTbsAY=",
-      "dev": true
-    },
-    "babel-plugin-jsx-event-modifiers": {
-      "version": "2.0.5",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-jsx-event-modifiers/-/babel-plugin-jsx-event-modifiers-2.0.5.tgz",
-      "integrity": "sha1-k+brtddVO7CPn+2/egvuOvCaBHI=",
-      "dev": true
-    },
-    "babel-plugin-jsx-v-model": {
-      "version": "2.0.3",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-jsx-v-model/-/babel-plugin-jsx-v-model-2.0.3.tgz",
-      "integrity": "sha1-w5ZBa5nLGveCCHMVrh0+YuBw9H0=",
-      "dev": true,
-      "requires": {
-        "babel-plugin-syntax-jsx": "^6.18.0",
-        "html-tags": "^2.0.0",
-        "svg-tags": "^1.0.0"
-      }
-    },
-    "babel-plugin-jsx-vue-functional": {
-      "version": "2.1.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-jsx-vue-functional/-/babel-plugin-jsx-vue-functional-2.1.0.tgz",
-      "integrity": "sha1-VjCgyG/hkE0owwRl5r8c9xI1ojk=",
       "dev": true
     },
     "babel-plugin-polyfill-corejs2": {
@@ -2642,382 +2445,11 @@
         "@babel/helper-define-polyfill-provider": "^0.2.0"
       }
     },
-    "babel-plugin-syntax-async-functions": {
-      "version": "6.13.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz",
-      "integrity": "sha1-ytnK0RkbWtY0vzCuCHI5HgZHvpU=",
-      "dev": true
-    },
-    "babel-plugin-syntax-dynamic-import": {
-      "version": "6.18.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-syntax-dynamic-import/-/babel-plugin-syntax-dynamic-import-6.18.0.tgz",
-      "integrity": "sha1-jWomIpyDdFqZgqRBBRVyyqF5sdo=",
-      "dev": true
-    },
-    "babel-plugin-syntax-exponentiation-operator": {
-      "version": "6.13.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-syntax-exponentiation-operator/-/babel-plugin-syntax-exponentiation-operator-6.13.0.tgz",
-      "integrity": "sha1-nufoM3KQ2pUoggGmpX9BcDF4MN4=",
-      "dev": true
-    },
-    "babel-plugin-syntax-jsx": {
-      "version": "6.18.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-syntax-jsx/-/babel-plugin-syntax-jsx-6.18.0.tgz",
-      "integrity": "sha1-CvMqmm4Tyno/1QaeYtew9Y0NiUY=",
-      "dev": true
-    },
     "babel-plugin-syntax-object-rest-spread": {
       "version": "6.13.0",
       "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-syntax-object-rest-spread/-/babel-plugin-syntax-object-rest-spread-6.13.0.tgz",
       "integrity": "sha1-/WU28rzhODb/o6VFjEkDpZe7O/U=",
       "dev": true
-    },
-    "babel-plugin-syntax-trailing-function-commas": {
-      "version": "6.22.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-syntax-trailing-function-commas/-/babel-plugin-syntax-trailing-function-commas-6.22.0.tgz",
-      "integrity": "sha1-ugNgk3+NBuQBgKQ/4NVhb/9TLPM=",
-      "dev": true
-    },
-    "babel-plugin-transform-async-to-generator": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-async-to-generator/-/babel-plugin-transform-async-to-generator-6.24.1.tgz",
-      "integrity": "sha1-ZTbjeK/2yx1VF6wOQOs+n8jQh2E=",
-      "dev": true,
-      "requires": {
-        "babel-helper-remap-async-to-generator": "^6.24.1",
-        "babel-plugin-syntax-async-functions": "^6.8.0",
-        "babel-runtime": "^6.22.0"
-      }
-    },
-    "babel-plugin-transform-es2015-arrow-functions": {
-      "version": "6.22.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-arrow-functions/-/babel-plugin-transform-es2015-arrow-functions-6.22.0.tgz",
-      "integrity": "sha1-RSaSy3EdX3ncf4XkQM5BufJE0iE=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0"
-      }
-    },
-    "babel-plugin-transform-es2015-block-scoped-functions": {
-      "version": "6.22.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-block-scoped-functions/-/babel-plugin-transform-es2015-block-scoped-functions-6.22.0.tgz",
-      "integrity": "sha1-u8UbSflk1wy42OC5ToICRs46YUE=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0"
-      }
-    },
-    "babel-plugin-transform-es2015-block-scoping": {
-      "version": "6.26.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-block-scoping/-/babel-plugin-transform-es2015-block-scoping-6.26.0.tgz",
-      "integrity": "sha1-1w9SmcEwjQXBL0Y4E7CgnnOxiV8=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.26.0",
-        "babel-template": "^6.26.0",
-        "babel-traverse": "^6.26.0",
-        "babel-types": "^6.26.0",
-        "lodash": "^4.17.4"
-      }
-    },
-    "babel-plugin-transform-es2015-classes": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-classes/-/babel-plugin-transform-es2015-classes-6.24.1.tgz",
-      "integrity": "sha1-WkxYpQyclGHlZLSyo7+ryXolhNs=",
-      "dev": true,
-      "requires": {
-        "babel-helper-define-map": "^6.24.1",
-        "babel-helper-function-name": "^6.24.1",
-        "babel-helper-optimise-call-expression": "^6.24.1",
-        "babel-helper-replace-supers": "^6.24.1",
-        "babel-messages": "^6.23.0",
-        "babel-runtime": "^6.22.0",
-        "babel-template": "^6.24.1",
-        "babel-traverse": "^6.24.1",
-        "babel-types": "^6.24.1"
-      }
-    },
-    "babel-plugin-transform-es2015-computed-properties": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-computed-properties/-/babel-plugin-transform-es2015-computed-properties-6.24.1.tgz",
-      "integrity": "sha1-b+Ko0WiV1WNPTNmZttNICjCBWbM=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0",
-        "babel-template": "^6.24.1"
-      }
-    },
-    "babel-plugin-transform-es2015-destructuring": {
-      "version": "6.23.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-destructuring/-/babel-plugin-transform-es2015-destructuring-6.23.0.tgz",
-      "integrity": "sha1-mXux8auWf2gtKwh2/jWNYOdlxW0=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0"
-      }
-    },
-    "babel-plugin-transform-es2015-duplicate-keys": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-duplicate-keys/-/babel-plugin-transform-es2015-duplicate-keys-6.24.1.tgz",
-      "integrity": "sha1-c+s9MQypaePvnskcU3QabxV2Qj4=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0",
-        "babel-types": "^6.24.1"
-      }
-    },
-    "babel-plugin-transform-es2015-for-of": {
-      "version": "6.23.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-for-of/-/babel-plugin-transform-es2015-for-of-6.23.0.tgz",
-      "integrity": "sha1-9HyVsrYT3x0+zC/bdXNiPHUkhpE=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0"
-      }
-    },
-    "babel-plugin-transform-es2015-function-name": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-function-name/-/babel-plugin-transform-es2015-function-name-6.24.1.tgz",
-      "integrity": "sha1-g0yJhTvDaxrw86TF26qU/Y6sqos=",
-      "dev": true,
-      "requires": {
-        "babel-helper-function-name": "^6.24.1",
-        "babel-runtime": "^6.22.0",
-        "babel-types": "^6.24.1"
-      }
-    },
-    "babel-plugin-transform-es2015-literals": {
-      "version": "6.22.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-literals/-/babel-plugin-transform-es2015-literals-6.22.0.tgz",
-      "integrity": "sha1-T1SgLWzWbPkVKAAZox0xklN3yi4=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0"
-      }
-    },
-    "babel-plugin-transform-es2015-modules-amd": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-modules-amd/-/babel-plugin-transform-es2015-modules-amd-6.24.1.tgz",
-      "integrity": "sha1-Oz5UAXI5hC1tGcMBHEvS8AoA0VQ=",
-      "dev": true,
-      "requires": {
-        "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
-        "babel-runtime": "^6.22.0",
-        "babel-template": "^6.24.1"
-      }
-    },
-    "babel-plugin-transform-es2015-modules-commonjs": {
-      "version": "6.26.2",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-modules-commonjs/-/babel-plugin-transform-es2015-modules-commonjs-6.26.2.tgz",
-      "integrity": "sha1-WKeThjqefKhwvcWogRF/+sJ9tvM=",
-      "dev": true,
-      "requires": {
-        "babel-plugin-transform-strict-mode": "^6.24.1",
-        "babel-runtime": "^6.26.0",
-        "babel-template": "^6.26.0",
-        "babel-types": "^6.26.0"
-      }
-    },
-    "babel-plugin-transform-es2015-modules-systemjs": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-modules-systemjs/-/babel-plugin-transform-es2015-modules-systemjs-6.24.1.tgz",
-      "integrity": "sha1-/4mhQrkRmpBhlfXxBuzzBdlAfSM=",
-      "dev": true,
-      "requires": {
-        "babel-helper-hoist-variables": "^6.24.1",
-        "babel-runtime": "^6.22.0",
-        "babel-template": "^6.24.1"
-      }
-    },
-    "babel-plugin-transform-es2015-modules-umd": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-modules-umd/-/babel-plugin-transform-es2015-modules-umd-6.24.1.tgz",
-      "integrity": "sha1-rJl+YoXNGO1hdq22B9YCNErThGg=",
-      "dev": true,
-      "requires": {
-        "babel-plugin-transform-es2015-modules-amd": "^6.24.1",
-        "babel-runtime": "^6.22.0",
-        "babel-template": "^6.24.1"
-      }
-    },
-    "babel-plugin-transform-es2015-object-super": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-object-super/-/babel-plugin-transform-es2015-object-super-6.24.1.tgz",
-      "integrity": "sha1-JM72muIcuDp/hgPa0CH1cusnj40=",
-      "dev": true,
-      "requires": {
-        "babel-helper-replace-supers": "^6.24.1",
-        "babel-runtime": "^6.22.0"
-      }
-    },
-    "babel-plugin-transform-es2015-parameters": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-parameters/-/babel-plugin-transform-es2015-parameters-6.24.1.tgz",
-      "integrity": "sha1-V6w1GrScrxSpfNE7CfZv3wpiXys=",
-      "dev": true,
-      "requires": {
-        "babel-helper-call-delegate": "^6.24.1",
-        "babel-helper-get-function-arity": "^6.24.1",
-        "babel-runtime": "^6.22.0",
-        "babel-template": "^6.24.1",
-        "babel-traverse": "^6.24.1",
-        "babel-types": "^6.24.1"
-      }
-    },
-    "babel-plugin-transform-es2015-shorthand-properties": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-shorthand-properties/-/babel-plugin-transform-es2015-shorthand-properties-6.24.1.tgz",
-      "integrity": "sha1-JPh11nIch2YbvZmkYi5R8U3jiqA=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0",
-        "babel-types": "^6.24.1"
-      }
-    },
-    "babel-plugin-transform-es2015-spread": {
-      "version": "6.22.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-spread/-/babel-plugin-transform-es2015-spread-6.22.0.tgz",
-      "integrity": "sha1-1taKmfia7cRTbIGlQujdnxdG+NE=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0"
-      }
-    },
-    "babel-plugin-transform-es2015-sticky-regex": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-sticky-regex/-/babel-plugin-transform-es2015-sticky-regex-6.24.1.tgz",
-      "integrity": "sha1-AMHNsaynERLN8M9hJsLta0V8zbw=",
-      "dev": true,
-      "requires": {
-        "babel-helper-regex": "^6.24.1",
-        "babel-runtime": "^6.22.0",
-        "babel-types": "^6.24.1"
-      }
-    },
-    "babel-plugin-transform-es2015-template-literals": {
-      "version": "6.22.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-template-literals/-/babel-plugin-transform-es2015-template-literals-6.22.0.tgz",
-      "integrity": "sha1-qEs0UPfp+PH2g51taH2oS7EjbY0=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0"
-      }
-    },
-    "babel-plugin-transform-es2015-typeof-symbol": {
-      "version": "6.23.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-typeof-symbol/-/babel-plugin-transform-es2015-typeof-symbol-6.23.0.tgz",
-      "integrity": "sha1-3sCfHN3/lLUqxz1QXITfWdzOs3I=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0"
-      }
-    },
-    "babel-plugin-transform-es2015-unicode-regex": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-es2015-unicode-regex/-/babel-plugin-transform-es2015-unicode-regex-6.24.1.tgz",
-      "integrity": "sha1-04sS9C6nMj9yk4fxinxa4frrNek=",
-      "dev": true,
-      "requires": {
-        "babel-helper-regex": "^6.24.1",
-        "babel-runtime": "^6.22.0",
-        "regexpu-core": "^2.0.0"
-      },
-      "dependencies": {
-        "jsesc": {
-          "version": "0.5.0",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/jsesc/-/jsesc-0.5.0.tgz",
-          "integrity": "sha1-597mbjXW/Bb3EP6R1c9p9w8IkR0=",
-          "dev": true
-        },
-        "regexpu-core": {
-          "version": "2.0.0",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/regexpu-core/-/regexpu-core-2.0.0.tgz",
-          "integrity": "sha1-SdA4g3uNz4v6W5pCE5k45uoq4kA=",
-          "dev": true,
-          "requires": {
-            "regenerate": "^1.2.1",
-            "regjsgen": "^0.2.0",
-            "regjsparser": "^0.1.4"
-          }
-        },
-        "regjsgen": {
-          "version": "0.2.0",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/regjsgen/-/regjsgen-0.2.0.tgz",
-          "integrity": "sha1-bAFq3qxVT3WCP+N6wFuS1aTtsfc=",
-          "dev": true
-        },
-        "regjsparser": {
-          "version": "0.1.5",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/regjsparser/-/regjsparser-0.1.5.tgz",
-          "integrity": "sha1-fuj4Tcb6eS0/0K4ijSS9lJ6tIFw=",
-          "dev": true,
-          "requires": {
-            "jsesc": "~0.5.0"
-          }
-        }
-      }
-    },
-    "babel-plugin-transform-exponentiation-operator": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-exponentiation-operator/-/babel-plugin-transform-exponentiation-operator-6.24.1.tgz",
-      "integrity": "sha1-KrDJx/MJj6SJB3cruBP+QejeOg4=",
-      "dev": true,
-      "requires": {
-        "babel-helper-builder-binary-assignment-operator-visitor": "^6.24.1",
-        "babel-plugin-syntax-exponentiation-operator": "^6.8.0",
-        "babel-runtime": "^6.22.0"
-      }
-    },
-    "babel-plugin-transform-object-rest-spread": {
-      "version": "6.26.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-object-rest-spread/-/babel-plugin-transform-object-rest-spread-6.26.0.tgz",
-      "integrity": "sha1-DzZpLVD+9rfi1LOsFHgTepY7ewY=",
-      "dev": true,
-      "requires": {
-        "babel-plugin-syntax-object-rest-spread": "^6.8.0",
-        "babel-runtime": "^6.26.0"
-      }
-    },
-    "babel-plugin-transform-regenerator": {
-      "version": "6.26.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-regenerator/-/babel-plugin-transform-regenerator-6.26.0.tgz",
-      "integrity": "sha1-4HA2lvveJ/Cj78rPi03KL3s6jy8=",
-      "dev": true,
-      "requires": {
-        "regenerator-transform": "^0.10.0"
-      },
-      "dependencies": {
-        "regenerator-transform": {
-          "version": "0.10.1",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/regenerator-transform/-/regenerator-transform-0.10.1.tgz",
-          "integrity": "sha1-HkmWg3Ix2ot/PPQRTXG1aRoGgN0=",
-          "dev": true,
-          "requires": {
-            "babel-runtime": "^6.18.0",
-            "babel-types": "^6.19.0",
-            "private": "^0.1.6"
-          }
-        }
-      }
-    },
-    "babel-plugin-transform-runtime": {
-      "version": "6.23.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-runtime/-/babel-plugin-transform-runtime-6.23.0.tgz",
-      "integrity": "sha1-iEkNRGUC6puOfvsP4J7E2ZR5se4=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0"
-      }
-    },
-    "babel-plugin-transform-strict-mode": {
-      "version": "6.24.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-plugin-transform-strict-mode/-/babel-plugin-transform-strict-mode-6.24.1.tgz",
-      "integrity": "sha1-1fr3qleKZbvlkc9e2uBKDGcCB1g=",
-      "dev": true,
-      "requires": {
-        "babel-runtime": "^6.22.0",
-        "babel-types": "^6.24.1"
-      }
     },
     "babel-plugin-transform-vue-jsx": {
       "version": "3.7.0",
@@ -3047,56 +2479,6 @@
         }
       }
     },
-    "babel-preset-env": {
-      "version": "1.7.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-preset-env/-/babel-preset-env-1.7.0.tgz",
-      "integrity": "sha1-3qefpOvriDzTXasH4mDBycBN93o=",
-      "dev": true,
-      "requires": {
-        "babel-plugin-check-es2015-constants": "^6.22.0",
-        "babel-plugin-syntax-trailing-function-commas": "^6.22.0",
-        "babel-plugin-transform-async-to-generator": "^6.22.0",
-        "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
-        "babel-plugin-transform-es2015-block-scoped-functions": "^6.22.0",
-        "babel-plugin-transform-es2015-block-scoping": "^6.23.0",
-        "babel-plugin-transform-es2015-classes": "^6.23.0",
-        "babel-plugin-transform-es2015-computed-properties": "^6.22.0",
-        "babel-plugin-transform-es2015-destructuring": "^6.23.0",
-        "babel-plugin-transform-es2015-duplicate-keys": "^6.22.0",
-        "babel-plugin-transform-es2015-for-of": "^6.23.0",
-        "babel-plugin-transform-es2015-function-name": "^6.22.0",
-        "babel-plugin-transform-es2015-literals": "^6.22.0",
-        "babel-plugin-transform-es2015-modules-amd": "^6.22.0",
-        "babel-plugin-transform-es2015-modules-commonjs": "^6.23.0",
-        "babel-plugin-transform-es2015-modules-systemjs": "^6.23.0",
-        "babel-plugin-transform-es2015-modules-umd": "^6.23.0",
-        "babel-plugin-transform-es2015-object-super": "^6.22.0",
-        "babel-plugin-transform-es2015-parameters": "^6.23.0",
-        "babel-plugin-transform-es2015-shorthand-properties": "^6.22.0",
-        "babel-plugin-transform-es2015-spread": "^6.22.0",
-        "babel-plugin-transform-es2015-sticky-regex": "^6.22.0",
-        "babel-plugin-transform-es2015-template-literals": "^6.22.0",
-        "babel-plugin-transform-es2015-typeof-symbol": "^6.23.0",
-        "babel-plugin-transform-es2015-unicode-regex": "^6.22.0",
-        "babel-plugin-transform-exponentiation-operator": "^6.22.0",
-        "babel-plugin-transform-regenerator": "^6.22.0",
-        "browserslist": "^3.2.6",
-        "invariant": "^2.2.2",
-        "semver": "^5.3.0"
-      },
-      "dependencies": {
-        "browserslist": {
-          "version": "3.2.8",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/browserslist/-/browserslist-3.2.8.tgz",
-          "integrity": "sha1-sABTYdZHHw9ZUnl6dvyYXx+Xj8Y=",
-          "dev": true,
-          "requires": {
-            "caniuse-lite": "^1.0.30000844",
-            "electron-to-chromium": "^1.3.47"
-          }
-        }
-      }
-    },
     "babel-preset-jest": {
       "version": "21.2.0",
       "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-preset-jest/-/babel-preset-jest-21.2.0.tgz",
@@ -3105,34 +2487,6 @@
       "requires": {
         "babel-plugin-jest-hoist": "^21.2.0",
         "babel-plugin-syntax-object-rest-spread": "^6.13.0"
-      }
-    },
-    "babel-preset-vue": {
-      "version": "1.2.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-preset-vue/-/babel-preset-vue-1.2.1.tgz",
-      "integrity": "sha1-sN6Jd+DOmB/GgkzwpTeRegKm/oc=",
-      "dev": true,
-      "requires": {
-        "babel-helper-vue-jsx-merge-props": "^2.0.2",
-        "babel-plugin-jsx-event-modifiers": "^2.0.2",
-        "babel-plugin-jsx-v-model": "^2.0.1",
-        "babel-plugin-jsx-vue-functional": "^2.1.0",
-        "babel-plugin-syntax-jsx": "^6.18.0",
-        "babel-plugin-transform-vue-jsx": "^3.5.0"
-      }
-    },
-    "babel-preset-vue-app": {
-      "version": "1.3.2",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/babel-preset-vue-app/-/babel-preset-vue-app-1.3.2.tgz",
-      "integrity": "sha1-U+mKwBKk7dP4NWzGqvoACm6YApI=",
-      "dev": true,
-      "requires": {
-        "babel-plugin-syntax-dynamic-import": "^6.18.0",
-        "babel-plugin-transform-object-rest-spread": "^6.26.0",
-        "babel-plugin-transform-runtime": "^6.15.0",
-        "babel-preset-env": "^1.6.0",
-        "babel-preset-vue": "^1.2.1",
-        "babel-runtime": "^6.20.0"
       }
     },
     "babel-register": {
@@ -3396,8 +2750,6 @@
       "version": "1.5.0",
       "resolved": "http://192.168.0.191:8888/repository/npm-group/bindings/-/bindings-1.5.0.tgz",
       "integrity": "sha1-EDU8npRTNLwFEabZCzj7x8nFBN8=",
-      "dev": true,
-      "optional": true,
       "requires": {
         "file-uri-to-path": "1.0.0"
       }
@@ -3493,15 +2845,15 @@
       "dev": true
     },
     "bpmn-js": {
-      "version": "8.5.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/bpmn-js/-/bpmn-js-8.5.0.tgz",
-      "integrity": "sha1-/Pod3bZ8lcLF/4w4B1nzL+mPwuE=",
+      "version": "7.5.0",
+      "resolved": "https://registry.npmjs.org/bpmn-js/-/bpmn-js-7.5.0.tgz",
+      "integrity": "sha512-0ANaE6Bikg1GmkcvO7RK0MQPX+EKYKBc+q7OWk39/16NcCdNZ/4UiRcCr9n0u1VUCIDsSU/jJ79TIZFnV5CNjw==",
       "dev": true,
       "requires": {
-        "bpmn-moddle": "^7.0.5",
+        "bpmn-moddle": "^7.0.4",
         "css.escape": "^1.5.1",
-        "diagram-js": "^7.3.0",
-        "diagram-js-direct-editing": "^1.6.2",
+        "diagram-js": "^6.8.2",
+        "diagram-js-direct-editing": "^1.6.1",
         "ids": "^1.0.0",
         "inherits": "^2.0.4",
         "min-dash": "^3.5.2",
@@ -3537,8 +2889,8 @@
     },
     "bpmn-moddle": {
       "version": "7.0.5",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/bpmn-moddle/-/bpmn-moddle-7.0.5.tgz",
-      "integrity": "sha1-SywoZysrPFZp3FQb8tXXRO1LTTA=",
+      "resolved": "https://registry.npmjs.org/bpmn-moddle/-/bpmn-moddle-7.0.5.tgz",
+      "integrity": "sha512-3OaoEJCHQdZeRBTmBtDJebXamweW03cgA5ymOZitddMY28Vo1dOwAX/Yg2X375d2QCeC5w/j5gI8V8iVRn12fg==",
       "dev": true,
       "requires": {
         "min-dash": "^3.5.2",
@@ -3977,7 +3329,6 @@
         "anymatch": "^2.0.0",
         "async-each": "^1.0.1",
         "braces": "^2.3.2",
-        "fsevents": "^1.2.7",
         "glob-parent": "^3.1.0",
         "inherits": "^2.0.3",
         "is-binary-path": "^1.0.0",
@@ -6198,26 +5549,26 @@
       "dev": true
     },
     "diagram-js": {
-      "version": "7.3.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/diagram-js/-/diagram-js-7.3.0.tgz",
-      "integrity": "sha1-zqINR534fQMRrVYzfzyZ0ITrzTc=",
+      "version": "6.8.2",
+      "resolved": "https://registry.npmjs.org/diagram-js/-/diagram-js-6.8.2.tgz",
+      "integrity": "sha512-5EKYHjW2mmGsn9/jSenSkm8cScK5sO9eETBRQNIIzgZjxBDJn6eX964L2d7/vrAW9SeuijGUsztL9+NUinSsNg==",
       "dev": true,
       "requires": {
         "css.escape": "^1.5.1",
-        "didi": "^5.2.1",
+        "didi": "^4.0.0",
         "hammerjs": "^2.0.1",
-        "inherits": "^2.0.4",
-        "min-dash": "^3.5.2",
-        "min-dom": "^3.1.3",
+        "inherits": "^2.0.1",
+        "min-dash": "^3.5.0",
+        "min-dom": "^3.1.2",
         "object-refs": "^0.3.0",
-        "path-intersection": "^2.2.1",
-        "tiny-svg": "^2.2.2"
+        "path-intersection": "^2.2.0",
+        "tiny-svg": "^2.2.1"
       }
     },
     "diagram-js-direct-editing": {
       "version": "1.6.2",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/diagram-js-direct-editing/-/diagram-js-direct-editing-1.6.2.tgz",
-      "integrity": "sha1-1u1wdvJCJwSNfqaxg3uaCJVPxq0=",
+      "resolved": "https://registry.npmjs.org/diagram-js-direct-editing/-/diagram-js-direct-editing-1.6.2.tgz",
+      "integrity": "sha512-hAiSnt6iETMLHBRsCU+XeATiV7u/rovlAX/l4MnvzW6+VeHqQOn+xFetD6JwxfTHKvT3h9fAQpfMZPOPlRFNlw==",
       "dev": true,
       "requires": {
         "min-dash": "^3.5.2",
@@ -6225,9 +5576,9 @@
       }
     },
     "didi": {
-      "version": "5.2.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/didi/-/didi-5.2.1.tgz",
-      "integrity": "sha1-GgsTNr6LqgsGinIDbu3Z+5QTW/8=",
+      "version": "4.0.0",
+      "resolved": "https://registry.npmjs.org/didi/-/didi-4.0.0.tgz",
+      "integrity": "sha512-AzMElh8mCHOPWPCWfGjoJRla31fMXUT6+287W5ef3IPmtuBcyG9+MkFS7uPP6v3t2Cl086KwWfRB9mESa0OsHQ==",
       "dev": true
     },
     "diff": {
@@ -7130,89 +6481,6 @@
       "integrity": "sha1-On1WtVnWy8PrUSMlJE5hmmXGxSU=",
       "dev": true
     },
-    "fast-glob": {
-      "version": "3.2.5",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/fast-glob/-/fast-glob-3.2.5.tgz",
-      "integrity": "sha1-eTmvKmVt55pPGQGQPuityqfLlmE=",
-      "dev": true,
-      "requires": {
-        "@nodelib/fs.stat": "^2.0.2",
-        "@nodelib/fs.walk": "^1.2.3",
-        "glob-parent": "^5.1.0",
-        "merge2": "^1.3.0",
-        "micromatch": "^4.0.2",
-        "picomatch": "^2.2.1"
-      },
-      "dependencies": {
-        "braces": {
-          "version": "3.0.2",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/braces/-/braces-3.0.2.tgz",
-          "integrity": "sha1-NFThpGLujVmeI23zNs2epPiv4Qc=",
-          "dev": true,
-          "requires": {
-            "fill-range": "^7.0.1"
-          }
-        },
-        "fill-range": {
-          "version": "7.0.1",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/fill-range/-/fill-range-7.0.1.tgz",
-          "integrity": "sha1-GRmmp8df44ssfHflGYU12prN2kA=",
-          "dev": true,
-          "requires": {
-            "to-regex-range": "^5.0.1"
-          }
-        },
-        "glob-parent": {
-          "version": "5.1.2",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/glob-parent/-/glob-parent-5.1.2.tgz",
-          "integrity": "sha1-hpgyxYA0/mikCTwX3BXoNA2EAcQ=",
-          "dev": true,
-          "requires": {
-            "is-glob": "^4.0.1"
-          }
-        },
-        "is-extglob": {
-          "version": "2.1.1",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/is-extglob/-/is-extglob-2.1.1.tgz",
-          "integrity": "sha1-qIwCU1eR8C7TfHahueqXc8gz+MI=",
-          "dev": true
-        },
-        "is-glob": {
-          "version": "4.0.1",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/is-glob/-/is-glob-4.0.1.tgz",
-          "integrity": "sha1-dWfb6fL14kZ7x3q4PEopSCQHpdw=",
-          "dev": true,
-          "requires": {
-            "is-extglob": "^2.1.1"
-          }
-        },
-        "is-number": {
-          "version": "7.0.0",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/is-number/-/is-number-7.0.0.tgz",
-          "integrity": "sha1-dTU0W4lnNNX4DE0GxQlVUnoU8Ss=",
-          "dev": true
-        },
-        "micromatch": {
-          "version": "4.0.4",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/micromatch/-/micromatch-4.0.4.tgz",
-          "integrity": "sha1-iW1Rnf6dsl/OlM63pQCRm/iB6/k=",
-          "dev": true,
-          "requires": {
-            "braces": "^3.0.1",
-            "picomatch": "^2.2.3"
-          }
-        },
-        "to-regex-range": {
-          "version": "5.0.1",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/to-regex-range/-/to-regex-range-5.0.1.tgz",
-          "integrity": "sha1-FkjESq58jZiKMmAY7XL1tN0DkuQ=",
-          "dev": true,
-          "requires": {
-            "is-number": "^7.0.0"
-          }
-        }
-      }
-    },
     "fast-json-stable-stringify": {
       "version": "2.1.0",
       "resolved": "http://192.168.0.191:8888/repository/npm-group/fast-json-stable-stringify/-/fast-json-stable-stringify-2.1.0.tgz",
@@ -7230,15 +6498,6 @@
       "resolved": "http://192.168.0.191:8888/repository/npm-group/fastparse/-/fastparse-1.1.2.tgz",
       "integrity": "sha1-kXKMWllC7O2FMSg8eUQe5BIsNak=",
       "dev": true
-    },
-    "fastq": {
-      "version": "1.11.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/fastq/-/fastq-1.11.0.tgz",
-      "integrity": "sha1-u5+5VaBxMKkY62PB9RYcwypdCFg=",
-      "dev": true,
-      "requires": {
-        "reusify": "^1.0.4"
-      }
     },
     "faye-websocket": {
       "version": "0.10.0",
@@ -7289,9 +6548,7 @@
     "file-uri-to-path": {
       "version": "1.0.0",
       "resolved": "http://192.168.0.191:8888/repository/npm-group/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz",
-      "integrity": "sha1-VTp7hEb/b2hDWcRF8eN6BdrMM90=",
-      "dev": true,
-      "optional": true
+      "integrity": "sha1-VTp7hEb/b2hDWcRF8eN6BdrMM90="
     },
     "filename-regex": {
       "version": "2.0.1",
@@ -7356,24 +6613,6 @@
           "version": "2.0.0",
           "resolved": "http://192.168.0.191:8888/repository/npm-group/ms/-/ms-2.0.0.tgz",
           "integrity": "sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=",
-          "dev": true
-        }
-      }
-    },
-    "find-babel-config": {
-      "version": "1.2.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/find-babel-config/-/find-babel-config-1.2.0.tgz",
-      "integrity": "sha1-qbezF+tbmGDNqdVHQKjIM3oig6I=",
-      "dev": true,
-      "requires": {
-        "json5": "^0.5.1",
-        "path-exists": "^3.0.0"
-      },
-      "dependencies": {
-        "json5": {
-          "version": "0.5.1",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/json5/-/json5-0.5.1.tgz",
-          "integrity": "sha1-Hq3nrMASA0rYTiOWdn6tn6VJWCE=",
           "dev": true
         }
       }
@@ -7905,17 +7144,6 @@
       "resolved": "http://192.168.0.191:8888/repository/npm-group/fs.realpath/-/fs.realpath-1.0.0.tgz",
       "integrity": "sha1-FQStJSMVjKpA20onh8sBQRmU6k8=",
       "dev": true
-    },
-    "fsevents": {
-      "version": "1.2.13",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/fsevents/-/fsevents-1.2.13.tgz",
-      "integrity": "sha1-8yXLBFVZJCi88Rs4M3DvcOO/zDg=",
-      "dev": true,
-      "optional": true,
-      "requires": {
-        "bindings": "^1.5.0",
-        "nan": "^2.12.1"
-      }
     },
     "fstream": {
       "version": "1.0.12",
@@ -12003,12 +11231,6 @@
         "readable-stream": "^2.0.1"
       }
     },
-    "merge2": {
-      "version": "1.4.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/merge2/-/merge2-1.4.1.tgz",
-      "integrity": "sha1-Q2iJL4hekHRVpv19xVwMnUBJkK4=",
-      "dev": true
-    },
     "methods": {
       "version": "1.1.2",
       "resolved": "http://192.168.0.191:8888/repository/npm-group/methods/-/methods-1.1.2.tgz",
@@ -12182,8 +11404,8 @@
     },
     "moddle": {
       "version": "5.0.2",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/moddle/-/moddle-5.0.2.tgz",
-      "integrity": "sha1-l2gyBpi+Y2cRopEByC/TYePZAlM=",
+      "resolved": "https://registry.npmjs.org/moddle/-/moddle-5.0.2.tgz",
+      "integrity": "sha512-nBEyKt7sDw6MlM6e85lTCEXButw+p7hubEoRo/JyX+dBzDcGjDoktPuby9QE+ylW1ABZqNvRy8pK0h+23tIW2g==",
       "dev": true,
       "requires": {
         "min-dash": "^3.0.0"
@@ -12191,8 +11413,8 @@
     },
     "moddle-xml": {
       "version": "9.0.5",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/moddle-xml/-/moddle-xml-9.0.5.tgz",
-      "integrity": "sha1-AazCRQY3xLyZFLVsdgsKXLpXhaU=",
+      "resolved": "https://registry.npmjs.org/moddle-xml/-/moddle-xml-9.0.5.tgz",
+      "integrity": "sha512-1t9N35ZMQZTYZmRDoh1mBVd0XwLB34BkBywNJ0+YlLLYxaDBjFR/I+fqwsY746ayYPBz6yNRg8JpLyFgNF+eHg==",
       "dev": true,
       "requires": {
         "min-dash": "^3.5.2",
@@ -12375,24 +11597,6 @@
       "dev": true,
       "requires": {
         "lower-case": "^1.1.1"
-      }
-    },
-    "node-cache": {
-      "version": "4.2.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/node-cache/-/node-cache-4.2.1.tgz",
-      "integrity": "sha1-79hHTe5O3sQTjN3tWA9VFlAPczQ=",
-      "dev": true,
-      "requires": {
-        "clone": "2.x",
-        "lodash": "^4.17.15"
-      },
-      "dependencies": {
-        "clone": {
-          "version": "2.1.2",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/clone/-/clone-2.1.2.tgz",
-          "integrity": "sha1-G39Ln1kfHo+DZwQBYANFoCiHQ18=",
-          "dev": true
-        }
       }
     },
     "node-forge": {
@@ -12731,8 +11935,8 @@
     },
     "object-refs": {
       "version": "0.3.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/object-refs/-/object-refs-0.3.0.tgz",
-      "integrity": "sha1-k09PD7a0CeeL4V+mD2FhCK7WN4Y=",
+      "resolved": "https://registry.npmjs.org/object-refs/-/object-refs-0.3.0.tgz",
+      "integrity": "sha512-eP0ywuoWOaDoiake/6kTJlPJhs+k0qNm4nYRzXLNHj6vh+5M3i9R1epJTdxIPGlhWc4fNRQ7a6XJNCX+/L4FOQ==",
       "dev": true
     },
     "object-visit": {
@@ -13274,8 +12478,8 @@
     },
     "path-intersection": {
       "version": "2.2.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/path-intersection/-/path-intersection-2.2.1.tgz",
-      "integrity": "sha1-hHa3X++3rEAvgQ0wTg6wwIDBH+c=",
+      "resolved": "https://registry.npmjs.org/path-intersection/-/path-intersection-2.2.1.tgz",
+      "integrity": "sha512-9u8xvMcSfuOiStv9bPdnRJQhGQXLKurew94n4GPQCdH1nj9QKC9ObbNoIpiRq8skiOBxKkt277PgOoFgAt3/rA==",
       "dev": true
     },
     "path-is-absolute": {
@@ -15905,12 +15109,6 @@
       "integrity": "sha1-M0WUG0FTy50ILY7uTNogFqmu9/Y=",
       "dev": true
     },
-    "queue-microtask": {
-      "version": "1.2.3",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/queue-microtask/-/queue-microtask-1.2.3.tgz",
-      "integrity": "sha1-SSkii7xyTfrEPg77BYyve2z7YkM=",
-      "dev": true
-    },
     "randomatic": {
       "version": "3.1.1",
       "resolved": "http://192.168.0.191:8888/repository/npm-group/randomatic/-/randomatic-3.1.1.tgz",
@@ -16720,12 +15918,6 @@
       "integrity": "sha1-uKSCXVvbH8P29Twrwz+BOIaBx7w=",
       "dev": true
     },
-    "reusify": {
-      "version": "1.0.4",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/reusify/-/reusify-1.0.4.tgz",
-      "integrity": "sha1-kNo4Kx4SbvwCFG6QhFqI2xKSXXY=",
-      "dev": true
-    },
     "rgb-regex": {
       "version": "1.0.1",
       "resolved": "http://192.168.0.191:8888/repository/npm-group/rgb-regex/-/rgb-regex-1.0.1.tgz",
@@ -16772,15 +15964,6 @@
       "integrity": "sha1-LpZJFZmpbN4bUV1WdKj3qRRSkmo=",
       "dev": true
     },
-    "run-parallel": {
-      "version": "1.2.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/run-parallel/-/run-parallel-1.2.0.tgz",
-      "integrity": "sha1-ZtE2jae9+SHrnZW9GpIp5/IaQ+4=",
-      "dev": true,
-      "requires": {
-        "queue-microtask": "^1.2.2"
-      }
-    },
     "run-queue": {
       "version": "1.0.3",
       "resolved": "http://192.168.0.191:8888/repository/npm-group/run-queue/-/run-queue-1.0.3.tgz",
@@ -16821,7 +16004,6 @@
         "capture-exit": "^1.2.0",
         "exec-sh": "^0.2.0",
         "fb-watchman": "^2.0.0",
-        "fsevents": "^1.2.3",
         "micromatch": "^3.1.4",
         "minimist": "^1.1.1",
         "walker": "~1.0.5",
@@ -17161,7 +16343,6 @@
           "requires": {
             "anymatch": "~3.1.1",
             "braces": "~3.0.2",
-            "fsevents": "~2.3.1",
             "glob-parent": "~5.1.0",
             "is-binary-path": "~2.1.0",
             "is-glob": "~4.0.1",
@@ -17177,13 +16358,6 @@
           "requires": {
             "to-regex-range": "^5.0.1"
           }
-        },
-        "fsevents": {
-          "version": "2.3.2",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/fsevents/-/fsevents-2.3.2.tgz",
-          "integrity": "sha1-ilJveLj99GI7cJ4Ll1xSwkwC/Ro=",
-          "dev": true,
-          "optional": true
         },
         "glob-parent": {
           "version": "5.1.2",
@@ -17510,8 +16684,8 @@
     },
     "saxen": {
       "version": "8.1.2",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/saxen/-/saxen-8.1.2.tgz",
-      "integrity": "sha1-5nezKv6TZnydk50/PeAuCd8QjlQ=",
+      "resolved": "https://registry.npmjs.org/saxen/-/saxen-8.1.2.tgz",
+      "integrity": "sha512-xUOiiFbc3Ow7p8KMxwsGICPx46ZQvy3+qfNVhrkwfz3Vvq45eGt98Ft5IQaA1R/7Tb5B5MKh9fUR9x3c3nDTxw==",
       "dev": true
     },
     "schema-utils": {
@@ -18046,8 +17220,9 @@
     },
     "sortablejs": {
       "version": "1.10.2",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/sortablejs/-/sortablejs-1.10.2.tgz",
-      "integrity": "sha1-bkA2TZE/mLhaFPZnj5K1wSIfUpA="
+      "resolved": "https://registry.npmjs.org/sortablejs/-/sortablejs-1.10.2.tgz",
+      "integrity": "sha512-YkPGufevysvfwn5rfdlGyrGjt7/CRHwvRPogD/lC+TnvcN29jDpCifKP+rBqf+LRldfXSTh+0CGLcSg0VIxq3A==",
+      "dev": true
     },
     "source-list-map": {
       "version": "2.0.1",
@@ -18470,12 +17645,6 @@
         "get-stdin": "^4.0.1"
       }
     },
-    "strip-json-comments": {
-      "version": "2.0.1",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/strip-json-comments/-/strip-json-comments-2.0.1.tgz",
-      "integrity": "sha1-PFMZQukIwml8DsNEhYwobHygpgo=",
-      "dev": true
-    },
     "style-loader": {
       "version": "2.0.0",
       "resolved": "http://192.168.0.191:8888/repository/npm-group/style-loader/-/style-loader-2.0.0.tgz",
@@ -18557,25 +17726,6 @@
           "requires": {
             "has-flag": "^3.0.0"
           }
-        }
-      }
-    },
-    "stylus-loader": {
-      "version": "5.0.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/stylus-loader/-/stylus-loader-5.0.0.tgz",
-      "integrity": "sha1-0/VIiHq2eAjMQNMgB5xE+P+j2bg=",
-      "dev": true,
-      "requires": {
-        "fast-glob": "^3.2.5",
-        "klona": "^2.0.4",
-        "normalize-path": "^3.0.0"
-      },
-      "dependencies": {
-        "normalize-path": {
-          "version": "3.0.0",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/normalize-path/-/normalize-path-3.0.0.tgz",
-          "integrity": "sha1-Dc1p/yOhybEf0JeDFmRKA4ghamU=",
-          "dev": true
         }
       }
     },
@@ -18895,26 +18045,6 @@
       "resolved": "http://192.168.0.191:8888/repository/npm-group/tryer/-/tryer-1.0.1.tgz",
       "integrity": "sha1-8shUBoALmw90yfdGW4HqrSQSUvg=",
       "dev": true
-    },
-    "tsconfig": {
-      "version": "7.0.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/tsconfig/-/tsconfig-7.0.0.tgz",
-      "integrity": "sha1-hFOIdaTcIW5cSlQys6Tew9VOkbc=",
-      "dev": true,
-      "requires": {
-        "@types/strip-bom": "^3.0.0",
-        "@types/strip-json-comments": "0.0.30",
-        "strip-bom": "^3.0.0",
-        "strip-json-comments": "^2.0.0"
-      },
-      "dependencies": {
-        "strip-bom": {
-          "version": "3.0.0",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/strip-bom/-/strip-bom-3.0.0.tgz",
-          "integrity": "sha1-IzTBjpx1n3vdVv3vfprj1YjmjtM=",
-          "dev": true
-        }
-      }
     },
     "tslib": {
       "version": "1.14.1",
@@ -19575,24 +18705,6 @@
       "integrity": "sha1-UylVzB6yCKPZkLOp+acFdGV+CPI=",
       "dev": true
     },
-    "vue-jest": {
-      "version": "1.4.0",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/vue-jest/-/vue-jest-1.4.0.tgz",
-      "integrity": "sha1-HWtNJ3SwrsBs/l05eJA50zgbxSg=",
-      "dev": true,
-      "requires": {
-        "babel-core": "^6.25.0",
-        "babel-preset-vue-app": "^1.3.1",
-        "chalk": "^2.1.0",
-        "find-babel-config": "^1.1.0",
-        "js-beautify": "^1.6.14",
-        "node-cache": "^4.1.1",
-        "object-assign": "^4.1.1",
-        "source-map": "^0.5.6",
-        "tsconfig": "^7.0.0",
-        "vue-template-es2015-compiler": "^1.5.3"
-      }
-    },
     "vue-loader": {
       "version": "13.7.3",
       "resolved": "http://192.168.0.191:8888/repository/npm-group/vue-loader/-/vue-loader-13.7.3.tgz",
@@ -19673,8 +18785,9 @@
     },
     "vuedraggable": {
       "version": "2.24.3",
-      "resolved": "http://192.168.0.191:8888/repository/npm-group/vuedraggable/-/vuedraggable-2.24.3.tgz",
-      "integrity": "sha1-Q8k4SbdGokzlA+Ej1bJZxwG6DRk=",
+      "resolved": "https://registry.npmjs.org/vuedraggable/-/vuedraggable-2.24.3.tgz",
+      "integrity": "sha512-6/HDXi92GzB+Hcs9fC6PAAozK1RLt1ewPTLjK0anTYguXLAeySDmcnqE8IC0xa7shvSzRjQXq3/+dsZ7ETGF3g==",
+      "dev": true,
       "requires": {
         "sortablejs": "1.10.2"
       }
@@ -19762,7 +18875,6 @@
           "requires": {
             "anymatch": "~3.1.1",
             "braces": "~3.0.2",
-            "fsevents": "~2.3.1",
             "glob-parent": "~5.1.0",
             "is-binary-path": "~2.1.0",
             "is-glob": "~4.0.1",
@@ -19779,13 +18891,6 @@
           "requires": {
             "to-regex-range": "^5.0.1"
           }
-        },
-        "fsevents": {
-          "version": "2.3.2",
-          "resolved": "http://192.168.0.191:8888/repository/npm-group/fsevents/-/fsevents-2.3.2.tgz",
-          "integrity": "sha1-ilJveLj99GI7cJ4Ll1xSwkwC/Ro=",
-          "dev": true,
-          "optional": true
         },
         "glob-parent": {
           "version": "5.1.2",

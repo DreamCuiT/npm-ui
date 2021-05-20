@@ -77,7 +77,8 @@ import { treeFind } from 'operation-tree-node'
 import { Popover, Scrollbar, Input, Tree } from 'element-ui'
 
 export default {
-  name: 'TreeSelect',
+  name: 'P8TreeSelect',
+  componentName: 'P8TreeSelect',
   mixins: [Emitter],
   model: {
     prop: 'value',

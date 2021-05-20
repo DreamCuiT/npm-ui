@@ -2,6 +2,7 @@
 import 'babel-polyfill'
 import P8Anchor from '../packages/anchor/index.js';
 import P8Bpm from '../packages/bpm/index.js';
+import P8Popconfirm from '../packages/popconfirm/index.js';
 import P8ProcessApproval from '../packages/processApproval/index.js';
 import P8ProcessDefinition from '../packages/processDefinition/index.js';
 import P8Button from '../packages/button/index.js';
@@ -18,6 +19,7 @@ import P8MenuLayout from '../packages/menuLayout/index.js';
 import P8NlcrLayout from '../packages/nlcrLayout/index.js';
 import P8SplitPane from '../packages/splitPane/index.js';
 import P8Tree from '../packages/tree/index.js';
+import P8TreeSelect from '../packages/treeSelect/index.js';
 import P8Table from '../packages/table/index.js';
 import P8Drawer from '../packages/drawer/index.js';
 import P8Form from '../packages/form/index.js';
@@ -25,6 +27,7 @@ import P8Upload from '../packages/upload/index.js';
 import P8FileView from '../packages/fileView/index.js';
 import P8Search from '../packages/search/index.js';
 import P8SelectUser from '../packages/selectUser/index.js';
+import P8Import from '../packages/import/index.js';
 import P8InfiniteScroll from '../packages/infiniteScroll/index.js';
 import P8IconSelector from '../packages/iconSelector/index.js';
 import P8StatusIcon from '../packages/statusIcon/index.js';
@@ -37,6 +40,7 @@ import P8Wrapper from '../packages/wrapper/index.js';
 const components = [
   P8Anchor,
   P8Bpm,
+  P8Popconfirm,
   P8ProcessApproval,
   P8ProcessDefinition,
   P8Button,
@@ -53,6 +57,7 @@ const components = [
   P8NlcrLayout,
   P8SplitPane,
   P8Tree,
+  P8TreeSelect,
   P8Table,
   P8Drawer,
   P8Form,
@@ -60,6 +65,7 @@ const components = [
   P8FileView,
   P8Search,
   P8SelectUser,
+  P8Import,
   P8InfiniteScroll,
   P8IconSelector,
   P8StatusIcon,
@@ -86,6 +92,7 @@ export default {
   install,
   P8Anchor,
   P8Bpm,
+  P8Popconfirm,
   P8ProcessApproval,
   P8ProcessDefinition,
   P8Button,
@@ -102,6 +109,7 @@ export default {
   P8NlcrLayout,
   P8SplitPane,
   P8Tree,
+  P8TreeSelect,
   P8Table,
   P8Drawer,
   P8Form,
@@ -109,6 +117,7 @@ export default {
   P8FileView,
   P8Search,
   P8SelectUser,
+  P8Import,
   P8InfiniteScroll,
   P8IconSelector,
   P8StatusIcon,

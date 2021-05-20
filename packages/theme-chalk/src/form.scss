@@ -2,143 +2,68 @@
 @import "commonStyle/common";
 @import "mixins/mixins";
 
-// treeSelect.vue
-.el-select-tree {
-  display: inline-block;
-  .el-input__icon {
-    cursor: pointer;
-    transition: transform 0.3s;
-    &-close {
-      display: none;
+.formList.el-form {
+  > .el-row {
+    padding: 10px;
+    box-sizing: border-box;
+
+    &.existBtn:first-child {
+      height: calc(100% - 50px);
+      overflow-y: auto;
+      overflow-x: hidden;
     }
-  }
-  .el-input__inner {
-    cursor: pointer;
-    padding-right: 30px;
-  }
-  .el-input {
-    &:hover:not(.is-disabled) {
-      .el-input__inner {
-        border-color: #c0c4cc;
-      }
-      &.is-selected.is-clearable {
-        .el-input__icon {
-          &-close {
-            display: inline-block;
-          }
-          &-arrow-down {
-            display: none;
-          }
+
+    &.formBtn {
+      height: auto;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      border-top: 1px solid $base-line-color;
+      box-sizing: border-box;
+    }
+
+    .el-form-item__blank .el-form-item__label-wrap {
+      font-weight: bolder;
+    }
+
+    .el-form-item__label {
+      font-size: 12px;
+    }
+
+    .el-form-item__content {
+      font-size: 12px;
+    }
+
+    /**密级附件校验信息位置 */
+    .el-form-item.el-form-item__upload {
+      .el-form-item__content {
+        .el-form-item__error {
+          left: 62.5%;
         }
       }
     }
-    &.is-active {
-      .el-input__icon-arrow-down {
-        transform: rotate(-180deg);
-      }
-      .el-input__inner {
-        border-color: #409eff;
-      }
-    }
-  }
-  &__popover {
-    padding: 0 !important;
-    // extends el-select-dropdown - start
-    border: 1px solid #dcdfe6 !important;
-    border-radius: 4px !important;
-    // extends el-select-dropdown - end
-    .popper__arrow {
-      left: 35px !important;
-    }
-  }
-  &__list {
-    overflow-y: auto;
-    // scroll style - start
-    &::-webkit-scrollbar-track-piece {
-      background: #d3dce6;
-    }
-    &::-webkit-scrollbar {
-      width: 4px;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: #99a9bf;
-    }
-    // scroll style - end
-  }
-  &__item {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    padding-right: 20px;
-    &.selected {
-      color: #409eff;
-      font-weight: bolder;
-    }
-    &.is-disabled {
-      color: #bbbbbb;
-      cursor: not-allowed;
-    }
-  }
-  &__empty {
-    padding: 40px;
-    margin: 0;
-    text-align: center;
-    color: #606266;
-    font-size: 12px;
   }
 }
 
-// AddField.vue
-.addField{
-  &.vertical{
-    border-bottom:1px solid $base-line-color;
-    margin-bottom:10px;
-    .delete-cell {
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-  }
+.el-radio__input.is-disabled.is-checked {
+  .el-radio__inner {
+    background-color: #80bdff;
+    border-color: #80bdff;
 
-  .el-col{
-    padding-right:5px;
-
-    &.delete-cell{
-      text-align:center;
-      font-size:22px;
-      cursor:pointer;
-      padding-right:0;
-      color:$base-light-color;
-
-      &:hover{
-        color:$base-light-color;
-        background:$base-row-hover;
-
-      }
+    &::after {
+      background-color: #ffffff;
     }
   }
 }
 
-// FieldRender.vue
-.el-icon-warning-outline {
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-}
-.view {
-  word-break: normal;
-  display: block;
-  word-wrap: break-word;
-  overflow: hidden;
-  color: #888888;
-}
-.view-item {
-  &.el-form-item--small {
-    &.el-form-item {
-      margin-bottom: 0;
+.el-checkbox__input.is-disabled.is-checked {
+  .el-checkbox__inner {
+    background-color: #80bdff;
+    border-color: #80bdff;
+
+    &::after {
+      border-color: #ffffff;
     }
   }
 }

@@ -61,7 +61,8 @@ import { Form, FormItem, Upload, Button, Row, Col, Select, Option } from 'elemen
 // import { API_DEFAULT_CONFIG } from '@/config/settings'
 
 export default {
-  name: 'CommonImport',
+  name: 'P8Import',
+  componentName: 'P8Import',
   props: {
     fields: {
       type: Object,

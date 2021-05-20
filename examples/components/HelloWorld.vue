@@ -44,9 +44,9 @@
                         @setPageData="setPageData"
                         @submit="save"></p8-formApplication>-->
     <!-- <p8-upload></p8-upload> -->
-    <p8-menu-layout></p8-menu-layout>
+    <!-- <p8-menu-layout></p8-menu-layout> -->
     <!-- <p8-select-user :visible='true'></p8-select-user> -->
-    <p8-nlcr-layout></p8-nlcr-layout>
+    <!-- <p8-nlcr-layout></p8-nlcr-layout> -->
     <!-- <p8-split-pane split='vertical'></p8-split-pane> -->
     <!-- <p8-bpm></p8-bpm> -->
     <!-- <p8-process-approval></p8-process-approval> -->
@@ -60,11 +60,18 @@
           </p8-contextmenu> -->
     <!-- <p8-contextmenu-group></p8-contextmenu-group> -->
     <!-- <p8-contextmenu-submenu></p8-contextmenu-submenu>  -->
+    <!-- <p8-popconfirm></p8-popconfirm> -->
+    <!-- <p8-tree-select></p8-tree-select> -->
+    <!-- <p8-import></p8-import> -->
   </div>
 </template>
 
 <script>
-import {Button, Dialog, P8FormGenerator, P8FormParser, P8NormalLayout, P8MenuLayout, P8SelectUser, P8Bpm, P8ProcessApproval, P8ProcessDefinition, P8Anchor, P8Cron,P8IconSelector,      P8Wrapper,
+import {Button, Dialog, P8FormGenerator, P8FormParser, P8NormalLayout, P8MenuLayout, P8SelectUser, P8Bpm, P8ProcessApproval, P8ProcessDefinition, P8Anchor, P8Cron,P8IconSelector, 
+  P8Popconfirm,
+  P8Import,     
+  P8Wrapper,
+  P8TreeSelect,
   P8NlcrLayout,
   P8Contextmenu,
   P8ContextmenuGroup,
@@ -89,12 +96,15 @@ export default {
     P8ProcessDefinition,
     P8Anchor,
     P8Cron,
+    P8Import,
     P8IconSelector,
     P8Wrapper,
     P8Contextmenu,
     P8ContextmenuGroup,
     P8ContextmenuItem,
     P8ContextmenuSubmenu,
+    P8Popconfirm,
+    P8TreeSelect
   },
   data () {
     return {
