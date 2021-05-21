@@ -59,6 +59,9 @@
       <el-button @click="handleCancel">取 消</el-button>
       <el-button type="primary" @click="handleOk">确 定</el-button>
     </div>
+    <div v-show="!isminimize" v-if="showHandlePlcomplateBtn" class="dialogFooter">
+      <el-button type="primary" @click="saveInfo">保 存</el-button>
+    </div>
     <div v-show="!isminimize" v-if="!showHandleBtn && isViewCsFooter" class="dialogFooter">
       <slot name="cs-footer"></slot>
     </div>
@@ -93,6 +96,10 @@ export default {
     showHandleBtn: { // 是否显示脚部
       type: Boolean,
       default: true
+    },
+    showHandlePlcomplateBtn:{//是否显示只有保存按钮
+      type: Boolean,
+      default: false
     },
     visible: {
       type: Boolean,
@@ -139,6 +146,9 @@ export default {
     },
     handleOk (e) {
       this.$emit('handle-ok')
+    },
+    saveInfo (e) {
+      this.$emit('save-info')
     },
     // 关闭弹窗
     closeDialog () {

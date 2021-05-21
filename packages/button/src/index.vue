@@ -12,6 +12,7 @@
         <span>
           <el-button
             type="primary"
+            plain
             :icon="button.image"
             :disabled="buttonDisabled(button)"
             @click="renderComp[button.eventHandle](button)"

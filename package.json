@@ -97,6 +97,7 @@
   "publishConfig": {
     "registry": "http://192.168.0.191:8888/repository/rdmu-npm/"
   },
+  "_resolved": "http://192.168.0.191:8888/repository/rdmu-npm/p8-components-ui/-/p8-components-ui-1.1.2.tgz",
   "browserslist": [
     "> 1%",
     "last 2 versions",

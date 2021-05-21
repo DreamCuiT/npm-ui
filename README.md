@@ -15,7 +15,7 @@ nrm use rangzhi
 npm install p8-components-ui
 
 ## 或者定义临时源
-npm --registry http://192.168.0.191:8888/repository/npm-group/ i p8-components-ui
+cnpm --registry http://192.168.0.191:8888/repository/npm-group/ i p8-components-ui 
 
 安装成功如果运行报错，删除package-lock.json
 
