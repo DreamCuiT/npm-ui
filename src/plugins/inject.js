@@ -1,26 +1,13 @@
 // import websocket from '@/plugins/websocket'
 // import promise from './promise'
 import contextmenu from '../directives/contextmenu.js';
-import { Loading, MessageBox, Message } from 'element-ui'
-// 系统错误捕获
-const errorHandler = (error, vm, info) => {
-  console.error(`${error.toString()}`)
-}
+
 export default {
   install (Vue, opts = {}) {
-    // 框架基础需求的element-ui components
-    Vue.prototype.$loading = Loading.service
-    Vue.prototype.$message = Message
-    Vue.prototype.$alert = MessageBox.alert
-    Vue.prototype.$confirm = MessageBox.confirm
-    Vue.prototype.$prompt = MessageBox.prompt
-    Vue.prototype.$ELEMENT = { size: 'small' }
-    Vue.prototype.$bus = new Vue() // 事件传递: 嵌套深层组件(两层以上)时, 内层组件的操作影响外层组件中的数据时, 可以使用,否则不建议使用 
-    Vue.config.errorHandler = errorHandler
-    Vue.prototype.$throw = (error) => errorHandler(error, this)
+   
     // Vue.use(promise)
     // Vue.use(websocket)
-    Vue.use(Loading.directive)
+    
     // elementUI select下拉框选择图标回显
     Vue.directive('contextmenu', contextmenu)
     Vue.directive('select-icon', {

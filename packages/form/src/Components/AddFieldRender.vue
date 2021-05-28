@@ -185,6 +185,7 @@ import { FormItem, Input, InputNumber, Radio, RadioGroup, RadioButton, Checkbox,
 import TreeSelect from './TreeSelect'
 import { generateTree } from '../../../../src/utils/generateTree'
 import CommonFileView from '../../../fileView'
+
 export default {
   name: 'FieldRender',
   props: {

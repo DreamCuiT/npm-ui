@@ -14,23 +14,26 @@
 <!--                 :form="formData"></p8-form>-->
 <!--      </template>-->
 <!--    </p8-normal-layout>-->
-<!--    <p8-drawer :visible="visible"-->
-<!--               @close="handleClose">-->
-<!--      <template #drawer>-->
-<!--        <p8-normal-layout>-->
-<!--          <template #west></template>-->
-<!--          <template #center>-->
-<!--            <p8-form ref="form"-->
-<!--                     labelWidth="150px"-->
-<!--                     @rendered="rendered"-->
-<!--                     @saved="saved"-->
-<!--                     :dataSource="dataSource"-->
-<!--                     :api="saveApi"-->
-<!--                     :form="formData"></p8-form>-->
-<!--          </template>-->
-<!--        </p8-normal-layout>-->
-<!--      </template>-->
-<!--    </p8-drawer> -->
+<keep-alive>
+   <p8-drawer :visible="visible"
+              @close="handleClose">
+     <template #drawer>
+       <p8-normal-layout>
+         <template #west></template>
+         <template #center>
+           <p8-form ref="form"
+                    labelWidth="150px"
+                    @rendered="rendered"
+                    @saved="saved"
+                    :dataSource="dataSource"
+                    :api="saveApi"
+                    :form="formData"></p8-form>
+         </template>
+       </p8-normal-layout>
+     </template>
+   </p8-drawer>
+   </keep-alive>
+   <el-button @click="visible = !visible">dddddd</el-button>
     <!-- <p8-dragdialog :visible="visible"
                    @handle-cancel="handleCancel"
                    @handle-ok="handleOk"
@@ -67,7 +70,9 @@
 </template>
 
 <script>
-import {Button, Dialog, P8FormGenerator, P8FormParser, P8NormalLayout, P8MenuLayout, P8SelectUser, P8Bpm, P8ProcessApproval, P8ProcessDefinition, P8Anchor, P8Cron,P8IconSelector, 
+import Vue from 'vue'
+import { Button } from 'element-ui';
+import {P8Form, P8Drawer, P8FormGenerator, P8FormParser, P8NormalLayout, P8MenuLayout, P8SelectUser, P8Bpm, P8ProcessApproval, P8ProcessDefinition, P8Anchor, P8Cron,P8IconSelector, 
   P8Popconfirm,
   P8Import,     
   P8Wrapper,
@@ -78,15 +83,15 @@ import {Button, Dialog, P8FormGenerator, P8FormParser, P8NormalLayout, P8MenuLay
   P8ContextmenuItem,
   P8ContextmenuSubmenu,
   P8SplitPane,} from '../../dist/index'
-
+Vue.use(Button)
 export default {
   name: 'HelloWorld',
   components: {
-    'p8-button': Button,
-    'p8-dragdialog': Dialog,
     'p8-formgenerator': P8FormGenerator,
     'p8-normal-layout': P8NormalLayout,
     'p8-formApplication': P8FormParser,
+    P8Drawer,
+    P8Form,
     P8MenuLayout,
     P8SelectUser,
     P8NlcrLayout,
@@ -176,67 +181,67 @@ export default {
             }
           ]
         },
-        {
-          type: 'treeSelect',
-          labelText: '所属部门',
-          fieldName: 'departmentId',
-          placeholder: '请选择所属部门',
-          colLayout: 'doubleCol',
-          defaultExpandAll: true,
-          optionUrl: {
-            api: 'userManager.deptTree',
-            params: { deptId: this.deptId }
-          },
-          rules: [
-            {
-              required: true
-              // trigger: 'change'
-            }
-          ]
-        },
-        {
-          labelText: '用户密级',
-          type: 'select',
-          fieldName: 'confidentialite',
-          placeholder: '请选择用户密级',
-          colLayout: 'doubleCol',
-          rules: [
-            {
-              required: true
-            }
-          ],
-          optionUrl: {
-            api: 'userManager.dicData',
-            params: {
-              dicType: 'USER_LEVEL'
-            }
-          }
-        },
-        {
-          labelText: '出入证号',
-          type: 'text',
-          fieldName: 'empCode',
-          placeholder: '请输入出入证号',
-          colLayout: 'doubleCol',
-          rules: [
-            {
-              maxLength: 32
-            }
-          ]
-        },
-        {
-          labelText: '性别',
-          type: 'select',
-          fieldName: 'gender',
-          placeholder: '请选择性别',
-          colLayout: 'doubleCol',
-          optionUrl: {
-            api: 'userManager.dicData',
-            params: {
-              dicType: 'GENDER'
-            }
-          }
-        },
+        // {
+        //   type: 'treeSelect',
+        //   labelText: '所属部门',
+        //   fieldName: 'departmentId',
+        //   placeholder: '请选择所属部门',
+        //   colLayout: 'doubleCol',
+        //   defaultExpandAll: true,
+        //   optionUrl: {
+        //     api: 'userManager.deptTree',
+        //     params: { deptId: this.deptId }
+        //   },
+        //   rules: [
+        //     {
+        //       required: true
+        //       // trigger: 'change'
+        //     }
+        //   ]
+        // },
+        // {
+        //   labelText: '用户密级',
+        //   type: 'select',
+        //   fieldName: 'confidentialite',
+        //   placeholder: '请选择用户密级',
+        //   colLayout: 'doubleCol',
+        //   rules: [
+        //     {
+        //       required: true
+        //     }
+        //   ],
+        //   optionUrl: {
+        //     api: 'userManager.dicData',
+        //     params: {
+        //       dicType: 'USER_LEVEL'
+        //     }
+        //   }
+        // },
+        // {
+        //   labelText: '出入证号',
+        //   type: 'text',
+        //   fieldName: 'empCode',
+        //   placeholder: '请输入出入证号',
+        //   colLayout: 'doubleCol',
+        //   rules: [
+        //     {
+        //       maxLength: 32
+        //     }
+        //   ]
+        // },
+        // {
+        //   labelText: '性别',
+        //   type: 'select',
+        //   fieldName: 'gender',
+        //   placeholder: '请选择性别',
+        //   colLayout: 'doubleCol',
+        //   optionUrl: {
+        //     api: 'userManager.dicData',
+        //     params: {
+        //       dicType: 'GENDER'
+        //     }
+        //   }
+        // },
         {
           labelText: '生日',
           type: 'datetime',
@@ -247,65 +252,65 @@ export default {
             'value-format': 'yyyy-MM-dd'
           }
         },
-        {
-          labelText: '电话号码',
-          type: 'text',
-          fieldName: 'otel',
-          colLayout: 'doubleCol',
-          placeholder: '请输入手机或座机号码',
-          tip: '手机格式如:13512341234 座机格式如:010-40020020',
-          rules: [
-            {
-              pattern: '^(((\\+\\d{2}-)?0\\d{2,3}-\\d{7,8})|((\\+\\d{2}-)?(\\d{2,3}-)?([1][3,4,5,7,8][0-9]\\d{8})))$',
-              message: '请输入正确的电话号码',
-              trigger: 'blur'
-            }
-          ]
-        },
-        {
-          labelText: '行政岗位',
-          type: 'text',
-          fieldName: 'workPost',
-          colLayout: 'doubleCol',
-          placeholder: '请输入行政岗位',
-          rules: [
-            {
-              maxLength: 32
-            }
-          ]
-        },
-        {
-          labelText: '技术岗位',
-          type: 'text',
-          fieldName: 'tecPost',
-          colLayout: 'doubleCol',
-          placeholder: '请输入技术岗位',
-          rules: [
-            {
-              maxLength: 32
-            }
-          ]
-        },
-        {
-          labelText: '电子邮件',
-          type: 'text',
-          fieldName: 'oemail',
-          colLayout: 'doubleCol',
-          rules: [
-            {
-              type: 'email'
-            }
-          ]
-        },
-        {
-          labelText: '用户排序',
-          type: 'number',
-          fieldName: 'indexNo',
-          placeholder: '请输入用户排序号',
-          colLayout: 'doubleCol',
-          min: 0,
-          max: 99999999
-        }
+        // {
+        //   labelText: '电话号码',
+        //   type: 'text',
+        //   fieldName: 'otel',
+        //   colLayout: 'doubleCol',
+        //   placeholder: '请输入手机或座机号码',
+        //   tip: '手机格式如:13512341234 座机格式如:010-40020020',
+        //   rules: [
+        //     {
+        //       pattern: '^(((\\+\\d{2}-)?0\\d{2,3}-\\d{7,8})|((\\+\\d{2}-)?(\\d{2,3}-)?([1][3,4,5,7,8][0-9]\\d{8})))$',
+        //       message: '请输入正确的电话号码',
+        //       trigger: 'blur'
+        //     }
+        //   ]
+        // },
+        // {
+        //   labelText: '行政岗位',
+        //   type: 'text',
+        //   fieldName: 'workPost',
+        //   colLayout: 'doubleCol',
+        //   placeholder: '请输入行政岗位',
+        //   rules: [
+        //     {
+        //       maxLength: 32
+        //     }
+        //   ]
+        // },
+        // {
+        //   labelText: '技术岗位',
+        //   type: 'text',
+        //   fieldName: 'tecPost',
+        //   colLayout: 'doubleCol',
+        //   placeholder: '请输入技术岗位',
+        //   rules: [
+        //     {
+        //       maxLength: 32
+        //     }
+        //   ]
+        // },
+        // {
+        //   labelText: '电子邮件',
+        //   type: 'text',
+        //   fieldName: 'oemail',
+        //   colLayout: 'doubleCol',
+        //   rules: [
+        //     {
+        //       type: 'email'
+        //     }
+        //   ]
+        // },
+        // {
+        //   labelText: '用户排序',
+        //   type: 'number',
+        //   fieldName: 'indexNo',
+        //   placeholder: '请输入用户排序号',
+        //   colLayout: 'doubleCol',
+        //   min: 0,
+        //   max: 99999999
+        // }
       ],
       formData: {
         id: null,

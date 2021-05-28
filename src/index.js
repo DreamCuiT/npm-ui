@@ -37,6 +37,10 @@ import P8FormParser from '../packages/formApplication/index.js';
 import P8FormGenerator from '../packages/formGenerator/index.js';
 import P8Wrapper from '../packages/wrapper/index.js';
 
+import ElementUI from 'element-ui';
+
+import inject from './plugins/inject';
+
 const components = [
   P8Anchor,
   P8Bpm,
@@ -80,6 +84,21 @@ const install = function(Vue, opts = {}) {
   components.forEach(component => {
     Vue.component(component.name, component);
   });
+  
+  Vue.config.errorHandler = (error, vm, info) => {console.error(`${error.toString()}`)}
+
+  Vue.prototype.$loading = ElementUI.Loading.service
+  Vue.prototype.$message = ElementUI.Message
+  Vue.prototype.$alert = ElementUI.MessageBox.alert
+  Vue.prototype.$confirm = ElementUI.MessageBox.confirm
+  Vue.prototype.$prompt = ElementUI.MessageBox.prompt
+  Vue.prototype.$ELEMENT = { size: (opts.size || 'small'), zIndex: (opts.zIndex || 2000 )}
+  Vue.prototype.$bus = new Vue() 
+  Vue.prototype.$throw = (error, vm, info) => {console.error(`${error.toString()}`)}
+
+  Vue.use(ElementUI, opts)
+  Vue.use(ElementUI.Loading.directive)
+  Vue.use(inject)
 };
 
 /* istanbul ignore if */
@@ -88,42 +107,45 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
-  version: '1.0.2',
-  install,
-  P8Anchor,
-  P8Bpm,
-  P8Popconfirm,
-  P8ProcessApproval,
-  P8ProcessDefinition,
-  P8Button,
-  P8Card,
-  P8Cron,
-  P8Contextmenu,
-  P8ContextmenuGroup,
-  P8ContextmenuItem,
-  P8ContextmenuSubmenu,
-  P8Dialog,
-  P8ListLayout,
-  P8NormalLayout,
-  P8MenuLayout,
-  P8NlcrLayout,
-  P8SplitPane,
-  P8Tree,
-  P8TreeSelect,
-  P8Table,
-  P8Drawer,
-  P8Form,
-  P8Upload,
-  P8FileView,
-  P8Search,
-  P8SelectUser,
-  P8Import,
-  P8InfiniteScroll,
-  P8IconSelector,
-  P8StatusIcon,
-  P8Tabs,
-  P8EditTable,
-  P8FormParser,
-  P8FormGenerator,
-  P8Wrapper
+  ...{
+    version: '1.0.2',
+    install,
+    P8Anchor,
+    P8Bpm,
+    P8Popconfirm,
+    P8ProcessApproval,
+    P8ProcessDefinition,
+    P8Button,
+    P8Card,
+    P8Cron,
+    P8Contextmenu,
+    P8ContextmenuGroup,
+    P8ContextmenuItem,
+    P8ContextmenuSubmenu,
+    P8Dialog,
+    P8ListLayout,
+    P8NormalLayout,
+    P8MenuLayout,
+    P8NlcrLayout,
+    P8SplitPane,
+    P8Tree,
+    P8TreeSelect,
+    P8Table,
+    P8Drawer,
+    P8Form,
+    P8Upload,
+    P8FileView,
+    P8Search,
+    P8SelectUser,
+    P8Import,
+    P8InfiniteScroll,
+    P8IconSelector,
+    P8StatusIcon,
+    P8Tabs,
+    P8EditTable,
+    P8FormParser,
+    P8FormGenerator,
+    P8Wrapper
+  },
+  ...ElementUI
 };

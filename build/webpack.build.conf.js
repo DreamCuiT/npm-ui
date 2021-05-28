@@ -3,7 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const webpack = require("webpack");
-const uglify = require('uglifyjs-webpack-plugin');
+const uglify = require('uglifyjs-webpack-plugin')
 const vueLoaderConfig = require('./vue-loader.conf')
 
 function resolve (dir) {

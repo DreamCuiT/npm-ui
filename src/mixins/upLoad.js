@@ -14,9 +14,9 @@ export default {
         console.error('downloadFile : 文件下载方法缺少指定参数-comp[this对象]')
         return
       }
-      const normalKey = { fileIdKey: 'id', fileNameKey: 'fileName', confValueKey: 'confidentialite' }
+      // const normalKey = { fileIdKey: 'id', fileNameKey: 'fileName', confValueKey: 'confidentialite' }
       // bindKey = { ...normalKey, ...bindKey }
-      const userConfidentialiteList = this.$store.state.userInfo.confidentialiteList
+      const userConfidentialiteList = comp.$store.getters.userInfo.confidentialiteList || []
       if (file[bindKey.confValueKey]) {
         let filter = userConfidentialiteList.filter(item => item.id === file[bindKey.confValueKey])
         if (!filter.length) {

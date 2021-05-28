@@ -10,7 +10,7 @@
           <el-form-item class="el-form-item__upload" v-if="item.fieldName && item.type === 'upload'" :label="item.labelText"
                   :prop="fieldName + '.' + index + '.' + item.fieldName"
                   :label-width="item.labelWidth ? item.labelWidth : ''"
-                  :rules="item.rules || item.listType === 'secret' ? uploadDefaultRules : []">
+                  :rules="item.rules || item.listType === 'secret' ? uploadDefaultRules() : []">
             <common-upload ref="commonupload" :files="formData[fieldName][index][item.fieldName] || []" :listType="item.listType" :maxLimit="item.maxLimit" :uploadConfig="item.uploadConfig || {}"
                   @upload="(file) => { uploadFile(file, item, index) }"
                   @remove="(file) => { removedFile(file, item, index) }">
@@ -23,7 +23,7 @@
           <el-form-item class="el-form-item__upload" v-if="item.fieldName && item.type === 'upload'" :label="item.labelText"
                   :prop="fieldName + '.' + index + '.' + item.fieldName"
                   :label-width="item.labelWidth ? item.labelWidth : ''"
-                  :rules="item.rules || item.listType === 'secret' ? uploadDefaultRules : []">
+                  :rules="item.rules || item.listType === 'secret' ? uploadDefaultRules() : []">
             <common-upload ref="commonupload" :files="formData[fieldName][index][item.fieldName] || []" :listType="item.listType" :maxLimit="item.maxLimit" :uploadConfig="item.uploadConfig || {}"
                   @upload="(file) => { uploadFile(file, item, index) }"
                   @remove="(file) => { removedFile(file, item, index) }">
@@ -91,7 +91,7 @@ export default {
   data () {
     return {
       addValue: {},
-      uploadDefaultRules: this.uploadDefaultRules()
+      // uploadDefaultRules: this.uploadDefaultRules()
     }
   },
   mounted () {
