@@ -8,7 +8,7 @@ npm install nrm -g
 
 nrm add rongzhi http://192.168.0.191:8888/repository/npm-group/
 
-nrm use rangzhi
+nrm use rongzhi
 
 ``` bash
 # install dependencies

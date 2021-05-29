@@ -5,6 +5,7 @@ const config = require('../config')
 const webpack = require("webpack");
 const uglify = require('uglifyjs-webpack-plugin')
 const vueLoaderConfig = require('./vue-loader.conf')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -110,6 +111,20 @@ module.exports = {
     child_process: 'empty'
   },
   plugins: [
-    new uglify()
+    new uglify(),
+    new BundleAnalyzerPlugin(
+      {
+         analyzerMode: 'server',
+         analyzerHost: '127.0.0.1',
+         analyzerPort: 8889,
+         reportFilename: 'report.html',
+         defaultSizes: 'parsed',
+         openAnalyzer: true,
+         generateStatsFile: false,
+         statsFilename: 'stats.json',
+         statsOptions: null,
+         logLevel: 'info'
+           }
+  ),
   ]
 }
