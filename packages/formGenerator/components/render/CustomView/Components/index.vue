@@ -13,31 +13,33 @@ export default {
     },
     pageData: {
       type: Object,
-      default: () => {
+      default: function () {
         return {}
       }
     }
   },
-  data () {
+  data: function () {
     return {
       displayData: ''
     }
   },
-  mounted () {
-    this.$bus.$off('getPageData', (data) => {
-      this.getPageData(data)
+  mounted: function () {
+    var _this = this
+    this.$bus.$off('getPageData', function (data) {
+      _this.getPageData(data)
     })
-    this.$bus.$on('getPageData', (data) => {
-      this.getPageData(data)
+    this.$bus.$on('getPageData', function (data) {
+      _this.getPageData(data)
     })
   },
-  beforeDestroy () {
-    this.$bus.$off('getPageData', (data) => {
-      this.getPageData(data)
+  beforeDestroy: function () {
+    var _this = this
+    this.$bus.$off('getPageData', function (data) {
+      _this.getPageData(data)
     })
   },
   methods: {
-    getPageData (data) {
+    getPageData: function (data) {
       if (Object.keys(this.config).length && this.config.viewField) {
         const paramArr = this.config.viewField.split('.')
         if (data[paramArr[0]]) {

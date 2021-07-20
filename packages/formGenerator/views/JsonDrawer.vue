@@ -1,25 +1,34 @@
 <template>
   <div>
-    <el-drawer v-bind="$attrs" v-on="$listeners" @opened="onOpen" @close="onClose">
-      <div class="action-bar" :style="{'text-align': 'left'}">
-        <span class="bar-btn" @click="refresh">
+    <el-drawer v-bind="$attrs"
+               v-on="$listeners"
+               @opened="onOpen"
+               @close="onClose">
+      <div class="action-bar"
+           :style="{'text-align': 'left'}">
+        <span class="bar-btn"
+              @click="refresh">
           <i class="el-icon-refresh" />
           刷新
         </span>
-        <span ref="copyBtn" class="bar-btn copy-json-btn">
+        <span ref="copyBtn"
+              class="bar-btn copy-json-btn">
           <i class="el-icon-document-copy" />
           复制JSON
         </span>
-        <span class="bar-btn" @click="exportJsonFile">
+        <span class="bar-btn"
+              @click="exportJsonFile">
           <i class="el-icon-download" />
           导出JSON文件
         </span>
-        <span class="bar-btn delete-btn" @click="$emit('update:visible', false)">
+        <span class="bar-btn delete-btn"
+              @click="$emit('update:visible', false)">
           <i class="el-icon-circle-close" />
           关闭
         </span>
       </div>
-      <div id="editorJson" class="json-editor" />
+      <div id="editorJson"
+           class="json-editor" />
     </el-drawer>
   </div>
 </template>
@@ -29,8 +38,8 @@ import { Drawer } from 'element-ui'
 import { beautifierConf } from '../utils/index'
 import ClipboardJS from 'clipboard'
 import { saveAs } from 'file-saver'
-import loadMonaco from '../utils/loadMonaco'
-import loadBeautifier from '../utils/loadBeautifier'
+// import loadMonaco from '../utils/loadMonaco'
+// import loadBeautifier from '../utils/loadBeautifier'
 
 let beautifier
 let monaco
@@ -50,7 +59,7 @@ export default {
   },
   computed: {},
   watch: {},
-  created () {},
+  created () { },
   mounted () {
     window.addEventListener('keydown', this.preventDefaultSave)
     const clipboard = new ClipboardJS('.copy-json-btn', {
@@ -81,13 +90,13 @@ export default {
         beautifier = btf
         this.beautifierJson = beautifier.js(this.jsonStr, beautifierConf.js)
 
-        loadMonaco(val => {
-          monaco = val
-          this.setEditorValue('editorJson', this.beautifierJson)
-        })
+      loadMonaco(val => {
+        monaco = val
+        this.setEditorValue('editorJson', this.beautifierJson)
+      })
       })
     },
-    onClose () {},
+    onClose () { },
     setEditorValue (id, codeStr) {
       if (this.jsonEditor) {
         this.jsonEditor.setValue(codeStr)
@@ -141,7 +150,7 @@ export default {
 }
 @include action-bar;
 
-.json-editor{
+.json-editor {
   height: calc(100vh - 33px);
 }
 </style>

@@ -1,75 +1,65 @@
 <template>
   <div class="el-select-tree"
-    :style="{width: config.style.width || '100%'}">
+       :style="{width: config.style.width || '100%'}">
     <el-popover ref="elPopover"
-      v-model="visible"
-      transition="el-zoom-in-top"
-      popper-class="el-select-tree__popover"
-      trigger="click"
-      placement="bottom-start"
-      :disabled="config.disabled"
-      @after-enter="handleScroll()">
+                v-model="visible"
+                transition="el-zoom-in-top"
+                popper-class="el-select-tree__popover"
+                trigger="click"
+                placement="bottom-start"
+                :disabled="config.disabled"
+                @after-enter="handleScroll()">
 
-      <!-- scrollbar wrap -->
-      <el-scrollbar
-        v-if="config.__slot__.options && config.__slot__.options.length"
-        wrap-class="el-select-dropdown__wrap"
-        view-class="el-select-dropdown__list"
-        ref="scrollbar"
-        :class="{ 'is-empty': config.__slot__.options && config.__slot__.options.length === 0 }"
-      >
+      <el-scrollbar v-if="config.__slot__.options && config.__slot__.options.length"
+                    wrap-class="el-select-dropdown__wrap"
+                    view-class="el-select-dropdown__list"
+                    ref="scrollbar"
+                    :class="{ 'is-empty': config.__slot__.options && config.__slot__.options.length === 0 }">
         <el-tree ref="elTree"
-          class="el-select-tree__list"
-          :data="config.__slot__.options"
-          :default-expand-all="config.defaultExpandAll"
-          :show-checkbox="config.multiple"
-          :expand-on-click-node="config.multiple"
-          :check-strictly="config.checkStrictly"
-          :filter-node-method="filterNode"
-          @node-click="nodeClick"
-          @check-change="checkChange"
-        >
-          <div
-            class="el-select-tree__item"
-            slot-scope="{ data }"
-            :class="[disbaledClassHandle(data), treeItemClass(data)]"
-          >
+                 class="el-select-tree__list"
+                 :data="config.__slot__.options"
+                 :default-expand-all="config.defaultExpandAll"
+                 :show-checkbox="config.multiple"
+                 :expand-on-click-node="config.multiple"
+                 :check-strictly="config.checkStrictly"
+                 :filter-node-method="filterNode"
+                 @node-click="nodeClick"
+                 @check-change="checkChange">
+          <div class="el-select-tree__item"
+               slot-scope="{ data }"
+               :class="[disbaledClassHandle(data), treeItemClass(data)]">
             {{ data.label }}
-            <slot name="treeItemSlot" :scope="data"></slot>
+            <slot name="treeItemSlot"
+                  :scope="data"></slot>
           </div>
         </el-tree>
       </el-scrollbar>
-      <!-- empty text -->
-      <p class="el-select-tree__empty" v-else>
+
+      <p class="el-select-tree__empty"
+         v-else>
         无数据
       </p>
 
-      <el-input
-        v-model="selectedLabel"
-        ref="reference"
-        slot="reference"
-        :readonly="config.readonly"
-        :validate-event="false"
-        :size="size"
-        :style="{width: config.style.width || '100%'}"
-        :class="{
+      <el-input v-model="selectedLabel"
+                ref="reference"
+                slot="reference"
+                :readonly="config.readonly"
+                :validate-event="false"
+                :size="size"
+                :style="{width: config.style.width || '100%'}"
+                :class="{
           'is-active': visible,
           'is-selected': selectedLabel,
           'is-clearable': config.clearable
         }"
-        :disabled="config.disabled"
-        :placeholder="config.placeholder"
-      >
-       <i
-          v-if="config.clearable"
-          @click.stop="clear()"
-          slot="suffix"
-          class="el-input__icon el-input__icon-close el-icon-circle-close"
-        ></i>
-        <i
-          slot="suffix"
-          class="el-input__icon el-input__icon-arrow-down el-icon-arrow-down"
-        ></i>
+                :disabled="config.disabled"
+                :placeholder="config.placeholder">
+        <i v-if="config.clearable"
+           @click.stop="clear()"
+           slot="suffix"
+           class="el-input__icon el-input__icon-close el-icon-circle-close"></i>
+        <i slot="suffix"
+           class="el-input__icon el-input__icon-arrow-down el-icon-arrow-down"></i>
       </el-input>
     </el-popover>
   </div>
@@ -95,29 +85,27 @@ export default {
   props: {
     config: {
       type: Object,
-      default: () => {
+      default: function () {
         return {}
       }
     },
     formModel: {
       type: Object,
-      default: () => {
+      default: function () {
         return {}
       }
     },
     value: String
   },
   watch: {
-    config: {
-      handler (val) {
-        console.log(val, 'config----treeSelect')
-        console.log(this.formModel, 'this.formModel-------this.formModel')
-      },
-      immediate: true,
-      deep: true
-    },
+    // config: {
+    //   handler: function (val) {
+    //   },
+    //   immediate: true,
+    //   deep: true
+    // },
     formModel: {
-      handler (val) {
+      handler: function (val) {
         const _this = this
         if (Object.keys(val).length && val[_this.config.__vModel__]) {
           _this.selectedValue = val[_this.config.__vModel__]
@@ -127,21 +115,21 @@ export default {
       immediate: true,
       deep: true
     },
-    selectedLabel (val) {
+    selectedLabel: function (val) {
       if (this.config.readonly) {
         return false
       }
       this.$refs.elTree.filter(val)
     },
     selectedValue: {
-      handler (val) {
+      handler: function (val) {
         this.formModel[this.config.__vModel__] = val
         this.valueChange(val)
       },
       immediate: true
     }
   },
-  data () {
+  data: function () {
     return {
       visible: false,
       selectedLabel: '',
@@ -155,14 +143,14 @@ export default {
     }
   },
   methods: {
-    handleScroll () {
+    handleScroll: function () {
       this.$refs.scrollbar && this.$refs.scrollbar.handleScroll()
     },
-    filterNode (value, data) {
+    filterNode: function (value, data) {
       if (!value) return true
       return data.label.indexOf(value) !== -1
     },
-    disbaledClassHandle (data) { // 禁用处理适配 Boolean和String 例: disabled: true / disabled: 'true' 代表禁用;反之false为可选
+    disbaledClassHandle: function (data) { // 禁用处理适配 Boolean和String 例: disabled: true / disabled: 'true' 代表禁用;反之false为可选
       let keys = Object.keys(data)
       if (keys.indexOf('disabled') !== -1) {
         let value = data['disabled']
@@ -173,14 +161,14 @@ export default {
       }
       return ''
     },
-    treeItemClass (data) {
+    treeItemClass: function (data) {
       const valueKey = 'value'
       const value = data[valueKey]
       return {
         selected: this.multiple ? false : this.checkSelected(value)
       }
     },
-    checkSelected (value) {
+    checkSelected: function (value) {
       if (this.multiple) {
         // return this.value.includes(value)
         return this.selectedValue.includes(value)
@@ -189,7 +177,7 @@ export default {
         return this.selectedValue === value
       }
     },
-    nodeClick (data, node, component) {
+    nodeClick: function (data, node, component) {
       const childrenKey = 'children'
       const valueKey = 'value'
       const labelKey = 'label'
@@ -206,15 +194,15 @@ export default {
         this.visible = false
       }
     },
-    checkChange () {
+    checkChange: function () {
       this.valueChange(this.$refs.elTree.getCheckedKeys(!this.checkStrictly))
       this.setSelectedLabel()
     },
-    clear () {
+    clear: function () {
       this.visible = false
       if (this.config.multiple) {
         // this.valueChange([])
-        this.$nextTick(() => {
+        this.$nextTick(function () {
           this.$refs.elTree.setCheckedKeys([])
         })
       } else {
@@ -223,7 +211,8 @@ export default {
       }
       this.$emit('tree-select-clear')
     },
-    setSelected () {
+    setSelected: function () {
+      var _this = this
       this.selectedLabel = ''
 
       const propsValue = 'value'
@@ -232,38 +221,37 @@ export default {
       const value = this.selectedValue
       if (String(value).length) {
         if (this.config.multiple) {
-          this.$nextTick(() => {
+          this.$nextTick(function () {
             this.$refs.elTree.setCheckedKeys(value)
             this.setSelectedLabel()
           })
         } else {
           const selectedNode = treeFind(
             JSON.parse(JSON.stringify(this.config.__slot__.options)),
-            (node) => this.checkSelected(node[propsValue]),
+            function (node) { _this.checkSelected(node[propsValue]) },
             this.props
           )
-          console.log(selectedNode, 'selectedNode------------------------selectedNode')
           if (selectedNode) {
             this.selectedLabel = selectedNode[propsLabel]
           }
         }
       }
     },
-    setSelectedLabel () {
+    setSelectedLabel: function () {
       const elTree = this.$refs.elTree
       const selectedNodes = elTree.getCheckedNodes(!this.checkStrictly)
       this.selectedLabel = selectedNodes
-        .map((item) => item[this.propsLabel])
+        .map(function (item) { item[this.propsLabel] })
         .join(',')
     },
-    valueChange (value) {
+    valueChange: function (value) {
       this.$emit('change', value)
       this.dispatch('ElFormItem', 'el.form.change', value)
     }
   },
-  mounted () {
+  mounted: function () {
     this.setSelected()
-    this.$nextTick(() => {
+    this.$nextTick(function () {
       const popper = this.$refs.elPopover.$refs.popper
       let width
       let clientWidth = this.$el.clientWidth
@@ -296,7 +284,7 @@ export default {
   .el-input {
     &:hover:not(.is-disabled) {
       .el-input__inner {
-        border-color: #C0C4CC;
+        border-color: #c0c4cc;
       }
       &.is-selected.is-clearable {
         .el-input__icon {
@@ -314,14 +302,14 @@ export default {
         transform: rotate(-180deg);
       }
       .el-input__inner {
-        border-color: #409EFF;
+        border-color: #409eff;
       }
     }
   }
   &__popover {
     padding: 0 !important;
     // extends el-select-dropdown - start
-    border: 1px solid #DCDFE6 !important;
+    border: 1px solid #dcdfe6 !important;
     border-radius: 4px !important;
     // extends el-select-dropdown - end
     .popper__arrow {
@@ -350,11 +338,11 @@ export default {
     white-space: nowrap;
     padding-right: 20px;
     &.selected {
-      color: #409EFF;
+      color: #409eff;
       font-weight: bolder;
     }
     &.is-disabled {
-      color: #BBBBBB;
+      color: #bbbbbb;
       cursor: not-allowed;
     }
   }

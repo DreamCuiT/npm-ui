@@ -12,7 +12,7 @@ const createLintingRule = () => ({
   test: /\.(js|vue)$/,
   loader: 'eslint-loader',
   enforce: 'pre',
-  include: [resolve('examples'), resolve('test')],
+  include: [resolve('examples'), resolve('test'),resolve('packages')],
   options: {
     formatter: require('eslint-friendly-formatter'),
     emitWarning: !config.dev.showEslintErrorsInOverlay
@@ -36,6 +36,10 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('examples'),
+      main: path.resolve(__dirname, '../src'),
+      packages: path.resolve(__dirname, '../packages'),
+      examples: path.resolve(__dirname, '../examples'),
+      '~': path.resolve('src'),
     }
   },
   module: {
@@ -49,7 +53,29 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('examples'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+        include: [
+          resolve('src'),
+          resolve('examples'),
+          resolve('packages'),
+          resolve('node_modules/bpmn-js'),
+          resolve('node_modules/@babel/parser/lib'),
+          resolve('node_modules/diagram-js/lib'),
+          resolve('node_modules/@bpmn-io/element-templates-validator'),
+          resolve('node_modules/bpmn-js-properties-panel/lib'),
+          resolve('node_modules/element-ui/src'),
+          resolve('node_modules/element-ui/packages'),
+          resolve('node_modules/webpack-dev-server/client')
+        ],
+        options: {
+
+          presets: ["@vue/babel-preset-jsx",["@babel/preset-env",{ "useBuiltIns": "usage","corejs": 3 }]],
+          sourceType: 'unambiguous',
+          plugins: [
+            "@babel/plugin-transform-runtime",
+            "@babel/plugin-syntax-jsx", 
+            "@babel/plugin-syntax-dynamic-import"
+          ]
+        }
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

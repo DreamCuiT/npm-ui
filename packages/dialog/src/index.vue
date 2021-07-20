@@ -1,71 +1,77 @@
 <template>
-  <el-dialog
-    v-dialogDrag
-    ref="dragDialog"
-    class="dragDialog"
-    :title="title"
-    :fullscreen="isfullscreen"
-    :visible="visible"
-    :append-to-body="true"
-    destroy-on-close
-    :close-on-click-modal="false"
-    :show-close="false"
-    :width="width"
-    :class="isminimize ? 'isminimize' : ''"
-    v-bind="dialogConfig"
-    :style="{ '--height': renderDialogHeight + 'px' }"
-  >
-    <div v-show="!isminimize" slot="title" class="medium">
-      <div class="title">
-        <span>{{ title }}</span>
-      </div>
-      <div class="icons">
-        <!-- <i class="el-icon-minus" style="font-size: 24px" @click="minimize"></i> -->
-        <i
-          :class="
+  <transition name="el-fade-in-linear">
+    <el-dialog v-dialogDrag
+               ref="dragDialog"
+               class="dragDialog"
+               :title="title"
+               :fullscreen="isfullscreen"
+               :visible="visible"
+               :append-to-body="true"
+               destroy-on-close
+               :close-on-click-modal="false"
+               :show-close="false"
+               :width="width"
+               :class="isminimize ? 'isminimize' : ''"
+               v-bind="dialogConfig"
+               :style="{ '--height': renderDialogHeight + 'px' }">
+      <div v-show="!isminimize"
+           slot="title"
+           class="medium">
+        <div class="title">
+          <span>{{ title }}</span>
+        </div>
+        <div class="icons">
+          <!-- <i class="el-icon-minus" style="font-size: 24px" @click="minimize"></i> -->
+          <i :class="
             isfullscreen ? 'p8 icon-dialog-exit-fullscreen' : 'p8 icon-dialog-fullscreen'
           "
-          @click="isFullscreen"
-        ></i>
-        <i
-          class="p8 icon-close"
-          style="font-size: 17px!important;"
-          @click="closeDialog"
-        ></i>
+             @click="isFullscreen"></i>
+          <i class="p8 icon-close"
+             style="font-size: 17px!important;"
+             @click="closeDialog"></i>
+        </div>
       </div>
-    </div>
-    <div v-show="isminimize" slot="title" class="horn">
-      <div class="lefts title">
-        <span>{{ title }}</span>
+      <div v-show="isminimize"
+           slot="title"
+           class="horn">
+        <div class="lefts title">
+          <span>{{ title }}</span>
+        </div>
+        <div class="centers">
+          <i class="p8 icon-dialog-fullscreen"
+             @click="minimize"></i>
+        </div>
+        <div class="rights">
+          <i class="el-icon-close"
+             style="font-size: 17px!important;"
+             @click="closeDialog"></i>
+        </div>
       </div>
-      <div class="centers">
-        <i
-          class="p8 icon-dialog-fullscreen"
-          @click="minimize"
-        ></i>
+      <div v-show="!isminimize"
+           class="dialogBody"
+           :class="{hiddenDialogFooter:!showHandleBtn && !isViewCsFooter}">
+        <slot name="dialog"></slot>
       </div>
-      <div class="rights">
-        <i
-          class="el-icon-close"
-          style="font-size: 17px!important;"
-          @click="closeDialog"
-        ></i>
+      <div v-show="!isminimize"
+           v-if="showHandleBtn"
+           class="dialogFooter">
+        <el-button @click="handleCancel">取 消</el-button>
+        <el-button type="primary"
+                   @click="handleOk">确 定</el-button>
       </div>
-    </div>
-    <div v-show="!isminimize" class="dialogBody" :class="{hiddenDialogFooter:!showHandleBtn && !isViewCsFooter}">
-      <slot name="dialog"></slot>
-    </div>
-    <div v-show="!isminimize" v-if="showHandleBtn" class="dialogFooter">
-      <el-button @click="handleCancel">取 消</el-button>
-      <el-button type="primary" @click="handleOk">确 定</el-button>
-    </div>
-    <div v-show="!isminimize" v-if="showHandlePlcomplateBtn" class="dialogFooter">
-      <el-button type="primary" @click="saveInfo">保 存</el-button>
-    </div>
-    <div v-show="!isminimize" v-if="!showHandleBtn && isViewCsFooter" class="dialogFooter">
-      <slot name="cs-footer"></slot>
-    </div>
-  </el-dialog>
+      <div v-show="!isminimize"
+           v-if="showHandlePlcomplateBtn"
+           class="dialogFooter">
+        <el-button type="primary"
+                   @click="saveInfo">保 存</el-button>
+      </div>
+      <div v-show="!isminimize"
+           v-if="!showHandleBtn && isViewCsFooter"
+           class="dialogFooter">
+        <slot name="cs-footer"></slot>
+      </div>
+    </el-dialog>
+  </transition>
 </template>
 <script>
 import { Dialog, Button } from 'element-ui'
@@ -84,6 +90,12 @@ export default {
       isminimize: false // 最小化
     }
   },
+  mounted () {
+    this.$nextTick(function () {
+      let isBody = (this.$refs.dragDialog.$el.firstElementChild.lastElementChild.className.indexOf('el-dialog__header') === -1)
+      isBody && (this.$refs.dragDialog.$el.firstElementChild.lastElementChild.style.height = this.dialogHeight > this.dialogMaxHeight ? this.dialogMaxHeight + 'px' : this.dialogHeight + 'px')
+    })
+  },
   props: {
     width: {
       type: String,
@@ -97,7 +109,7 @@ export default {
       type: Boolean,
       default: true
     },
-    showHandlePlcomplateBtn:{//是否显示只有保存按钮
+    showHandlePlcomplateBtn: {//是否显示只有保存按钮
       type: Boolean,
       default: false
     },
@@ -123,12 +135,25 @@ export default {
   watch: {
     visible (val) {
       if (val) {
-        // console.log(val, '-------------我的显示值')
         const el = this.$refs.dragDialog.$el.querySelector('.el-dialog')
         el.style.left = 0
         el.style.top = 0
       }
-    }
+      this.$nextTick(function () {
+        let isBody = (this.$refs.dragDialog.$el.firstElementChild.lastElementChild.className.indexOf('el-dialog__header') === -1)
+        if (this.isfullscreen) {
+          isBody && (this.$refs.dragDialog.$el.firstElementChild.lastElementChild.style = '')
+        } else {
+          isBody && (this.$refs.dragDialog.$el.firstElementChild.lastElementChild.style.height = this.dialogHeight > this.dialogMaxHeight ? this.dialogMaxHeight + 'px' : this.dialogHeight + 'px')
+        }
+      })
+    },
+    dialogHeight (val) {
+      this.$nextTick(function () {
+        let isBody = (this.$refs.dragDialog.$el.firstElementChild.lastElementChild.className.indexOf('el-dialog__header') === -1)
+        isBody && (this.$refs.dragDialog.$el.firstElementChild.lastElementChild.style.height = val > this.dialogMaxHeight ? this.dialogMaxHeight + 'px' : val + 'px')
+      })
+    },
   },
   computed: {
     renderDialogHeight () {
@@ -158,6 +183,12 @@ export default {
     isFullscreen () {
       this.isfullscreen = !this.isfullscreen
       this.$emit('isfullscreen', this.isfullscreen)
+      let isBody = (this.$refs.dragDialog.$el.firstElementChild.lastElementChild.className.indexOf('el-dialog__header') === -1)
+      if (this.isfullscreen) {
+        isBody && (this.$refs.dragDialog.$el.firstElementChild.lastElementChild.style.height = '')
+      } else {
+        isBody && (this.$refs.dragDialog.$el.firstElementChild.lastElementChild.style.height = this.dialogHeight > this.dialogMaxHeight ? this.dialogMaxHeight + 'px' : this.dialogHeight + 'px')
+      }
     }
   },
   directives: {

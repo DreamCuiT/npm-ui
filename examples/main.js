@@ -5,20 +5,21 @@ import Vuex from 'vuex'
 import App from './App'
 import router from './router'
 import store from './store/store'
-import sysConfig from './sysConfig'
-
 
 import 'element-ui/lib/theme-chalk/index.css';
 import '../dist/theme-chalk/lib/index.css'
+Vue.prototype.$bus = new Vue() 
 // import './p8-variables.scss'
-import p8 from '../dist/index'
-import inject from '../dist/inject'
-import api from '../dist/api'
-import APIOBJ from './api'
+// 测试打包
+// import p8 from '../dist/index'
+// import api from '../dist/api'
+// 测试开发
+import p8 from '../src/index'
+// import api from '../src/plugins/api'
 
-Vue.use(api, {...sysConfig,...{APIOBJ}})
+// import sysConfig from './sysConfig'
+// Vue.use(api, sysConfig)
 Vue.use(p8)
-Vue.use(inject)
 Vue.use(Vuex)
 Vue.config.productionTip = false
 new Vue({

@@ -19,18 +19,18 @@ import _isEmpty from 'lodash/isEmpty'
 import axios from 'axios'
 
 // 为对象创建代理，该代理可以拦截和重新定义该对象的基本操作
-function apiProxy (obj) {
-  const handler = {
-    get: function (obj, prop) {
-      if (!obj[prop]) {
-        throw new Error(`'${prop}'接口未定义或拼写错误！`)
-      }
-      return obj[prop]
-    }
-  }
-  const p = new Proxy(obj, handler)
-  return p
-}
+// function apiProxy (obj) {
+//   const handler = {
+//     get: function (obj, prop) {
+//       if (!obj[prop]) {
+//         throw new Error(`'${prop}'接口未定义或拼写错误！`)
+//       }
+//       return obj[prop]
+//     }
+//   }
+//   const p = new Proxy(obj, handler)
+//   return p
+// }
 
 const install = function (Vue, opts = {}) {
     store.commit('SET_SYSCONFIG', opts)
@@ -79,7 +79,8 @@ const install = function (Vue, opts = {}) {
         })
       }
     }
-    Vue.prototype.$api = apiProxy(new ApiCounstructor({ apis: opts.APIOBJ, ...opts.API_DEFAULT_CONFIG })['api'])
+    // Vue.prototype.$api = apiProxy(new ApiCounstructor({ apis: opts.APIOBJ, ...opts.API_DEFAULT_CONFIG })['api'])
+    Vue.prototype.$api = new ApiCounstructor({ apis: opts.APIOBJ, ...opts.API_DEFAULT_CONFIG })['api']
     Vue.prototype.$sysConfig = opts
 }
 

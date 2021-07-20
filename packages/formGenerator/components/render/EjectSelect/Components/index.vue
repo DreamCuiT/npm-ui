@@ -1,24 +1,21 @@
 <template>
   <div>
     <el-input v-model="formName">
-      <el-button
-        slot="append"
-        icon="el-icon-link"
-        @click="showDialog"
-      ></el-button>
+      <el-button slot="append"
+                 icon="el-icon-link"
+                 @click="showDialog"></el-button>
     </el-input>
-    <el-input v-show="false" v-model="formId"></el-input>
-    <common-dialog
-      title="弹出选择"
-      :visible="visible"
-      :dialogConfig="dialogConfig"
-      width="50%"
-      :dialogHeight="360"
-      @handle-cancel="visible = false"
-      @handle-ok="fillBack"
-      @close="visible = false"
-    >
-      <!-- <template #dialog> -->
+    <el-input v-show="false"
+              v-model="formId"></el-input>
+    <common-dialog title="弹出选择"
+                   :visible="visible"
+                   :dialogConfig="dialogConfig"
+                   width="50%"
+                   :dialogHeight="360"
+                   @handle-cancel="visible = false"
+                   @handle-ok="fillBack"
+                   @close="visible = false">
+      <template #dialog>
         <!-- <custom-table
           :code="code"
           :customHeight="350"
@@ -26,13 +23,13 @@
           :headerVisible="false"
           @selection-change="selectChange"
         ></custom-table> -->
-      <!-- </template> -->
+      </template>
     </common-dialog>
   </div>
 </template>
 <script>
 import { Input } from 'element-ui'
-import  Dialog  from 'packages/dialog/src'
+import Dialog from 'packages/dialog/src'
 // import CustomTable from '@/views/Framework/ComponentsMananger/Grid/Components/tableRender'
 export default {
   name: 'EjectSelect',
@@ -48,7 +45,7 @@ export default {
     },
     formModel: {
       type: Object,
-      default: () => {
+      default: function () {
         return {}
       }
     },
@@ -58,7 +55,7 @@ export default {
     props: 'value',
     event: 'change'
   },
-  data () {
+  data: function () {
     return {
       formName: '', // 回填name
       formId: this.value, // 回填id
@@ -70,12 +67,12 @@ export default {
       code: '' // 报表编码
     }
   },
-  mounted () {
+  mounted: function () {
     this.code = this.config.__config__.reportCode
   },
   watch: {
     formModel: {
-      handler (val) {
+      handler: function (val) {
         const _this = this
         if (Object.keys(val).length && val[_this.config.__vModel__]) {
           _this.formId = val[_this.config.__vModel__]
@@ -86,24 +83,25 @@ export default {
       deep: true
     },
     formId: {
-      handler (val) {
+      handler: function (val) {
         this.$emit('change', val)
       },
       immediate: true
     }
   },
   methods: {
-    selectedValue (val) {
+    selectedValue: function (val) {
       this.formModel[this.config.__vModel__] = val
       let _this = this
       let param = {
         id: this.config.__config__.selectComp,
         param: {},
         sqlParam: {},
-        reportParam: {
-          [this.config.__config__.backfillParam.value]: val
-        }
+        // reportParam: {
+        //   [this.config.__config__.backfillParam.value]: val
+        // }
       }
+      param.reportParam[this.config.__config__.backfillParam.value] = val
       this.$api['formGenerator.getSelectionData'](param).then(function (res) {
         if (res.data && res.data.length) {
           _this.$emit('data', res.data[0])
@@ -111,10 +109,10 @@ export default {
         }
       })
     },
-    showDialog () {
+    showDialog: function () {
       this.visible = true
     },
-    fillBack () {
+    fillBack: function () {
       this.visible = false
       if (this.fillBackData.length) {
         this.formName = this.fillBackData[0][this.config.__config__.backfillParam.label]
@@ -122,7 +120,7 @@ export default {
         this.selectedValue(this.formId)
       }
     },
-    selectChange (val) {
+    selectChange: function (val) {
       this.fillBackData = val
       this.$emit('data', val[0])
     }

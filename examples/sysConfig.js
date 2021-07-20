@@ -1,3 +1,5 @@
+import APIOBJ from './api'
+
 const API_DEFAULT_CONFIG  = {
   devBaseUrl: 'http://192.168.0.18:9090',
   prodBaseUrl: 'http://192.168.0.96:9090',
@@ -15,7 +17,9 @@ const GLOBAL_CONST = {
 }
 
 export default {
+  APIOBJ,
   API_DEFAULT_CONFIG,
   AXIOS_DEFAULT_CONFIG,
-  GLOBAL_CONST
+  GLOBAL_CONST,
+  APIOBJ
 }

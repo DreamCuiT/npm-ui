@@ -1,47 +1,35 @@
 <template>
   <div>
-    <el-dialog
-      v-bind="$attrs"
-      title="外部资源引用"
-      width="600px"
-      :close-on-click-modal="false"
-      v-on="$listeners"
-      @open="onOpen"
-      @close="onClose"
-    >
-      <el-input
-        v-for="(item, index) in resources"
-        :key="index"
-        v-model="resources[index]"
-        class="url-item"
-        placeholder="请输入 css 或 js 资源路径"
-        prefix-icon="el-icon-link"
-        clearable
-      >
-        <el-button
-          slot="append"
-          icon="el-icon-delete"
-          @click="deleteOne(index)"
-        />
+    <el-dialog v-bind="$attrs"
+               title="外部资源引用"
+               width="600px"
+               :close-on-click-modal="false"
+               v-on="$listeners"
+               @open="onOpen"
+               @close="onClose">
+      <el-input v-for="(item, index) in resources"
+                :key="index"
+                v-model="resources[index]"
+                class="url-item"
+                placeholder="请输入 css 或 js 资源路径"
+                prefix-icon="el-icon-link"
+                clearable>
+        <el-button slot="append"
+                   icon="el-icon-delete"
+                   @click="deleteOne(index)" />
       </el-input>
       <el-button-group class="add-item">
-        <el-button
-          plain
-          @click="addOne('https://lib.baomitu.com/jquery/1.8.3/jquery.min.js')"
-        >
+        <el-button plain
+                   @click="addOne('https://lib.baomitu.com/jquery/1.8.3/jquery.min.js')">
           jQuery1.8.3
         </el-button>
-        <el-button
-          plain
-          @click="addOne('https://unpkg.com/http-vue-loader')"
-        >
+        <el-button plain
+                   @click="addOne('https://unpkg.com/http-vue-loader')">
           http-vue-loader
         </el-button>
-        <el-button
-          icon="el-icon-circle-plus-outline"
-          plain
-          @click="addOne('')"
-        >
+        <el-button icon="el-icon-circle-plus-outline"
+                   plain
+                   @click="addOne('')">
           添加其他
         </el-button>
       </el-button-group>
@@ -49,10 +37,8 @@
         <el-button @click="close">
           取消
         </el-button>
-        <el-button
-          type="primary"
-          @click="handelConfirm"
-        >
+        <el-button type="primary"
+                   @click="handelConfirm">
           确定
         </el-button>
       </div>
@@ -61,7 +47,7 @@
 </template>
 <script>
 import { Dialog, Input, Button, ButtonGroup } from 'element-ui'
-import { deepClone } from '../utils/index'
+import { deepClone } from '~/utils/common'
 
 export default {
   components: {
@@ -79,8 +65,8 @@ export default {
   },
   computed: {},
   watch: {},
-  created () {},
-  mounted () {},
+  created () { },
+  mounted () { },
   methods: {
     onOpen () {
       this.resources = this.originResource.length ? deepClone(this.originResource) : ['']
@@ -113,10 +99,10 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-.add-item{
+.add-item {
   margin-top: 8px;
 }
-.url-item{
+.url-item {
   margin-bottom: 12px;
 }
 </style>

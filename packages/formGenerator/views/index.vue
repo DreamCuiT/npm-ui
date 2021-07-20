@@ -12,26 +12,23 @@
       </div>
       <el-scrollbar class="left-scrollbar">
         <div class="components-list">
-          <div v-for="(item, listIndex) in leftComponents" :key="listIndex">
+          <div v-for="(item, listIndex) in leftComponents"
+               :key="listIndex">
             <div class="components-title">
               <!-- <svg-icon icon-class="component" /> -->
               {{ item.title }}
             </div>
-            <draggable
-              class="components-draggable"
-              :list="item.list"
-              :group="{ name: 'componentsGroup', pull: 'clone', put: false }"
-              :clone="cloneComponent"
-              draggable=".components-item"
-              :sort="false"
-              @end="onEnd"
-            >
-              <div
-                v-for="(element, index) in item.list"
-                :key="index"
-                class="components-item"
-                @click="addComponent(element)"
-              >
+            <draggable class="components-draggable"
+                       :list="item.list"
+                       :group="{ name: 'componentsGroup', pull: 'clone', put: false }"
+                       :clone="cloneComponent"
+                       draggable=".components-item"
+                       :sort="false"
+                       @end="onEnd">
+              <div v-for="(element, index) in item.list"
+                   :key="index"
+                   class="components-item"
+                   @click="addComponent(element)">
                 <div class="components-body">
                   <!-- <svg-icon :icon-class="element.__config__.tagIcon" /> -->
                   {{ element.__config__.label }}
@@ -45,7 +42,9 @@
 
     <div class="center-board">
       <div class="action-bar">
-        <el-button icon="el-icon-s-ticket" type="text" @click="save">
+        <el-button icon="el-icon-s-ticket"
+                   type="text"
+                   @click="save">
           保存
         </el-button>
         <!-- <el-button icon="el-icon-video-play" type="text" @click="run">
@@ -65,28 +64,29 @@
         </el-button> -->
       </div>
       <el-scrollbar class="center-scrollbar">
-        <el-row class="center-board-row" :gutter="formConf.gutter">
-          <el-form
-            :size="formConf.size"
-            :label-position="formConf.labelPosition"
-            :disabled="formConf.disabled"
-            :label-width="formConf.labelWidth + 'px'"
-          >
-            <draggable class="drawing-board" :list="drawingList" :animation="340" group="componentsGroup">
-              <draggable-item
-                v-for="(item, index) in drawingList"
-                :key="item.renderKey"
-                :drawing-list="drawingList"
-                :current-item="item"
-                :index="index"
-                :active-id="activeId"
-                :form-conf="formConf"
-                @activeItem="activeFormItem"
-                @copyItem="drawingItemCopy"
-                @deleteItem="drawingItemDelete"
-              />
+        <el-row class="center-board-row"
+                :gutter="formConf.gutter">
+          <el-form :size="formConf.size"
+                   :label-position="formConf.labelPosition"
+                   :disabled="formConf.disabled"
+                   :label-width="formConf.labelWidth + 'px'">
+            <draggable class="drawing-board"
+                       :list="drawingList"
+                       :animation="340"
+                       group="componentsGroup">
+              <draggable-item v-for="(item, index) in drawingList"
+                              :key="item.renderKey"
+                              :drawing-list="drawingList"
+                              :current-item="item"
+                              :index="index"
+                              :active-id="activeId"
+                              :form-conf="formConf"
+                              @activeItem="activeFormItem"
+                              @copyItem="drawingItemCopy"
+                              @deleteItem="drawingItemDelete" />
             </draggable>
-            <div v-show="!drawingList.length" class="empty-info">
+            <div v-show="!drawingList.length"
+                 class="empty-info">
               从左侧拖入或点选组件进行表单设计
             </div>
           </el-form>
@@ -94,33 +94,26 @@
       </el-scrollbar>
     </div>
 
-    <right-panel
-      :active-data="activeData"
-      :form-conf="formConf"
-      :show-field="!!drawingList.length"
-      :drawing-list="drawingList"
-      @tag-change="tagChange"
-    />
+    <right-panel :active-data="activeData"
+                 :form-conf="formConf"
+                 :show-field="!!drawingList.length"
+                 :drawing-list="drawingList"
+                 @tag-change="tagChange" />
 
-    <form-drawer
-      :visible.sync="drawerVisible"
-      :form-data="formData"
-      size="100%"
-      :generate-conf="generateConf"
-    />
-    <json-drawer
-      size="60%"
-      :visible.sync="jsonDrawerVisible"
-      :json-str="JSON.stringify(formData)"
-      @refresh="refreshJson"
-    />
-    <code-type-dialog
-      :visible.sync="dialogVisible"
-      title="选择生成类型"
-      :show-file-name="showFileName"
-      @confirm="generate"
-    />
-    <input id="copyNode" type="hidden">
+    <form-drawer :visible.sync="drawerVisible"
+                 :form-data="formData"
+                 size="100%"
+                 :generate-conf="generateConf" />
+    <json-drawer size="60%"
+                 :visible.sync="jsonDrawerVisible"
+                 :json-str="JSON.stringify(formData)"
+                 @refresh="refreshJson" />
+    <code-type-dialog :visible.sync="dialogVisible"
+                      title="选择生成类型"
+                      :show-file-name="showFileName"
+                      @confirm="generate" />
+    <input id="copyNode"
+           type="hidden">
   </div>
 </template>
 
@@ -139,7 +132,8 @@ import {
 // import {
 //   inputComponents, selectComponents, layoutComponents, formConf
 // } from '../components/generator/config'
-import { beautifierConf, titleCase, deepClone } from '../utils/index'
+import { beautifierConf, titleCase } from '../utils/index'
+import { deepClone } from '~/utils/common'
 import {
   makeUpHtml, vueTemplate, vueScript, cssStyle
 } from '../components/generator/html'
@@ -150,7 +144,7 @@ import logo from '../assets/logo.png'
 import CodeTypeDialog from './CodeTypeDialog'
 import DraggableItem from './DraggableItem'
 import {
-   saveDrawingList, getIdGlobal, saveIdGlobal
+  saveDrawingList, getIdGlobal, saveIdGlobal
 } from '../utils/db'
 import loadBeautifier from '../utils/loadBeautifier'
 
@@ -178,7 +172,7 @@ export default {
   props: {
     record: {
       type: Object,
-      default: () => {}
+      default: () => { }
     }
   },
   data () {
@@ -356,7 +350,7 @@ export default {
         config.componentName = `主从表${this.idGlobal}`
         !Array.isArray(config.children) && (config.children = [])
         delete config.label // masterSlaveTable无需配置label属性
-      }else if (config.layout === 'formGenerateContainer') {
+      } else if (config.layout === 'formGenerateContainer') {
         config.componentName = `表单容器${this.idGlobal}`
         item.__vModel__ = null
         !Array.isArray(config.children) && (config.children = [])

@@ -1,45 +1,45 @@
 <template>
   <div class="normal-nlcr-layout">
-    <div class="normal-nlcr-header" v-show="headerVisible">
+    <div class="normal-nlcr-header"
+         v-show="headerVisible">
       <slot name="north"></slot>
     </div>
-    <div class="normal-nlcr-main" :class="headerVisible?'':'fullHeight'">
+    <div class="normal-nlcr-main"
+         :class="headerVisible?'':'fullHeight'">
       <el-row>
-        <el-col
-          :xs="layout.left.xs"
-          :sm="layout.left.sm"
-          :md="layout.left.md"
-          :lg="layout.left.lg"
-          :xl="layout.left.xl"
-        >
+        <el-col :xs="layout.left.xs"
+                :sm="layout.left.sm"
+                :md="layout.left.md"
+                :lg="layout.left.lg"
+                :xl="layout.left.xl">
           <div class="normal-nlcr-left">
-            <VuePerfectScrollbar class="scroll-area" v-if="leftUsePerfectScrollbar">
+            <VuePerfectScrollbar class="scroll-area"
+                                 v-if="leftUsePerfectScrollbar">
               <slot name="left"></slot>
             </VuePerfectScrollbar>
-            <slot v-else name="left"></slot>
+            <slot v-else
+                  name="left"></slot>
           </div>
         </el-col>
-        <el-col
-          :xs="layout.center.xs"
-          :sm="layout.center.sm"
-          :md="layout.center.md"
-          :lg="layout.center.lg"
-          :xl="layout.center.xl"
-        >
-          <div class="splitBtn" @click="splitClick">
-            <i class="p8" :class="{ 'icon-left': expandWest, 'icon-right': !expandWest}"></i>
+        <el-col :xs="layout.center.xs"
+                :sm="layout.center.sm"
+                :md="layout.center.md"
+                :lg="layout.center.lg"
+                :xl="layout.center.xl">
+          <div class="splitBtn"
+               @click="splitClick">
+            <i class="p8"
+               :class="{ 'icon-left': expandWest, 'icon-right': !expandWest}"></i>
           </div>
           <div class="normal-nlcr-center">
             <slot name="center"></slot>
           </div>
         </el-col>
-        <el-col
-          :xs="layout.right.xs"
-          :sm="layout.right.sm"
-          :md="layout.right.md"
-          :lg="layout.right.lg"
-          :xl="layout.right.xl"
-        >
+        <el-col :xs="layout.right.xs"
+                :sm="layout.right.sm"
+                :md="layout.right.md"
+                :lg="layout.right.lg"
+                :xl="layout.right.xl">
           <div class="normal-nlcr-right">
             <slot name="right"></slot>
           </div>
@@ -52,7 +52,7 @@
 <script>
 import { Row, Col } from 'element-ui'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
-import { deepClone } from 'packages/formGenerator/utils'
+import { deepClone } from '~/utils/common'
 
 export default {
   name: 'P8NlcrLayout',

@@ -6,6 +6,8 @@ const webpack = require("webpack");
 const uglify = require('uglifyjs-webpack-plugin')
 const vueLoaderConfig = require('./vue-loader.conf')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -16,9 +18,9 @@ function resolve (dir) {
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    index: './src/index.js',
-    inject: './src/plugins/inject.js',
-    api: './src/plugins/api.js'
+    index: ['./src/index.js'],
+    inject: ['./src/plugins/inject.js'],
+    api: ['./src/plugins/api.js']
   },
   output: {
     path: config.build.assetsRoot,
@@ -31,8 +33,11 @@ module.exports = {
     umdNamedDefine: true,
   },
   externals: {
-    vue: "vue",
-    axios: "axios"
+    "vue": "vue",
+    "axios": "axios",
+    "element-ui": "element-ui",
+    "moment": "moment",
+    "monaco-editor": "monaco-editor"
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -56,9 +61,22 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
+        include: [
+          resolve('src'),
+          resolve('examples'),
+          resolve('packages'),
+          resolve('node_modules/bpmn-js'),
+          resolve('node_modules/@babel/parser/lib'),
+          resolve('node_modules/diagram-js/lib'),
+          resolve('node_modules/@bpmn-io/element-templates-validator'),
+          resolve('node_modules/bpmn-js-properties-panel/lib'),
+          resolve('node_modules/element-ui/src'),
+          resolve('node_modules/element-ui/packages'),
+          resolve('node_modules/webpack-dev-server/client')
+        ],
         options: {
-          presets: ["@vue/babel-preset-jsx","@babel/preset-env"],
+          presets: ["@vue/babel-preset-jsx",["@babel/preset-env",{ "useBuiltIns": "usage","corejs": 3 }]],
+          sourceType: 'unambiguous',
           plugins: [
             "@babel/plugin-transform-runtime",
             "@babel/plugin-syntax-jsx", 
@@ -112,6 +130,13 @@ module.exports = {
   },
   plugins: [
     new uglify(),
+    new CompressionWebpackPlugin(),
+    new MonacoWebpackPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
     new BundleAnalyzerPlugin(
       {
          analyzerMode: 'server',

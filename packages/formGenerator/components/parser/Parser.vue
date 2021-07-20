@@ -1,7 +1,8 @@
 <script>
 import Vue from 'vue'
 import ElementUI from 'element-ui'
-import { deepClone } from '../../utils/index'
+import { deepClone } from '~/utils/common'
+import { IEVersion } from '~/utils/common'
 import render from '../../components/render/render.js'
 import MasterSlaveTable from '../../components/render/MasterSlaveTable'
 import FormContainer from '../../components/render/FormContainer'
@@ -10,6 +11,9 @@ import EjectSelect from '../../components/render/EjectSelect'
 import TreeSelect from '../../components/render/TreeSelect'
 import CustomView from '../../components/render/CustomView'
 Vue.use(ElementUI, { size: 'small' })
+if (IEVersion() === 11) {
+  import('../../styles/ie.scss')
+}
 
 const ruleTrigger = {
   'el-input': 'blur',
@@ -72,8 +76,8 @@ const layouts = {
       <el-col span={scheme.span}>
         <el-row gutter={scheme.gutter}>
           <form-container config={scheme}
-                          formModel={this[formConf.formModel]}
-                          formRules={this[formConf.formRules]}></form-container>
+            formModel={this[formConf.formModel]}
+            formRules={this[formConf.formRules]}></form-container>
         </el-row>
       </el-col>
     )
@@ -227,7 +231,6 @@ export default {
     },
     formConfCopy: {
       handler (val) {
-        // console.log(this[this.formConf.formModel], 'formModel--watch', val)
         // this.initFormData(val.fields, this[this.formConf.formModel])
         // this.pageData = { ...this.pageData, ...this[this.formConf.formModel] }
         // 计算器功能，目前只支持加法运算
@@ -389,7 +392,7 @@ export default {
           removeChildKey.push(item.__config__.childrenTable)
         }
       })
-        // 表单容器提交数据处理，容器内的值放入一个对象转成字符串存入容器关联的字段
+      // 表单容器提交数据处理，容器内的值放入一个对象转成字符串存入容器关联的字段
       this.formConfCopy.fields.map(item => {
         if (item.__config__.layout === 'formGenerateContainer') {
           let contacts = {}
@@ -454,16 +457,16 @@ export default {
 </script>
 <style lang="scss">
 .formContainer {
-  margin:0!important;
+  margin: 0 !important;
 }
-.smartForm{
-  height:100%;
+.smartForm {
+  height: 100%;
 }
-.formElement{
-  height:calc(100% - 50px);
-  overflow-y:auto;
-  padding:10px;
-  box-sizing:border-box;
+.formElement {
+  height: calc(100% - 50px);
+  overflow-y: auto;
+  padding: 10px;
+  box-sizing: border-box;
 }
 .p8-upload {
   .el-upload {
@@ -484,7 +487,7 @@ export default {
     }
   }
 }
-.masterSlaveTableHeight{
-  height:400px;
+.masterSlaveTableHeight {
+  height: 400px;
 }
 </style>

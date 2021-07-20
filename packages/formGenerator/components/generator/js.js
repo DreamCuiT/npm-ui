@@ -1,4 +1,5 @@
-import { exportDefault, titleCase, deepClone } from '../../utils/index'
+import { exportDefault, titleCase } from '../../utils/index'
+import { deepClone } from '~/utils/common'
 import ruleTrigger from './ruleTrigger'
 
 const units = {

@@ -1,12 +1,17 @@
 <template>
   <list-layout>
     <template #north>
-      <el-button type="primary" @click="save">保存</el-button>
+      <el-button type="primary"
+                 @click="save">保存</el-button>
     </template>
     <template #center>
       <div class="bpmn-edit-con">
-        <div id="bpmn-edit-canvas" class="bpmn-edit-canvas" ref="bpmn-edit-canvas"></div>
-        <div ref="propertiesPanel" class="properties-panel-parent" id="properties-panel"></div>
+        <div id="bpmn-edit-canvas"
+             class="bpmn-edit-canvas"
+             ref="bpmn-edit-canvas"></div>
+        <div ref="propertiesPanel"
+             class="properties-panel-parent"
+             id="properties-panel"></div>
       </div>
     </template>
   </list-layout>
@@ -16,10 +21,11 @@ import ListLayout from 'packages/listLayout'
 import { Button } from 'element-ui'
 import BpmnModeler from 'bpmn-js/lib/Modeler'
 import propertiesPanelModule from 'bpmn-js-properties-panel'
-import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda'
+// import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda'
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda'
 import customTranslate from '../components/customTranslate/customTranslate'
 import { defaultXML } from '../components/defaultXML'
+
 export default {
   name: 'P8Bpm',
   componentName: 'P8Bpm',
@@ -81,7 +87,7 @@ export default {
         },
         additionalModules: [
           // 右边的属性栏
-          propertiesProviderModule,
+          // propertiesProviderModule,
           propertiesPanelModule,
           // 汉化模块
           customTranslateMolude
@@ -92,14 +98,24 @@ export default {
       })
       this.getInfo()
     },
-    createNewDiagram (xml) {
-      this.bpmnModeler.importXML(xml, (err) => {
-        if (err) {
+    async createNewDiagram (xml) {
+      // this.bpmnModeler.importXML(xml, (err) => {
+      //   if (err) {
 
-        } else {
-          this.success()
-        }
-      })
+      //   } else {
+      //     this.success()
+      //   }
+      // })
+      // const modeler = new BpmnJS();
+
+      try {
+        const result = await this.bpmnModeler.importXML(xml);
+        const { warnings } = result;
+        console.log(warnings);
+      } catch (err) {
+        this.success()
+        console.log(err.message, err.warnings);
+      }
     },
     success () {
       this.addBpmnListener()
@@ -150,49 +166,49 @@ export default {
 }
 </script>
 <style lang="scss">
-  // 左边工具栏以及编辑节点的样式
-  @import '~bpmn-js/dist/assets/diagram-js.css';
-  @import '~bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
-  @import '~bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css';
-  @import '~bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
-  // 右边工具栏样式
-  @import '~bpmn-js-properties-panel/dist/assets/bpmn-js-properties-panel.css';
-  .bpmn-edit-con {
-    background-color: #ffffff;
-    width: 100%;
-    height: 100%;
-    .bpmn-edit-canvas{
-      float: left;
-      width: 85%;
-      height: 90%;
-    }
-    .properties-panel-parent {
-      box-sizing: border-box;
-      float: left;
-      width:15%;
-      height: 90%;
-      border:1px solid #000;
-      overflow-y: auto;
+// 左边工具栏以及编辑节点的样式
+@import '~bpmn-js/dist/assets/diagram-js.css';
+@import '~bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
+@import '~bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css';
+@import '~bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
+// 右边工具栏样式
+@import '~bpmn-js-properties-panel/dist/assets/bpmn-js-properties-panel.css';
+.bpmn-edit-con {
+  background-color: #ffffff;
+  width: 100%;
+  height: 100%;
+  .bpmn-edit-canvas {
+    float: left;
+    width: 85%;
+    height: 90%;
+  }
+  .properties-panel-parent {
+    box-sizing: border-box;
+    float: left;
+    width: 15%;
+    height: 90%;
+    border: 1px solid #000;
+    overflow-y: auto;
+  }
+}
+* {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: hsla(220, 4%, 58%, 0.3);
+    transition: background-color 0.3s;
+
+    &:hover {
+      background: #bbb;
     }
   }
-  * {
-    &::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
 
-    &::-webkit-scrollbar-thumb {
-      border-radius: 8px;
-      background-color: hsla(220, 4%, 58%, 0.3);
-      transition: background-color 0.3s;
-
-      &:hover {
-        background: #bbb;
-      }
-    }
-
-    &::-webkit-scrollbar-track {
-      background: #ededed;
-    }
+  &::-webkit-scrollbar-track {
+    background: #ededed;
   }
+}
 </style>
