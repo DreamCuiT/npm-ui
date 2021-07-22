@@ -33,9 +33,9 @@ module.exports = {
       main: path.resolve(__dirname, '../src'),
       packages: path.resolve(__dirname, '../packages'),
       examples: path.resolve(__dirname, '../examples'),
-      'p8-ui': path.resolve(__dirname, '../'),
-      vue$: "vue/dist/vue.esm.js",
-      "@": resolve("src")
+      // 'p8-ui': path.resolve(__dirname, '../'),
+      // vue$: "vue/dist/vue.esm.js",
+      // "@": resolve("src")
 
     }
   },

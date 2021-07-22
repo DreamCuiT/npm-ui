@@ -1,8 +1,11 @@
 <template>
   <div class="right-board">
-    <el-tabs v-model="currentTab" class="center-tabs">
-      <el-tab-pane label="组件属性" name="field" />
-      <el-tab-pane label="表单属性" name="form" />
+    <el-tabs v-model="currentTab"
+             class="center-tabs">
+      <el-tab-pane label="组件属性"
+                   name="field" />
+      <el-tab-pane label="表单属性"
+                   name="form" />
     </el-tabs>
     <div class="field-box">
       <!-- <a class="document-link" target="_blank" :href="documentLink" title="查看组件文档">
@@ -10,7 +13,9 @@
       </a> -->
       <el-scrollbar class="right-scrollbar">
         <!-- 组件属性 -->
-        <el-form v-show="currentTab==='field' && showField" size="small" label-width="90px">
+        <el-form v-show="currentTab==='field' && showField"
+                 size="small"
+                 label-width="90px">
           <!-- <el-form-item v-if="activeData.__config__.changeTag" label="组件类型">
             <el-select
               v-model="activeData.__config__.tagIcon"
@@ -25,321 +30,342 @@
                   :label="item.__config__.label"
                   :value="item.__config__.tagIcon"
                 > -->
-                  <!-- <svg-icon class="node-icon" :icon-class="item.__config__.tagIcon" /> -->
-                  <!-- <span>{{ item.__config__.label }}</span>
+          <!-- <svg-icon class="node-icon" :icon-class="item.__config__.tagIcon" /> -->
+          <!-- <span>{{ item.__config__.label }}</span>
                 </el-option>
               </el-option-group>
             </el-select>
           </el-form-item> -->
-          <el-form-item v-if="activeData.__vModel__!==undefined" :label="activeData.__config__.selectChildTable?'子表字段':'数据源字段'">
-            <el-select
-              v-model="activeData.__vModel__"
-              :placeholder="activeData.__config__.selectChildTable?'请选择子表字段':'请选择数据源字段'"
-              :style="{width: '100%'}"
-              @change="formFieldsChange"
-              clearable
-            >
-              <el-option
-                v-for="item in activeData.__config__.selectChildTable?childrenFieldsOption:formFieldsOption"
-                :key="item.value"
-                :label="item.label"
-                :value="item.label"
-              ></el-option>
+          <el-form-item v-if="activeData.__vModel__!==undefined"
+                        :label="activeData.__config__.selectChildTable?'子表字段':'数据源字段'">
+            <el-select v-model="activeData.__vModel__"
+                       :placeholder="activeData.__config__.selectChildTable?'请选择子表字段':'请选择数据源字段'"
+                       :style="{width: '100%'}"
+                       @change="formFieldsChange"
+                       clearable>
+              <el-option v-for="item in activeData.__config__.selectChildTable?childrenFieldsOption:formFieldsOption"
+                         :key="item.value"
+                         :label="item.label"
+                         :value="item.label"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item v-if="activeData.type==='viewField'" label="view变量">
-            <el-input
-              v-model="activeData.viewField"
-              :style="{width: '100%'}"
-              clearable
-            ></el-input>
+          <el-form-item v-if="activeData.type==='viewField'"
+                        label="view变量">
+            <el-input v-model="activeData.viewField"
+                      :style="{width: '100%'}"
+                      clearable></el-input>
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.variable!==undefined" label="变量">
-            <el-input
-              v-model="activeData.__config__.variable"
-              :style="{width: '100%'}"
-              clearable
-            ></el-input>
+          <el-form-item v-if="activeData.__config__.variable!==undefined"
+                        label="变量">
+            <el-input v-model="activeData.__config__.variable"
+                      :style="{width: '100%'}"
+                      clearable></el-input>
           </el-form-item>
-          <el-form-item
-            v-if="activeData.__config__.componentName!==undefined"
-            label="组件名"
-          >{{ activeData.__config__.componentName }}</el-form-item>
-          <el-form-item v-if="activeData.__config__.layout==='masterSlaveTable'" label="绑定子表">
-            <el-select
-              v-model="activeData.__config__.childrenTable"
-              placeholder="请选择绑定的子表"
-              :style="{width: '100%'}"
-              @change="childrenTableChange"
-              clearable
-            >
-              <el-option
-                v-for="item in childrenTableOption"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              ></el-option>
+          <el-form-item v-if="activeData.__config__.componentName!==undefined"
+                        label="组件名">{{ activeData.__config__.componentName }}</el-form-item>
+          <el-form-item v-if="activeData.__config__.layout==='masterSlaveTable'"
+                        label="绑定子表">
+            <el-select v-model="activeData.__config__.childrenTable"
+                       placeholder="请选择绑定的子表"
+                       :style="{width: '100%'}"
+                       @change="childrenTableChange"
+                       clearable>
+              <el-option v-for="item in childrenTableOption"
+                         :key="item.value"
+                         :label="item.label"
+                         :value="item.value"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.layout==='masterSlaveTable'" label="子表展示模式">
-            <el-select
-              v-model="activeData.__config__.displayMode"
-              placeholder="请选择子表展示模式"
-              :style="{width: '100%'}"
-              clearable
-            >
-              <el-option label="单行展示" value="singleLine"></el-option>
-              <el-option label="多行展示" value="multiLine"></el-option>
+          <el-form-item v-if="activeData.__config__.layout==='masterSlaveTable'"
+                        label="子表展示模式">
+            <el-select v-model="activeData.__config__.displayMode"
+                       placeholder="请选择子表展示模式"
+                       :style="{width: '100%'}"
+                       clearable>
+              <el-option label="单行展示"
+                         value="singleLine"></el-option>
+              <el-option label="多行展示"
+                         value="multiLine"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.label!==undefined" label="标题">
-            <el-input
-              v-model="activeData.__config__.label"
-              placeholder="请输入标题"
-              @input="changeRenderKey"
-            />
+          <el-form-item v-if="activeData.__config__.label!==undefined"
+                        label="标题">
+            <el-input v-model="activeData.__config__.label"
+                      placeholder="请输入标题"
+                      @input="changeRenderKey" />
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.fieldType!==undefined && 'p8-upload' === activeData.__config__.tag" label="附件类别">
-            <el-input
-              v-model="activeData.__config__.fieldType"
-              placeholder="请输入附件类别"
-              @input="changeRenderKey"
-            />
+          <el-form-item v-if="activeData.__config__.fieldType!==undefined && 'p8-upload' === activeData.__config__.tag"
+                        label="附件类别">
+            <el-input v-model="activeData.__config__.fieldType"
+                      placeholder="请输入附件类别"
+                      @input="changeRenderKey" />
           </el-form-item>
-          <el-form-item v-if="activeData.placeholder!==undefined" label="占位提示">
-            <el-input
-              v-model="activeData.placeholder"
-              placeholder="请输入占位提示"
-              @input="changeRenderKey"
-            />
+          <el-form-item v-if="activeData.placeholder!==undefined"
+                        label="占位提示">
+            <el-input v-model="activeData.placeholder"
+                      placeholder="请输入占位提示"
+                      @input="changeRenderKey" />
           </el-form-item>
-          <el-form-item v-if="activeData['start-placeholder']!==undefined" label="开始占位">
-            <el-input v-model="activeData['start-placeholder']" placeholder="请输入占位提示" />
+          <el-form-item v-if="activeData['start-placeholder']!==undefined"
+                        label="开始占位">
+            <el-input v-model="activeData['start-placeholder']"
+                      placeholder="请输入占位提示" />
           </el-form-item>
-          <el-form-item v-if="activeData['end-placeholder']!==undefined" label="结束占位">
-            <el-input v-model="activeData['end-placeholder']" placeholder="请输入占位提示" />
+          <el-form-item v-if="activeData['end-placeholder']!==undefined"
+                        label="结束占位">
+            <el-input v-model="activeData['end-placeholder']"
+                      placeholder="请输入占位提示" />
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.span!==undefined" label="表单栅格">
-            <el-slider
-              v-model="activeData.__config__.span"
-              :max="24"
-              :min="1"
-              :marks="{12:''}"
-              @change="spanChange"
-            />
+          <el-form-item v-if="activeData.__config__.span!==undefined"
+                        label="表单栅格">
+            <el-slider v-model="activeData.__config__.span"
+                       :max="24"
+                       :min="1"
+                       :marks="{12:''}"
+                       @change="spanChange" />
           </el-form-item>
-          <el-form-item
-            v-if="activeData.__config__.layout==='rowFormItem'&&activeData.gutter!==undefined"
-            label="栅格间隔"
-          >
-            <el-input-number v-model="activeData.gutter" :min="0" placeholder="栅格间隔" />
+          <el-form-item v-if="activeData.__config__.layout==='rowFormItem'&&activeData.gutter!==undefined"
+                        label="栅格间隔">
+            <el-input-number v-model="activeData.gutter"
+                             :min="0"
+                             placeholder="栅格间隔" />
           </el-form-item>
-          <el-form-item
-            v-if="activeData.__config__.layout==='rowFormItem'&&activeData.type!==undefined"
-            label="布局模式"
-          >
+          <el-form-item v-if="activeData.__config__.layout==='rowFormItem'&&activeData.type!==undefined"
+                        label="布局模式">
             <el-radio-group v-model="activeData.type">
               <el-radio-button label="default" />
               <el-radio-button label="flex" />
             </el-radio-group>
           </el-form-item>
-          <el-form-item
-            v-if="activeData.justify!==undefined&&activeData.type==='flex'"
-            label="水平排列"
-          >
-            <el-select v-model="activeData.justify" placeholder="请选择水平排列" :style="{width: '100%'}">
-              <el-option
-                v-for="(item, index) in justifyOptions"
-                :key="index"
-                :label="item.label"
-                :value="item.value"
-              />
+          <el-form-item v-if="activeData.justify!==undefined&&activeData.type==='flex'"
+                        label="水平排列">
+            <el-select v-model="activeData.justify"
+                       placeholder="请选择水平排列"
+                       :style="{width: '100%'}">
+              <el-option v-for="(item, index) in justifyOptions"
+                         :key="index"
+                         :label="item.label"
+                         :value="item.value" />
             </el-select>
           </el-form-item>
-          <el-form-item v-if="activeData.align!==undefined&&activeData.type==='flex'" label="垂直排列">
+          <el-form-item v-if="activeData.align!==undefined&&activeData.type==='flex'"
+                        label="垂直排列">
             <el-radio-group v-model="activeData.align">
               <el-radio-button label="top" />
               <el-radio-button label="middle" />
               <el-radio-button label="bottom" />
             </el-radio-group>
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.labelWidth!==undefined" label="标签宽度">
-            <el-input
-              v-model.number="activeData.__config__.labelWidth"
-              type="number"
-              placeholder="请输入标签宽度"
-            />
+          <el-form-item v-if="activeData.__config__.labelWidth!==undefined"
+                        label="标签宽度">
+            <el-input v-model.number="activeData.__config__.labelWidth"
+                      type="number"
+                      placeholder="请输入标签宽度" />
           </el-form-item>
-          <el-form-item v-if="activeData.style&&activeData.style.width!==undefined" label="组件宽度">
-            <el-input v-model="activeData.style.width" placeholder="请输入组件宽度" clearable />
+          <el-form-item v-if="activeData.style&&activeData.style.width!==undefined"
+                        label="组件宽度">
+            <el-input v-model="activeData.style.width"
+                      placeholder="请输入组件宽度"
+                      clearable />
           </el-form-item>
-          <el-form-item v-if="activeData.__vModel__!==undefined" label="默认值">
-            <el-input
-              :value="setDefaultValue(activeData.__config__.defaultValue)"
-              placeholder="请输入默认值"
-              @input="onDefaultValueInput"
-            />
+          <el-form-item v-if="activeData.__vModel__!==undefined"
+                        label="默认值">
+            <el-input :value="setDefaultValue(activeData.__config__.defaultValue)"
+                      placeholder="请输入默认值"
+                      @input="onDefaultValueInput" />
           </el-form-item>
-          <template
-            v-if="['eject-select'].indexOf(activeData.__config__.tag) > -1"
-          >
+          <template v-if="['eject-select'].indexOf(activeData.__config__.tag) > -1">
             <el-divider>选项</el-divider>
             <el-form-item label="弹出框组件">
-              <el-select v-model="activeData.__config__.selectComp" placeholder="请选择弹出框组件" clearable @change="changeEjectSelectComp">
-                <el-option v-for="item in selectCompOption" :key="item.value" :label="item.label" :value="item.value"></el-option>
+              <el-select v-model="activeData.__config__.selectComp"
+                         placeholder="请选择弹出框组件"
+                         clearable
+                         @change="changeEjectSelectComp">
+                <el-option v-for="item in selectCompOption"
+                           :key="item.value"
+                           :label="item.label"
+                           :value="item.value"></el-option>
               </el-select>
-              <span class="view-fields-link" title="查看viewFields" @click="viewFields">
+              <span class="view-fields-link"
+                    title="查看viewFields"
+                    @click="viewFields">
                 <i class="el-icon-link" />
               </span>
             </el-form-item>
             <el-form-item label="回填name">
-              <el-select v-model="activeData.__config__.backfillParam.label" clearable>
-                <el-option v-for="item in ejectSelectColumns" :label="item.label" :value="item.value" :key="item.value"></el-option>
+              <el-select v-model="activeData.__config__.backfillParam.label"
+                         clearable>
+                <el-option v-for="item in ejectSelectColumns"
+                           :label="item.label"
+                           :value="item.value"
+                           :key="item.value"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="回填id">
-              <el-select v-model="activeData.__config__.backfillParam.value" clearable>
-                <el-option v-for="item in ejectSelectColumns" :label="item.label" :value="item.value" :key="item.value"></el-option>
+              <el-select v-model="activeData.__config__.backfillParam.value"
+                         clearable>
+                <el-option v-for="item in ejectSelectColumns"
+                           :label="item.label"
+                           :value="item.value"
+                           :key="item.value"></el-option>
               </el-select>
             </el-form-item>
-            <el-input v-show="false" v-model="activeData.__config__.reportCode"></el-input>
-            <el-divider/>
+            <el-input v-show="false"
+                      v-model="activeData.__config__.reportCode"></el-input>
+            <el-divider />
           </template>
-          <el-form-item v-if="activeData.__config__.tag==='el-checkbox-group'" label="至少应选">
-            <el-input-number
-              :value="activeData.min"
-              :min="0"
-              placeholder="至少应选"
-              @input="$set(activeData, 'min', $event?$event:undefined)"
-            />
+          <el-form-item v-if="activeData.__config__.tag==='el-checkbox-group'"
+                        label="至少应选">
+            <el-input-number :value="activeData.min"
+                             :min="0"
+                             placeholder="至少应选"
+                             @input="$set(activeData, 'min', $event?$event:undefined)" />
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.tag==='el-checkbox-group'" label="最多可选">
-            <el-input-number
-              :value="activeData.max"
-              :min="0"
-              placeholder="最多可选"
-              @input="$set(activeData, 'max', $event?$event:undefined)"
-            />
+          <el-form-item v-if="activeData.__config__.tag==='el-checkbox-group'"
+                        label="最多可选">
+            <el-input-number :value="activeData.max"
+                             :min="0"
+                             placeholder="最多可选"
+                             @input="$set(activeData, 'max', $event?$event:undefined)" />
           </el-form-item>
-          <el-form-item
-            v-if="activeData.__slot__&&activeData.__slot__.prepend!==undefined"
-            label="前缀"
-          >
-            <el-input v-model="activeData.__slot__.prepend" placeholder="请输入前缀" />
+          <el-form-item v-if="activeData.__slot__&&activeData.__slot__.prepend!==undefined"
+                        label="前缀">
+            <el-input v-model="activeData.__slot__.prepend"
+                      placeholder="请输入前缀" />
           </el-form-item>
-          <el-form-item
-            v-if="activeData.__slot__&&activeData.__slot__.append!==undefined"
-            label="后缀"
-          >
-            <el-input v-model="activeData.__slot__.append" placeholder="请输入后缀" />
+          <el-form-item v-if="activeData.__slot__&&activeData.__slot__.append!==undefined"
+                        label="后缀">
+            <el-input v-model="activeData.__slot__.append"
+                      placeholder="请输入后缀" />
           </el-form-item>
-          <el-form-item v-if="activeData['prefix-icon']!==undefined" label="前图标">
-            <el-input v-model="activeData['prefix-icon']" placeholder="请输入前图标名称">
-              <el-button
-                slot="append"
-                icon="el-icon-thumb"
-                @click="openIconsDialog('prefix-icon')"
-              >选择</el-button>
+          <el-form-item v-if="activeData['prefix-icon']!==undefined"
+                        label="前图标">
+            <el-input v-model="activeData['prefix-icon']"
+                      placeholder="请输入前图标名称">
+              <el-button slot="append"
+                         icon="el-icon-thumb"
+                         @click="openIconsDialog('prefix-icon')">选择</el-button>
             </el-input>
           </el-form-item>
-          <el-form-item v-if="activeData['suffix-icon'] !== undefined" label="后图标">
-            <el-input v-model="activeData['suffix-icon']" placeholder="请输入后图标名称">
-              <el-button
-                slot="append"
-                icon="el-icon-thumb"
-                @click="openIconsDialog('suffix-icon')"
-              >选择</el-button>
+          <el-form-item v-if="activeData['suffix-icon'] !== undefined"
+                        label="后图标">
+            <el-input v-model="activeData['suffix-icon']"
+                      placeholder="请输入后图标名称">
+              <el-button slot="append"
+                         icon="el-icon-thumb"
+                         @click="openIconsDialog('suffix-icon')">选择</el-button>
             </el-input>
           </el-form-item>
-          <el-form-item
-            v-if="activeData['icon']!==undefined && activeData.__config__.tag === 'el-button'"
-            label="按钮图标"
-          >
-            <el-input v-model="activeData['icon']" placeholder="请输入按钮图标名称">
-              <el-button slot="append" icon="el-icon-thumb" @click="openIconsDialog('icon')">选择</el-button>
+          <el-form-item v-if="activeData['icon']!==undefined && activeData.__config__.tag === 'el-button'"
+                        label="按钮图标">
+            <el-input v-model="activeData['icon']"
+                      placeholder="请输入按钮图标名称">
+              <el-button slot="append"
+                         icon="el-icon-thumb"
+                         @click="openIconsDialog('icon')">选择</el-button>
             </el-input>
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.tag === 'el-cascader'" label="选项分隔符">
-            <el-input v-model="activeData.separator" placeholder="请输入选项分隔符" />
+          <el-form-item v-if="activeData.__config__.tag === 'el-cascader'"
+                        label="选项分隔符">
+            <el-input v-model="activeData.separator"
+                      placeholder="请输入选项分隔符" />
           </el-form-item>
-          <el-form-item v-if="activeData.autosize !== undefined" label="最小行数">
-            <el-input-number v-model="activeData.autosize.minRows" :min="1" placeholder="最小行数" />
+          <el-form-item v-if="activeData.autosize !== undefined"
+                        label="最小行数">
+            <el-input-number v-model="activeData.autosize.minRows"
+                             :min="1"
+                             placeholder="最小行数" />
           </el-form-item>
-          <el-form-item v-if="activeData.autosize !== undefined" label="最大行数">
-            <el-input-number v-model="activeData.autosize.maxRows" :min="1" placeholder="最大行数" />
+          <el-form-item v-if="activeData.autosize !== undefined"
+                        label="最大行数">
+            <el-input-number v-model="activeData.autosize.maxRows"
+                             :min="1"
+                             placeholder="最大行数" />
           </el-form-item>
-          <el-form-item v-if="isShowMin" label="最小值">
-            <el-input-number v-model="activeData.min" placeholder="最小值" />
+          <el-form-item v-if="isShowMin"
+                        label="最小值">
+            <el-input-number v-model="activeData.min"
+                             placeholder="最小值" />
           </el-form-item>
-          <el-form-item v-if="isShowMax" label="最大值">
-            <el-input-number v-model="activeData.max" placeholder="最大值" />
+          <el-form-item v-if="isShowMax"
+                        label="最大值">
+            <el-input-number v-model="activeData.max"
+                             placeholder="最大值" />
           </el-form-item>
-          <el-form-item v-if="activeData.height!==undefined" label="组件高度">
-            <el-input-number v-model="activeData.height" placeholder="高度" @input="changeRenderKey" />
+          <el-form-item v-if="activeData.height!==undefined"
+                        label="组件高度">
+            <el-input-number v-model="activeData.height"
+                             placeholder="高度"
+                             @input="changeRenderKey" />
           </el-form-item>
-          <el-form-item v-if="isShowStep" label="步长">
-            <el-input-number v-model="activeData.step" placeholder="步数" />
+          <el-form-item v-if="isShowStep"
+                        label="步长">
+            <el-input-number v-model="activeData.step"
+                             placeholder="步数" />
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.tag === 'el-input-number'" label="精度">
-            <el-input-number v-model="activeData.precision" :min="0" placeholder="精度" />
+          <el-form-item v-if="activeData.__config__.tag === 'el-input-number'"
+                        label="精度">
+            <el-input-number v-model="activeData.precision"
+                             :min="0"
+                             placeholder="精度" />
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.tag === 'el-input-number'" label="按钮位置">
+          <el-form-item v-if="activeData.__config__.tag === 'el-input-number'"
+                        label="按钮位置">
             <el-radio-group v-model="activeData['controls-position']">
               <el-radio-button label>默认</el-radio-button>
               <el-radio-button label="right">右侧</el-radio-button>
             </el-radio-group>
           </el-form-item>
-          <el-form-item v-if="activeData.maxlength !== undefined" label="最多输入">
-            <el-input v-model="activeData.maxlength" placeholder="请输入字符长度">
+          <el-form-item v-if="activeData.maxlength !== undefined"
+                        label="最多输入">
+            <el-input v-model="activeData.maxlength"
+                      placeholder="请输入字符长度">
               <template slot="append">个字符</template>
             </el-input>
           </el-form-item>
-          <el-form-item v-if="activeData['active-text'] !== undefined" label="开启提示">
-            <el-input v-model="activeData['active-text']" placeholder="请输入开启提示" />
+          <el-form-item v-if="activeData['active-text'] !== undefined"
+                        label="开启提示">
+            <el-input v-model="activeData['active-text']"
+                      placeholder="请输入开启提示" />
           </el-form-item>
-          <el-form-item v-if="activeData['inactive-text'] !== undefined" label="关闭提示">
-            <el-input v-model="activeData['inactive-text']" placeholder="请输入关闭提示" />
+          <el-form-item v-if="activeData['inactive-text'] !== undefined"
+                        label="关闭提示">
+            <el-input v-model="activeData['inactive-text']"
+                      placeholder="请输入关闭提示" />
           </el-form-item>
-          <el-form-item v-if="activeData['active-value'] !== undefined" label="开启值">
-            <el-input
-              :value="setDefaultValue(activeData['active-value'])"
-              placeholder="请输入开启值"
-              @input="onSwitchValueInput($event, 'active-value')"
-            />
+          <el-form-item v-if="activeData['active-value'] !== undefined"
+                        label="开启值">
+            <el-input :value="setDefaultValue(activeData['active-value'])"
+                      placeholder="请输入开启值"
+                      @input="onSwitchValueInput($event, 'active-value')" />
           </el-form-item>
-          <el-form-item v-if="activeData['inactive-value'] !== undefined" label="关闭值">
-            <el-input
-              :value="setDefaultValue(activeData['inactive-value'])"
-              placeholder="请输入关闭值"
-              @input="onSwitchValueInput($event, 'inactive-value')"
-            />
+          <el-form-item v-if="activeData['inactive-value'] !== undefined"
+                        label="关闭值">
+            <el-input :value="setDefaultValue(activeData['inactive-value'])"
+                      placeholder="请输入关闭值"
+                      @input="onSwitchValueInput($event, 'inactive-value')" />
           </el-form-item>
-          <el-form-item
-            v-if="activeData.type !== undefined && 'el-date-picker' === activeData.__config__.tag"
-            label="时间类型"
-          >
-            <el-select
-              v-model="activeData.type"
-              placeholder="请选择时间类型"
-              :style="{ width: '100%' }"
-              @change="dateTypeChange"
-            >
-              <el-option
-                v-for="(item, index) in dateOptions"
-                :key="index"
-                :label="item.label"
-                :value="item.value"
-              />
+          <el-form-item v-if="activeData.type !== undefined && 'el-date-picker' === activeData.__config__.tag"
+                        label="时间类型">
+            <el-select v-model="activeData.type"
+                       placeholder="请选择时间类型"
+                       :style="{ width: '100%' }"
+                       @change="dateTypeChange">
+              <el-option v-for="(item, index) in dateOptions"
+                         :key="index"
+                         :label="item.label"
+                         :value="item.value" />
             </el-select>
           </el-form-item>
           <!-- <el-form-item v-if="activeData.name !== undefined" label="文件字段名">
             <el-input v-model="activeData.name" placeholder="请输入上传文件字段名" />
           </el-form-item> -->
-          <el-form-item v-if="activeData.accept !== undefined" label="文件上传类型">
+          <el-form-item v-if="activeData.accept !== undefined"
+                        label="文件上传类型">
             <el-input v-model="activeData.accept"
-              placeholder="请填写(以','拼接: .png,.txt,.zip)"
-              :style="{ width: '100%' }"
-              clearable></el-input>
+                      placeholder="请填写(以','拼接: .png,.txt,.zip)"
+                      :style="{ width: '100%' }"
+                      clearable></el-input>
             <!-- <el-select
               v-model="activeData.accept"
               placeholder="请选择文件类型"
@@ -355,175 +381,194 @@
               <el-option label="txt" value=".txt" />
             </el-select> -->
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.fileSize !== undefined" label="文件大小">
-            <el-input v-model.number="activeData.__config__.fileSize" type="number" min="0" placeholder="请输入文件大小">
-              <el-select
-                slot="append"
-                v-model="activeData.__config__.sizeUnit"
-                :style="{ width: '66px' }"
-              >
-                <el-option label="KB" value="KB" />
-                <el-option label="MB" value="MB" />
-                <el-option label="GB" value="GB" />
+          <el-form-item v-if="activeData.__config__.fileSize !== undefined"
+                        label="文件大小">
+            <el-input v-model.number="activeData.__config__.fileSize"
+                      type="number"
+                      min="0"
+                      placeholder="请输入文件大小">
+              <el-select slot="append"
+                         v-model="activeData.__config__.sizeUnit"
+                         :style="{ width: '66px' }">
+                <el-option label="KB"
+                           value="KB" />
+                <el-option label="MB"
+                           value="MB" />
+                <el-option label="GB"
+                           value="GB" />
               </el-select>
             </el-input>
           </el-form-item>
-          <el-form-item v-if="activeData.action !== undefined" label="上传地址">
-            <el-input v-model="activeData.action" placeholder="请输入上传地址" clearable />
+          <el-form-item v-if="activeData.action !== undefined"
+                        label="上传地址">
+            <el-input v-model="activeData.action"
+                      placeholder="请输入上传地址"
+                      clearable />
           </el-form-item>
-          <el-form-item v-if="activeData['list-type'] !== undefined" label="列表类型">
+          <el-form-item v-if="activeData['list-type'] !== undefined"
+                        label="列表类型">
             <!-- <el-radio-group v-model="activeData['list-type']" size="small">
               <el-radio-button label="text">secret</el-radio-button>
               <el-radio-button label="text">text</el-radio-button>
               <el-radio-button label="picture">picture</el-radio-button>
               <el-radio-button label="picture-card">picture-card</el-radio-button>
             </el-radio-group> -->
-            <el-select
-                v-model="activeData['list-type']"
-                placeholder="请选择文件列表类型"
-                :style="{ width: '100%' }"
-                clearable
-              >
-                <el-option label="密级" value="secret" />
-                <el-option label="text" value="text" />
-                <el-option label="picture" value="picture" />
-                <el-option label="picture-card" value="picture-card" />
-              </el-select>
-          </el-form-item>
-          <el-form-item
-            v-if="activeData.type !== undefined && activeData.__config__.tag === 'el-button'"
-            label="按钮类型"
-          >
-            <el-select v-model="activeData.type" :style="{ width: '100%' }">
-              <el-option label="primary" value="primary" />
-              <el-option label="success" value="success" />
-              <el-option label="warning" value="warning" />
-              <el-option label="danger" value="danger" />
-              <el-option label="info" value="info" />
-              <el-option label="text" value="text" />
+            <el-select v-model="activeData['list-type']"
+                       placeholder="请选择文件列表类型"
+                       :style="{ width: '100%' }"
+                       clearable>
+              <el-option label="密级"
+                         value="secret" />
+              <el-option label="text"
+                         value="text" />
+              <el-option label="picture"
+                         value="picture" />
+              <el-option label="picture-card"
+                         value="picture-card" />
             </el-select>
           </el-form-item>
-          <el-form-item
-            v-if="activeData.__config__.buttonText !== undefined"
-            v-show="'picture-card' !== activeData['list-type']"
-            label="按钮文字"
-          >
-            <el-input v-model="activeData.__config__.buttonText" placeholder="请输入按钮文字" />
+          <el-form-item v-if="activeData.type !== undefined && activeData.__config__.tag === 'el-button'"
+                        label="按钮类型">
+            <el-select v-model="activeData.type"
+                       :style="{ width: '100%' }">
+              <el-option label="primary"
+                         value="primary" />
+              <el-option label="success"
+                         value="success" />
+              <el-option label="warning"
+                         value="warning" />
+              <el-option label="danger"
+                         value="danger" />
+              <el-option label="info"
+                         value="info" />
+              <el-option label="text"
+                         value="text" />
+            </el-select>
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.tag === 'el-button'" label="按钮文字">
-            <el-input v-model="activeData.__slot__.default" placeholder="请输入按钮文字" />
+          <el-form-item v-if="activeData.__config__.buttonText !== undefined"
+                        v-show="'picture-card' !== activeData['list-type']"
+                        label="按钮文字">
+            <el-input v-model="activeData.__config__.buttonText"
+                      placeholder="请输入按钮文字" />
           </el-form-item>
-          <el-form-item v-if="activeData['range-separator'] !== undefined" label="分隔符">
-            <el-input v-model="activeData['range-separator']" placeholder="请输入分隔符" />
+          <el-form-item v-if="activeData.__config__.tag === 'el-button'"
+                        label="按钮文字">
+            <el-input v-model="activeData.__slot__.default"
+                      placeholder="请输入按钮文字" />
           </el-form-item>
-          <el-form-item v-if="activeData['picker-options'] !== undefined" label="时间段">
-            <el-input v-model="activeData['picker-options'].selectableRange" placeholder="请输入时间段" />
+          <el-form-item v-if="activeData['range-separator'] !== undefined"
+                        label="分隔符">
+            <el-input v-model="activeData['range-separator']"
+                      placeholder="请输入分隔符" />
           </el-form-item>
-          <el-form-item v-if="activeData.format !== undefined" label="时间格式">
-            <el-input
-              :value="activeData.format"
-              placeholder="请输入时间格式"
-              @input="setTimeValue($event)"
-            />
+          <el-form-item v-if="activeData['picker-options'] !== undefined"
+                        label="时间段">
+            <el-input v-model="activeData['picker-options'].selectableRange"
+                      placeholder="请输入时间段" />
           </el-form-item>
-          <template
-            v-if="['el-checkbox-group', 'el-radio-group', 'el-select', 'tree-select'].indexOf(activeData.__config__.tag) > -1"
-          >
+          <el-form-item v-if="activeData.format !== undefined"
+                        label="时间格式">
+            <el-input :value="activeData.format"
+                      placeholder="请输入时间格式"
+                      @input="setTimeValue($event)" />
+          </el-form-item>
+          <template v-if="['el-checkbox-group', 'el-radio-group', 'el-select', 'tree-select'].indexOf(activeData.__config__.tag) > -1">
             <el-divider>选项</el-divider>
             <el-form-item label="数据类型">
-              <el-radio-group v-model="activeData.__config__.dataType" size="small">
+              <el-radio-group v-model="activeData.__config__.dataType"
+                              size="small">
                 <el-radio-button label="dynamic">动态数据</el-radio-button>
                 <el-radio-button label="static">静态数据</el-radio-button>
               </el-radio-group>
-              <span class="view-fields-link" title="查看出参" @click="viewFields">
+              <span class="view-fields-link"
+                    title="查看出参"
+                    @click="viewFields">
                 <i class="el-icon-link" />
               </span>
             </el-form-item>
 
             <template v-if="activeData.__config__.dataType === 'static'">
-              <draggable
-                :list="activeData.__slot__.options"
-                :animation="340"
-                group="selectItem"
-                handle=".option-drag"
-              >
-                <div
-                  v-for="(item, index) in activeData.__slot__.options"
-                  :key="index"
-                  class="select-item"
-                >
+              <draggable :list="activeData.__slot__.options"
+                         :animation="340"
+                         group="selectItem"
+                         handle=".option-drag">
+                <div v-for="(item, index) in activeData.__slot__.options"
+                     :key="index"
+                     class="select-item">
                   <div class="select-line-icon option-drag">
                     <i class="el-icon-s-operation" />
                   </div>
-                  <el-input v-model="item.label" placeholder="选项名" size="small" />
-                  <el-input
-                    placeholder="选项值"
-                    size="small"
-                    :value="item.value"
-                    @input="setOptionValue(item, $event)"
-                  />
-                  <div
-                    class="close-btn select-line-icon"
-                    @click="activeData.__slot__.options.splice(index, 1)"
-                  >
+                  <el-input v-model="item.label"
+                            placeholder="选项名"
+                            size="small" />
+                  <el-input placeholder="选项值"
+                            size="small"
+                            :value="item.value"
+                            @input="setOptionValue(item, $event)" />
+                  <div class="close-btn select-line-icon"
+                       @click="activeData.__slot__.options.splice(index, 1)">
                     <i class="el-icon-remove-outline" />
                   </div>
                 </div>
               </draggable>
               <div style="margin-left: 20px;">
-                <el-button
-                  style="padding-bottom: 0"
-                  icon="el-icon-circle-plus-outline"
-                  type="text"
-                  @click="addSelectItem"
-                >添加选项</el-button>
+                <el-button style="padding-bottom: 0"
+                           icon="el-icon-circle-plus-outline"
+                           type="text"
+                           @click="addSelectItem">添加选项</el-button>
               </div>
             </template>
             <template v-if="activeData.__config__.dataType === 'dynamic'">
               <el-form-item label="选项组件">
-                <el-select v-model="activeData.__config__.selectComp" placeholder="请选择选项组件" clearable @change="changeSelectComp">
-                  <el-option v-for="item in selectCompOption" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                <el-select v-model="activeData.__config__.selectComp"
+                           placeholder="请选择选项组件"
+                           clearable
+                           @change="changeSelectComp">
+                  <el-option v-for="item in selectCompOption"
+                             :key="item.value"
+                             :label="item.label"
+                             :value="item.value"></el-option>
                 </el-select>
               </el-form-item>
               <template v-if="selectCompParam.sqlParam && selectCompParam.sqlParam.length">
                 <el-divider>SQL参数</el-divider>
-                <el-form-item :label="item.paramName" v-for="item in selectCompParam.sqlParam" :key="item.paramName">
-                  <el-input v-model="activeData.__config__.selectParam.sqlParam[item.paramName]" placeholder="请输入SQL参数" />
+                <el-form-item :label="item.paramName"
+                              v-for="item in selectCompParam.sqlParam"
+                              :key="item.paramName">
+                  <el-input v-model="activeData.__config__.selectParam.sqlParam[item.paramName]"
+                            placeholder="请输入SQL参数" />
                 </el-form-item>
               </template>
               <template v-if="selectCompParam.reportParam && selectCompParam.reportParam.length">
                 <el-divider>报表参数</el-divider>
-                <el-form-item :label="item.paramName" v-for="item in selectCompParam.reportParam" :key="item.paramName">
-                  <el-input v-model="activeData.__config__.selectParam.reportParam[item.paramName]" placeholder="请输入报表参数" />
+                <el-form-item :label="item.paramName"
+                              v-for="item in selectCompParam.reportParam"
+                              :key="item.paramName">
+                  <el-input v-model="activeData.__config__.selectParam.reportParam[item.paramName]"
+                            placeholder="请输入报表参数" />
                 </el-form-item>
               </template>
               <el-divider>自定义参数</el-divider>
-              <div
-                v-for="(item, index) in activeData.__config__.selectParam.param"
-                :key="index"
-                class="select-item"
-              >
-                <el-input v-model="item.label" placeholder="参数名" size="small" />
-                <el-input
-                  placeholder="参数值"
-                  size="small"
-                  :value="item.value"
-                  @input="setCustomParamValue(item, $event)"
-                />
-                <div
-                  class="close-btn select-line-icon"
-                  @click="activeData.__config__.selectParam.param.splice(index, 1)"
-                >
+              <div v-for="(item, index) in activeData.__config__.selectParam.param"
+                   :key="index"
+                   class="select-item">
+                <el-input v-model="item.label"
+                          placeholder="参数名"
+                          size="small" />
+                <el-input placeholder="参数值"
+                          size="small"
+                          :value="item.value"
+                          @input="setCustomParamValue(item, $event)" />
+                <div class="close-btn select-line-icon"
+                     @click="activeData.__config__.selectParam.param.splice(index, 1)">
                   <i class="el-icon-remove-outline" />
                 </div>
               </div>
               <div>
-                <el-button
-                  style="padding-bottom: 0"
-                  icon="el-icon-circle-plus-outline"
-                  type="text"
-                  @click="addCusotmParamItem"
-                >添加自定义参数</el-button>
+                <el-button style="padding-bottom: 0"
+                           icon="el-icon-circle-plus-outline"
+                           type="text"
+                           @click="addCusotmParamItem">添加自定义参数</el-button>
               </div>
             </template>
             <el-divider />
@@ -532,7 +577,8 @@
           <template v-if="['el-cascader'].indexOf(activeData.__config__.tag) > -1">
             <el-divider>选项</el-divider>
             <el-form-item label="数据类型">
-              <el-radio-group v-model="activeData.__config__.dataType" size="small">
+              <el-radio-group v-model="activeData.__config__.dataType"
+                              size="small">
                 <el-radio-button label="dynamic">动态数据</el-radio-button>
                 <el-radio-button label="static">静态数据</el-radio-button>
               </el-radio-group>
@@ -540,165 +586,183 @@
 
             <template v-if="activeData.__config__.dataType === 'dynamic'">
               <el-form-item label="标签键名">
-                <el-input v-model="activeData.props.props.label" placeholder="请输入标签键名" />
+                <el-input v-model="activeData.props.props.label"
+                          placeholder="请输入标签键名" />
               </el-form-item>
               <el-form-item label="值键名">
-                <el-input v-model="activeData.props.props.value" placeholder="请输入值键名" />
+                <el-input v-model="activeData.props.props.value"
+                          placeholder="请输入值键名" />
               </el-form-item>
               <el-form-item label="子级键名">
-                <el-input v-model="activeData.props.props.children" placeholder="请输入子级键名" />
+                <el-input v-model="activeData.props.props.children"
+                          placeholder="请输入子级键名" />
               </el-form-item>
             </template>
 
             <!-- 级联选择静态树 -->
-            <el-tree
-              v-if="activeData.__config__.dataType === 'static'"
-              draggable
-              :data="activeData.options"
-              node-key="id"
-              :expand-on-click-node="false"
-              :render-content="renderContent"
-            />
-            <div v-if="activeData.__config__.dataType === 'static'" style="margin-left: 20px">
-              <el-button
-                style="padding-bottom: 0"
-                icon="el-icon-circle-plus-outline"
-                type="text"
-                @click="addTreeItem"
-              >添加父级</el-button>
+            <el-tree v-if="activeData.__config__.dataType === 'static'"
+                     draggable
+                     :data="activeData.options"
+                     node-key="id"
+                     :expand-on-click-node="false"
+                     :render-content="renderContent" />
+            <div v-if="activeData.__config__.dataType === 'static'"
+                 style="margin-left: 20px">
+              <el-button style="padding-bottom: 0"
+                         icon="el-icon-circle-plus-outline"
+                         type="text"
+                         @click="addTreeItem">添加父级</el-button>
             </div>
             <el-divider />
           </template>
 
-          <el-form-item v-if="activeData.__config__.optionType !== undefined" label="选项样式">
+          <el-form-item v-if="activeData.__config__.optionType !== undefined"
+                        label="选项样式">
             <el-radio-group v-model="activeData.__config__.optionType">
               <el-radio-button label="default">默认</el-radio-button>
               <el-radio-button label="button">按钮</el-radio-button>
             </el-radio-group>
           </el-form-item>
-          <el-form-item v-if="activeData['active-color'] !== undefined" label="开启颜色">
+          <el-form-item v-if="activeData['active-color'] !== undefined"
+                        label="开启颜色">
             <el-color-picker v-model="activeData['active-color']" />
           </el-form-item>
-          <el-form-item v-if="activeData['inactive-color'] !== undefined" label="关闭颜色">
+          <el-form-item v-if="activeData['inactive-color'] !== undefined"
+                        label="关闭颜色">
             <el-color-picker v-model="activeData['inactive-color']" />
           </el-form-item>
 
-          <el-form-item
-            v-if="activeData.__config__.showLabel !== undefined
+          <el-form-item v-if="activeData.__config__.showLabel !== undefined
             && activeData.__config__.labelWidth !== undefined"
-            label="显示标签"
-          >
+                        label="显示标签">
             <el-switch v-model="activeData.__config__.showLabel" />
           </el-form-item>
-          <el-form-item v-if="activeData.branding !== undefined" label="品牌烙印">
-            <el-switch v-model="activeData.branding" @input="changeRenderKey" />
+          <el-form-item v-if="activeData.branding !== undefined"
+                        label="品牌烙印">
+            <el-switch v-model="activeData.branding"
+                       @input="changeRenderKey" />
           </el-form-item>
-          <el-form-item v-if="activeData['allow-half'] !== undefined" label="允许半选">
+          <el-form-item v-if="activeData['allow-half'] !== undefined"
+                        label="允许半选">
             <el-switch v-model="activeData['allow-half']" />
           </el-form-item>
-          <el-form-item v-if="activeData['show-text'] !== undefined" label="辅助文字">
-            <el-switch v-model="activeData['show-text']" @change="rateTextChange" />
+          <el-form-item v-if="activeData['show-text'] !== undefined"
+                        label="辅助文字">
+            <el-switch v-model="activeData['show-text']"
+                       @change="rateTextChange" />
           </el-form-item>
-          <el-form-item v-if="activeData['show-score'] !== undefined" label="显示分数">
-            <el-switch v-model="activeData['show-score']" @change="rateScoreChange" />
+          <el-form-item v-if="activeData['show-score'] !== undefined"
+                        label="显示分数">
+            <el-switch v-model="activeData['show-score']"
+                       @change="rateScoreChange" />
           </el-form-item>
-          <el-form-item v-if="activeData['show-stops'] !== undefined" label="显示间断点">
+          <el-form-item v-if="activeData['show-stops'] !== undefined"
+                        label="显示间断点">
             <el-switch v-model="activeData['show-stops']" />
           </el-form-item>
-          <el-form-item v-if="activeData.range !== undefined" label="范围选择">
-            <el-switch v-model="activeData.range" @change="rangeChange" />
+          <el-form-item v-if="activeData.range !== undefined"
+                        label="范围选择">
+            <el-switch v-model="activeData.range"
+                       @change="rangeChange" />
           </el-form-item>
-          <el-form-item
-            v-if="activeData.__config__.border !== undefined && activeData.__config__.optionType === 'default'"
-            label="是否带边框"
-          >
+          <el-form-item v-if="activeData.__config__.border !== undefined && activeData.__config__.optionType === 'default'"
+                        label="是否带边框">
             <el-switch v-model="activeData.__config__.border" />
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.tag === 'el-color-picker'" label="颜色格式">
-            <el-select
-              v-model="activeData['color-format']"
-              placeholder="请选择颜色格式"
-              :style="{ width: '100%' }"
-              clearable
-              @change="colorFormatChange"
-            >
-              <el-option
-                v-for="(item, index) in colorFormatOptions"
-                :key="index"
-                :label="item.label"
-                :value="item.value"
-              />
+          <el-form-item v-if="activeData.__config__.tag === 'el-color-picker'"
+                        label="颜色格式">
+            <el-select v-model="activeData['color-format']"
+                       placeholder="请选择颜色格式"
+                       :style="{ width: '100%' }"
+                       clearable
+                       @change="colorFormatChange">
+              <el-option v-for="(item, index) in colorFormatOptions"
+                         :key="index"
+                         :label="item.label"
+                         :value="item.value" />
             </el-select>
           </el-form-item>
-          <el-form-item
-            v-if="activeData.size !== undefined &&
+          <el-form-item v-if="activeData.size !== undefined &&
               (activeData.__config__.optionType === 'button' ||
                 activeData.__config__.border ||
                 activeData.__config__.tag === 'el-color-picker' ||
                 activeData.__config__.tag === 'el-button')"
-            label="组件尺寸"
-          >
+                        label="组件尺寸">
             <el-radio-group v-model="activeData.size">
               <el-radio-button label="medium">中等</el-radio-button>
               <el-radio-button label="small">较小</el-radio-button>
               <el-radio-button label="mini">迷你</el-radio-button>
             </el-radio-group>
           </el-form-item>
-          <el-form-item v-if="activeData['show-word-limit'] !== undefined" label="输入统计">
+          <el-form-item v-if="activeData['show-word-limit'] !== undefined"
+                        label="输入统计">
             <el-switch v-model="activeData['show-word-limit']" />
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.tag === 'el-input-number'" label="严格步数">
+          <el-form-item v-if="activeData.__config__.tag === 'el-input-number'"
+                        label="严格步数">
             <el-switch v-model="activeData['step-strictly']" />
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.tag === 'el-cascader'" label="是否多选">
+          <el-form-item v-if="activeData.__config__.tag === 'el-cascader'"
+                        label="是否多选">
             <el-switch v-model="activeData.props.props.multiple" />
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.tag === 'el-cascader'" label="展示全路径">
+          <el-form-item v-if="activeData.__config__.tag === 'el-cascader'"
+                        label="展示全路径">
             <el-switch v-model="activeData['show-all-levels']" />
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.tag === 'el-cascader'" label="可否筛选">
+          <el-form-item v-if="activeData.__config__.tag === 'el-cascader'"
+                        label="可否筛选">
             <el-switch v-model="activeData.filterable" />
           </el-form-item>
-          <el-form-item v-if="activeData.hidden !== undefined" label="是否隐藏">
+          <el-form-item v-if="activeData.hidden !== undefined"
+                        label="是否隐藏">
             <el-switch v-model="activeData.hidden" />
           </el-form-item>
-          <el-form-item v-if="activeData.clearable !== undefined" label="能否清空">
+          <el-form-item v-if="activeData.clearable !== undefined"
+                        label="能否清空">
             <el-switch v-model="activeData.clearable" />
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.showTip !== undefined" label="显示提示">
+          <el-form-item v-if="activeData.__config__.showTip !== undefined"
+                        label="显示提示">
             <el-switch v-model="activeData.__config__.showTip" />
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.tag === 'el-upload'" label="多选文件">
+          <el-form-item v-if="activeData.__config__.tag === 'el-upload'"
+                        label="多选文件">
             <el-switch v-model="activeData.multiple" />
           </el-form-item>
-          <el-form-item v-if="activeData['auto-upload'] !== undefined" label="自动上传">
+          <el-form-item v-if="activeData['auto-upload'] !== undefined"
+                        label="自动上传">
             <el-switch v-model="activeData['auto-upload']" />
           </el-form-item>
-          <el-form-item v-if="activeData.readonly !== undefined" label="是否只读">
+          <el-form-item v-if="activeData.readonly !== undefined"
+                        label="是否只读">
             <el-switch v-model="activeData.readonly" />
           </el-form-item>
-          <el-form-item v-if="activeData.disabled !== undefined" label="是否禁用">
+          <el-form-item v-if="activeData.disabled !== undefined"
+                        label="是否禁用">
             <el-switch v-model="activeData.disabled" />
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.tag === 'el-select'" label="能否搜索">
+          <el-form-item v-if="activeData.__config__.tag === 'el-select'"
+                        label="能否搜索">
             <el-switch v-model="activeData.filterable" />
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.tag === 'el-select'" label="是否多选">
-            <el-switch v-model="activeData.multiple" @change="multipleChange" />
+          <el-form-item v-if="activeData.__config__.tag === 'el-select'"
+                        label="是否多选">
+            <el-switch v-model="activeData.multiple"
+                       @change="multipleChange" />
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.required !== undefined" label="是否必填">
+          <el-form-item v-if="activeData.__config__.required !== undefined"
+                        label="是否必填">
             <el-switch v-model="activeData.__config__.required" />
           </el-form-item>
 
           <template v-if="activeData.__config__.layoutTree">
             <el-divider>布局结构树</el-divider>
-            <el-tree
-              :data="[activeData.__config__]"
-              :props="layoutTreeProps"
-              node-key="renderKey"
-              default-expand-all
-              draggable
-            >
+            <el-tree :data="[activeData.__config__]"
+                     :props="layoutTreeProps"
+                     node-key="renderKey"
+                     default-expand-all
+                     draggable>
               <span slot-scope="{ node, data }">
                 <span class="node-label">
                   <i :class="data.__config__?data.__config__.tagIcon:data.tagIcon"></i>
@@ -711,51 +775,59 @@
 
           <template v-if="Array.isArray(activeData.__config__.regList)">
             <el-divider>正则校验</el-divider>
-            <div
-              v-for="(item, index) in activeData.__config__.regList"
-              :key="index"
-              class="reg-item"
-            >
-              <span class="close-btn" @click="activeData.__config__.regList.splice(index, 1)">
+            <div v-for="(item, index) in activeData.__config__.regList"
+                 :key="index"
+                 class="reg-item">
+              <span class="close-btn"
+                    @click="activeData.__config__.regList.splice(index, 1)">
                 <i class="el-icon-close" />
               </span>
               <el-form-item label="表达式">
-                <el-input v-model="item.pattern" placeholder="请输入正则" />
+                <el-input v-model="item.pattern"
+                          placeholder="请输入正则" />
               </el-form-item>
-              <el-form-item label="错误提示" style="margin-bottom:0">
-                <el-input v-model="item.message" placeholder="请输入错误提示" />
+              <el-form-item label="错误提示"
+                            style="margin-bottom:0">
+                <el-input v-model="item.message"
+                          placeholder="请输入错误提示" />
               </el-form-item>
             </div>
             <div style="margin-left: 20px">
-              <el-button icon="el-icon-circle-plus-outline" type="text" @click="addReg">添加规则</el-button>
+              <el-button icon="el-icon-circle-plus-outline"
+                         type="text"
+                         @click="addReg">添加规则</el-button>
             </div>
           </template>
         </el-form>
         <!-- 表单属性 -->
-        <el-form v-show="currentTab === 'form'" size="small" label-width="90px">
+        <el-form v-show="currentTab === 'form'"
+                 size="small"
+                 label-width="90px">
           <el-form-item label="表单名">
-            <el-input v-model="formConf.formRef" placeholder="请输入表单名（ref）" readonly/>
+            <el-input v-model="formConf.formRef"
+                      placeholder="请输入表单名（ref）"
+                      readonly />
           </el-form-item>
           <el-form-item label="表单模型">
-            <el-input v-model="formConf.formModel" placeholder="请输入数据模型" readonly/>
+            <el-input v-model="formConf.formModel"
+                      placeholder="请输入数据模型"
+                      readonly />
           </el-form-item>
           <el-form-item label="数据源">
-            <el-select
-              v-model="formConf.formDataBase"
-              placeholder="请选择数据源"
-              :style="{width: '100%'}"
-              @change="dataBaseChange"
-            >
-              <el-option
-                v-for="item in dataBaseOption"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              ></el-option>
+            <el-select v-model="formConf.formDataBase"
+                       placeholder="请选择数据源"
+                       :style="{width: '100%'}"
+                       @change="dataBaseChange">
+              <el-option v-for="item in dataBaseOption"
+                         :key="item.value"
+                         :label="item.label"
+                         :value="item.value"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="校验模型">
-            <el-input v-model="formConf.formRules" placeholder="请输入校验模型" readonly/>
+            <el-input v-model="formConf.formRules"
+                      placeholder="请输入校验模型"
+                      readonly />
           </el-form-item>
           <el-form-item label="表单尺寸">
             <el-radio-group v-model="formConf.size">
@@ -772,10 +844,14 @@
             </el-radio-group>
           </el-form-item>
           <el-form-item label="标签宽度">
-            <el-input v-model.number="formConf.labelWidth" type="number" placeholder="请输入标签宽度" />
+            <el-input v-model.number="formConf.labelWidth"
+                      type="number"
+                      placeholder="请输入标签宽度" />
           </el-form-item>
           <el-form-item label="栅格间隔">
-            <el-input-number v-model="formConf.gutter" :min="0" placeholder="栅格间隔" />
+            <el-input-number v-model="formConf.gutter"
+                             :min="0"
+                             placeholder="栅格间隔" />
           </el-form-item>
           <el-form-item label="禁用表单">
             <el-switch v-model="formConf.disabled" />
@@ -790,30 +866,39 @@
       </el-scrollbar>
     </div>
 
-    <treeNode-dialog :visible.sync="dialogVisible" title="添加选项" @commit="addNode" />
-    <icons-dialog
-      :visible.sync="iconsVisible"
-      :current="activeData[currentIconModel]"
-      @select="setIcon"
-    />
-    <common-dialog :visible="viewFieldsVisible" title="出参" :dialogConfig="dialogConfig" @close="viewFieldsClose" @handle-cancel="viewFieldsClose" @handle-ok="viewFieldsClose">
+    <treeNode-dialog :visible.sync="dialogVisible"
+                     title="添加选项"
+                     @commit="addNode" />
+    <icons-dialog :visible.sync="iconsVisible"
+                  :current="activeData[currentIconModel]"
+                  @select="setIcon" />
+    <common-dialog :visible="viewFieldsVisible"
+                   title="出参"
+                   :dialogConfig="dialogConfig"
+                   @close="viewFieldsClose"
+                   @handle-cancel="viewFieldsClose"
+                   @handle-ok="viewFieldsClose">
       <template #dialog>
         <el-divider>弹出选择出参</el-divider>
         <ul style="padding:0 10px;">
-          <li style="padding:5px 0;" v-for="(item,index) in ejectSelectGinseng" :key="index">{{item}}</li>
+          <li style="padding:5px 0;"
+              v-for="(item,index) in ejectSelectGinseng"
+              :key="index">{{item}}</li>
         </ul>
         <el-divider>系统参数出参</el-divider>
         <ul style="padding:0 10px;">
-          <li style="padding:5px 0;" v-for="(item,index) in systemParamsGinseng" :key="index">{{item}}</li>
+          <li style="padding:5px 0;"
+              v-for="(item,index) in systemParamsGinseng"
+              :key="index">{{item}}</li>
         </ul>
         <el-divider>前置数据作为后置数据的检索条件</el-divider>
         <ul style="padding:0 10px;">
           <li>
-          设置例子：<br>
-          1.拖一个下拉选择组件作为前置；再拖一个下拉选择组件作为后置;<br>
-          2.前置选一个数据源字段;<br>
-          3.后置选一个数据源字段;<br>
-          4.后置在右侧组件属性-选项-选择选项组件后，带出的参数里填写 '$'+前置的数据源字段。
+            设置例子：<br>
+            1.拖一个下拉选择组件作为前置；再拖一个下拉选择组件作为后置;<br>
+            2.前置选一个数据源字段;<br>
+            3.后置选一个数据源字段;<br>
+            4.后置在右侧组件属性-选项-选择选项组件后，带出的参数里填写 '$'+前置的数据源字段。
           </li>
 
         </ul>
@@ -841,7 +926,7 @@ import { isNumberStr } from '../utils/index'
 import IconsDialog from './IconsDialog'
 import { inputComponents, selectComponents } from '../components/generator/config'
 // import { saveFormConf } from '../utils/db'
-import  Dialog  from 'packages/dialog/src'
+import Dialog from 'packages/dialog/src'
 
 const dateTimeFormat = {
   date: 'yyyy-MM-dd',
@@ -862,7 +947,7 @@ export default {
     draggable,
     TreeNodeDialog,
     IconsDialog,
-    'common-dialog':Dialog,
+    'common-dialog': Dialog,
     'el-scrollbar': Scrollbar,
     'el-tabs': Tabs,
     'el-tab-pane': TabPane,

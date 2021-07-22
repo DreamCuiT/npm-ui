@@ -1,12 +1,21 @@
-@import "commonStyle/common.scss";
-// treeSelect.vue
-.el-select-tree {
-  display: inline-block;
-  .el-input__icon {
-    cursor: pointer;
-    transition: transform 0.3s;
-    &-close {
-      display: none;
+@charset "UTF-8";
+@import "commonStyle/common";
+@import "mixins/mixins";
+@import "./commonStyle/ie";
+
+@if $lte11 {
+  @include partial;
+}
+
+.formList.el-form {
+  > .el-row {
+    padding: 10px;
+    box-sizing: border-box;
+
+    &.existBtn:first-child {
+      height: calc(100% - 50px);
+      overflow-y: auto;
+      overflow-x: hidden;
     }
   }
   .el-input__inner {
@@ -47,12 +56,25 @@
     .popper__arrow {
       left: 35px !important;
     }
-  }
-  &__list {
-    overflow-y: auto;
-    // scroll style - start
-    &::-webkit-scrollbar-track-piece {
-      background: #d3dce6;
+
+    .el-form-item__content {
+      font-size: 12px;
+      .view {
+        line-height: 32px;
+        padding-top: 0.5px;
+        height: 40px;
+        padding-bottom: 0.5px;
+      }
+    }
+
+    .el-form-item--medium .el-form-item__content .view {
+      height: 36px;
+    }
+    .el-form-item--small .el-form-item__content .view {
+      height: 32px;
+    }
+    .el-form-item--mini .el-form-item__content .view {
+      height: 28px;
     }
     &::-webkit-scrollbar {
       width: 4px;
@@ -88,10 +110,10 @@
 }
 
 // AddField.vue
-.addField{
-  &.vertical{
-    border-bottom:1px solid $base-line-color;
-    margin-bottom:10px;
+.addField {
+  &.vertical {
+    border-bottom: 1px solid $base-line-color;
+    margin-bottom: 10px;
     .delete-cell {
       position: absolute;
       right: 0;
@@ -100,20 +122,19 @@
     }
   }
 
-  .el-col{
-    padding-right:5px;
+  .el-col {
+    padding-right: 5px;
 
-    &.delete-cell{
-      text-align:center;
-      font-size:22px;
-      cursor:pointer;
-      padding-right:0;
-      color:$base-light-color;
+    &.delete-cell {
+      text-align: center;
+      font-size: 22px;
+      cursor: pointer;
+      padding-right: 0;
+      color: $base-light-color;
 
-      &:hover{
-        color:$base-light-color;
-        background:$base-row-hover;
-
+      &:hover {
+        color: $base-light-color;
+        background: $base-row-hover;
       }
     }
   }

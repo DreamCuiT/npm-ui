@@ -15,9 +15,9 @@ function resolve (dir) {
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    index: './src/index.js',
-    inject: './src/plugins/inject.js',
-    api: './src/plugins/api.js'
+    index: ['./src/index.js'],
+    // inject: ['./src/plugins/inject.js'],
+    api: ['./src/plugins/api.js']
   },
   output: {
     path: config.build.assetsRoot,
@@ -40,8 +40,6 @@ module.exports = {
       packages: path.resolve(__dirname, '../packages'),
       examples: path.resolve(__dirname, '../examples'),
       '~': path.resolve('src'),
-      // vue$: "vue/dist/vue.esm.js",
-      // "@": resolve("../packages")
 
     },
   },
@@ -55,7 +53,18 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
+        include: [
+          resolve('src'),
+          resolve('packages'),
+          resolve('node_modules/bpmn-js'),
+          resolve('node_modules/@babel/parser/lib'),
+          resolve('node_modules/diagram-js/lib'),
+          resolve('node_modules/@bpmn-io/element-templates-validator'),
+          resolve('node_modules/bpmn-js-properties-panel/lib'),
+          resolve('node_modules/element-ui/src'),
+          resolve('node_modules/element-ui/packages'),
+          resolve('node_modules/webpack-dev-server/client')
+        ],
         options: {
           presets: ["@vue/babel-preset-jsx","@babel/preset-env"],
           plugins: [
@@ -94,6 +103,14 @@ module.exports = {
           'style-loader',
           'css-loader'
         ]
+      },
+      { 
+        test:/\.scss/,
+        use:[
+          { loader: 'vue-style-loader' },
+          { loader: 'css-loader', options: { sourceMap: true } },
+          { loader: 'sass-loader', options: { sourceMap: true } }
+        ] 
       }
     ]
   },
@@ -110,6 +127,27 @@ module.exports = {
     child_process: 'empty'
   },
   plugins: [
-    new uglify()
+    new uglify(),
+    // new CompressionWebpackPlugin(),
+    // new MonacoWebpackPlugin(),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     warnings: false
+    //   }
+    // }),
+  //   new BundleAnalyzerPlugin(
+  //     {
+  //        analyzerMode: 'server',
+  //        analyzerHost: '127.0.0.1',
+  //        analyzerPort: 8889,
+  //        reportFilename: 'report.html',
+  //        defaultSizes: 'parsed',
+  //        openAnalyzer: true,
+  //        generateStatsFile: false,
+  //        statsFilename: 'stats.json',
+  //        statsOptions: null,
+  //        logLevel: 'info'
+  //          }
+  // ),
   ]
 }

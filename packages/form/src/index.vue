@@ -95,10 +95,11 @@ import AddField from './Components/AddField'
 import CommonUpload from '../../upload'
 import upLoad from '~/mixins/upload'
 // import { uploadDefaultRules } from '../../upload/src/Components/Function.js'
+
 export default {
   name: 'P8Form',
   componentName: 'P8Form',
-  mixins:[upLoad],
+  mixins: [upLoad],
   props: {
     comp: {
       type: Object
