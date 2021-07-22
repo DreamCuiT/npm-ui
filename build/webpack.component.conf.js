@@ -62,6 +62,8 @@ module.exports = {
           resolve('node_modules/diagram-js/lib'),
           resolve('node_modules/@bpmn-io/element-templates-validator'),
           resolve('node_modules/bpmn-js-properties-panel/lib'),
+          resolve('node_modules/inherits'),
+          resolve('node_modules/bpmn-js/lib/util/ModelUtil'),
           resolve('node_modules/element-ui/src'),
           resolve('node_modules/element-ui/packages'),
           resolve('node_modules/webpack-dev-server/client')

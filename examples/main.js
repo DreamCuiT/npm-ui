@@ -6,15 +6,15 @@ import App from './App'
 import router from './router'
 import store from './store/store'
 
+import { IEVersion } from '~/utils/common'
 import 'element-ui/lib/theme-chalk/index.css';
-import '../dist/theme-chalk/lib/index.css'
+// import "../packages/theme-chalk/src/index.scss";
 Vue.prototype.$bus = new Vue() 
-// import './p8-variables.scss'
 // 测试打包
-// import p8 from '../dist/index'
+import p8 from '../dist/index'
 // import api from '../dist/api'
 // 测试开发
-import p8 from '../src/index'
+// import p8 from '../src/index'
 // import api from '../src/plugins/api'
 
 // import sysConfig from './sysConfig'
@@ -22,6 +22,13 @@ import p8 from '../src/index'
 Vue.use(p8)
 Vue.use(Vuex)
 Vue.config.productionTip = false
+
+if (IEVersion() === 11) {
+  import('./isIE11.scss')
+}else{
+  import('./p8-variables.scss')
+}
+
 new Vue({
   el: '#app',
   store,

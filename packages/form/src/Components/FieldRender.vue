@@ -2,32 +2,40 @@
   <el-col v-show="fields.fieldName && fields.type !== 'hidden'"
           :span="fields.colLayout === 'doubleCol' ? 12 : 24">
     <el-form-item v-if="fields.fieldName && fields.type === 'view'"
-                  class="view-item" :label-width="fields.labelWidth ? fields.labelWidth : ''">
-      <span :style="fields.style" style="font-weight: bolder"
+                  class="view-item"
+                  :label-width="fields.labelWidth ? fields.labelWidth : ''">
+      <span :style="fields.style"
+            style="font-weight: bolder"
             slot="label">
         {{ fields.labelText }}
         <el-tooltip placement="top"
                     :content="fields.tip">
-          <i v-if="fields.tip" class="el-icon-warning-outline"></i>
+          <i v-if="fields.tip"
+             class="el-icon-warning-outline"></i>
         </el-tooltip>
       </span>
       <template v-if="fields.viewOptions">
-        <span class="view" v-text="viewContentByOptions(formData[fields.fieldName], fields)"></span>
+        <div class="view"
+             v-text="viewContentByOptions(formData[fields.fieldName], fields)"></div>
       </template>
       <template v-else>
-        <span v-if="!fields.formatter" class="view">{{formData[fields.fieldName]}}</span>
-        <span v-if="fields.formatter" class="view">{{
+        <div v-if="!fields.formatter"
+             class="view">{{formData[fields.fieldName]}}</div>
+        <div v-if="fields.formatter"
+             class="view">{{
           fields.formatter(
             undefined,
             undefined,
             formData[fields.fieldName],
             undefined
           )
-        }}</span>
+        }}</div>
       </template>
     </el-form-item>
-    <el-form-item v-else-if="fields.fieldName && fields.type === 'uploadView'" :label-width="fields.labelWidth ? fields.labelWidth : ''">
-      <span :style="fields.style" style="font-weight: bolder"
+    <el-form-item v-else-if="fields.fieldName && fields.type === 'uploadView'"
+                  :label-width="fields.labelWidth ? fields.labelWidth : ''">
+      <span :style="fields.style"
+            style="font-weight: bolder"
             slot="label">
         {{ fields.labelText }}
         <el-tooltip placement="top"
@@ -171,9 +179,9 @@
 import Vue from 'vue'
 import { Col, FormItem, Input, InputNumber, Radio, RadioGroup, RadioButton, Checkbox, CheckboxGroup, Switch, Select, Option, DatePicker, Tooltip } from 'element-ui'
 import TreeSelect from './TreeSelect'
-import { generateTree } from '../../../../src/utils/generateTree'
-import CommonFileView from '../../../fileView'
-import Validate from '../../../../src/utils/extendValidate/extendValidate'
+import { generateTree } from '~/utils/generateTree'
+import CommonFileView from 'packages/fileView'
+import Validate from '~/utils/extendValidate/extendValidate'
 // 表单校验
 Vue.use(Validate)
 export default {

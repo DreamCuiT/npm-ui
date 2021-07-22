@@ -14,7 +14,7 @@
     <!--                 :form="formData"></p8-form>-->
     <!--      </template>-->
     <!--    </p8-normal-layout>-->
-    <!-- <keep-alive>
+    <keep-alive>
       <p8-drawer :visible="visible"
                  @close="handleClose">
         <template #drawer>
@@ -32,7 +32,7 @@
           </p8-normal-layout>
         </template>
       </p8-drawer>
-    </keep-alive> -->
+    </keep-alive>
     <el-button @click="visible = !visible">dddddd</el-button>
     <!-- <P8Dialog :visible="visible"
               @handle-cancel="handleCancel"

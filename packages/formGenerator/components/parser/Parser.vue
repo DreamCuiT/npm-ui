@@ -2,7 +2,6 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import { deepClone } from '~/utils/common'
-import { IEVersion } from '~/utils/common'
 import render from '../../components/render/render.js'
 import MasterSlaveTable from '../../components/render/MasterSlaveTable'
 import FormContainer from '../../components/render/FormContainer'
@@ -11,9 +10,6 @@ import EjectSelect from '../../components/render/EjectSelect'
 import TreeSelect from '../../components/render/TreeSelect'
 import CustomView from '../../components/render/CustomView'
 Vue.use(ElementUI, { size: 'small' })
-if (IEVersion() === 11) {
-  import('../../styles/ie.scss')
-}
 
 const ruleTrigger = {
   'el-input': 'blur',

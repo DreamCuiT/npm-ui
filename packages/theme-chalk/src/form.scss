@@ -1,6 +1,11 @@
 @charset "UTF-8";
 @import "commonStyle/common";
 @import "mixins/mixins";
+@import "./commonStyle/ie";
+
+@if $lte11 {
+  @include partial;
+}
 
 .formList.el-form {
   > .el-row {
@@ -33,6 +38,22 @@
 
     .el-form-item__content {
       font-size: 12px;
+      .view {
+        line-height: 32px;
+        padding-top: 0.5px;
+        height: 40px;
+        padding-bottom: 0.5px;
+      }
+    }
+
+    .el-form-item--medium .el-form-item__content .view {
+      height: 36px;
+    }
+    .el-form-item--small .el-form-item__content .view {
+      height: 32px;
+    }
+    .el-form-item--mini .el-form-item__content .view {
+      height: 28px;
     }
 
     /**密级附件校验信息位置 */

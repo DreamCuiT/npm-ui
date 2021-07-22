@@ -19,7 +19,7 @@ module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
     index: ['./src/index.js'],
-    inject: ['./src/plugins/inject.js'],
+    // inject: ['./src/plugins/inject.js'],
     api: ['./src/plugins/api.js']
   },
   output: {
@@ -46,8 +46,6 @@ module.exports = {
       packages: path.resolve(__dirname, '../packages'),
       examples: path.resolve(__dirname, '../examples'),
       '~': path.resolve('src'),
-      // vue$: "vue/dist/vue.esm.js",
-      // "@": resolve("../packages")
 
     },
   },
@@ -63,7 +61,6 @@ module.exports = {
         loader: 'babel-loader',
         include: [
           resolve('src'),
-          resolve('examples'),
           resolve('packages'),
           resolve('node_modules/bpmn-js'),
           resolve('node_modules/@babel/parser/lib'),
@@ -113,6 +110,14 @@ module.exports = {
           'style-loader',
           'css-loader'
         ]
+      },
+      { 
+        test:/\.scss/,
+        use:[
+          { loader: 'vue-style-loader' },
+          { loader: 'css-loader', options: { sourceMap: true } },
+          { loader: 'sass-loader', options: { sourceMap: true } }
+        ] 
       }
     ]
   },
@@ -130,26 +135,26 @@ module.exports = {
   },
   plugins: [
     new uglify(),
-    new CompressionWebpackPlugin(),
-    new MonacoWebpackPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    }),
-    new BundleAnalyzerPlugin(
-      {
-         analyzerMode: 'server',
-         analyzerHost: '127.0.0.1',
-         analyzerPort: 8889,
-         reportFilename: 'report.html',
-         defaultSizes: 'parsed',
-         openAnalyzer: true,
-         generateStatsFile: false,
-         statsFilename: 'stats.json',
-         statsOptions: null,
-         logLevel: 'info'
-           }
-  ),
+    // new CompressionWebpackPlugin(),
+    // new MonacoWebpackPlugin(),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     warnings: false
+    //   }
+    // }),
+  //   new BundleAnalyzerPlugin(
+  //     {
+  //        analyzerMode: 'server',
+  //        analyzerHost: '127.0.0.1',
+  //        analyzerPort: 8889,
+  //        reportFilename: 'report.html',
+  //        defaultSizes: 'parsed',
+  //        openAnalyzer: true,
+  //        generateStatsFile: false,
+  //        statsFilename: 'stats.json',
+  //        statsOptions: null,
+  //        logLevel: 'info'
+  //          }
+  // ),
   ]
 }
