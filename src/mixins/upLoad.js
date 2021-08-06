@@ -1,3 +1,5 @@
+import {IEVersion} from '~/utils/common'
+
 export default {
   data(){
 
@@ -35,14 +37,18 @@ export default {
         return
       }
       comp.$api['SystemSettings.getFileUrl']({ attachmentId: file[bindKey.fileIdKey] }, { responseType: 'blob' }).then(backJson => {
-        let link = document.createElement('a')
-        link.href = window.URL.createObjectURL(new Blob([backJson.data]))
-        link.download = file[bindKey.fileNameKey]
-        document.body.appendChild(link)
-
-        link.click()
-        window.URL.revokeObjectURL(link.href)
-        document.body.removeChild(link)
+        if(IEVersion !== -1){
+          'msSaveOrOpenBlob' in navigator && window.navigator.msSaveOrOpenBlob(backJson.data, file[bindKey.fileNameKey]);
+        }else{
+          let link = document.createElement('a')
+          link.href = window.URL.createObjectURL(new Blob([backJson.data]))
+          link.download = file[bindKey.fileNameKey]
+          document.body.appendChild(link)
+  
+          link.click()
+          window.URL.revokeObjectURL(link.href)
+          document.body.removeChild(link)
+        }
       }).catch(err => {
         if (err.type === 'application/json') {
           comp.$message({
