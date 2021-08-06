@@ -12,7 +12,49 @@ $base-disabled-color: #c0c4cc !default;
 $base-bg-color: #f7f8fc !default;
 $base-bg-shadow: rgba(99, 99, 99, 0.1) !default;
 $base-text-color: #858585 !default;
-$base-table-thead-color: #eeeeee !default;
+
+/**
+ * table
+**/
+$base-table-thead-color: #ffffff !default;
+$base-table-thead-background: #133b78 !default;
+$base-table-border-color: #c6c6c6 !default;
+
+$base-table-current-background: #ffe96a !default;
+$base-table-hover-background: #fff6c7 !default;
+$base-table-striped-background: #f0f2f4 !default;
+/**
+ * button
+**/
+$button-disabled-color: #ffffff !default;
+$button-disabled-background-color: #a0afc5 !default;
+$button-disabled-border-color: #a0afc5 !default;
+/**
+ * dialog
+**/
+$dialog-title-color: #606266 !default;
+$dialog-icons-color: #909399 !default;
+$dialog-footer-background: #fff !default;
+/**
+ * drawer
+**/
+$drawer-header-color: #d8d8d8 !default;
+/**
+ * editTable
+**/
+$editTable-disabled-color: #999 !default;
+$editTable-disabled-hover-color: #999 !default;
+$editTable-disabled-hover-border-color: #e1e1e1 !default;
+/**
+ * listLayout
+**/
+$listLayout-background: #ffffff !default;
+$listLayout-header-background: #e9ecef !default;
+$listLayout-header-border-color: #e1e1e1 !default;
+/**
+ * Layout
+**/
+$layout-header-background: #e9ecef !default;
 
 $base-red-color: #f44336 !default;
 $base-blue-color: #03a9f4 !default;
@@ -36,6 +78,7 @@ $base-download-orange-color: #fb4c2f !default;
 $base-download-green-color: #63a45c !default;
 
 $base-anchor-light-color: #138dff !default;
+$base-anchor-background-color: #ffffff !default;
 
 // $font-size-large: 18px;
 // $font-size-medium: 16px;
@@ -154,47 +197,6 @@ body {
   }
 }
 
-// element ui dialog样式覆盖
-.el-dialog {
-  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
-
-  .el-dialog__header {
-    padding: 12px 10px;
-    margin-bottom: 0;
-    border-bottom: 1px solid $base-line-color;
-    box-sizing: border-box;
-
-    .el-dialog__title {
-      font-size: 14px;
-      color: #333333;
-    }
-
-    .el-dialog__headerbtn {
-      top: 17px;
-    }
-  }
-}
-
-.el-dialog__body {
-  padding: 0;
-}
-
-.el-drawer__header {
-  padding: 12px 10px;
-  margin-bottom: 0;
-  color: #333333;
-  font-size: 14px;
-  border-bottom: 1px solid $base-line-color;
-  box-sizing: border-box;
-}
-
-.el-drawer__body {
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
 /**
  * 上传附件按钮与拖拽样式
  * 
@@ -253,34 +255,36 @@ body {
 
 .el-table--small th {
   padding: 13px 0;
-  background: #133b78;
 }
 
 .el-table--striped .el-table__body tr.el-table__row--striped td {
-  background: #f0f2f4;
+  background: $base-table-striped-background;
 }
 
 .el-table--border th,
 .el-table--border td {
-  border-right: 1px solid #c6c6c6;
+  border-right: 1px solid $base-table-border-color;
 }
 
 .el-table td {
-  border-bottom: 1px solid #c6c6c6;
+  border-bottom: 1px solid $base-table-border-color;
 }
 
 .el-table th.is-leaf {
-  border-bottom: 2px solid #133b78;
+  border-bottom: 2px solid $base-light-color;
 }
 
 .el-table thead {
-  color: #ffffff;
+  color: $base-table-thead-color !important;
+  th {
+    background: $base-table-thead-background;
+  }
 }
 
 // 选中
 .el-table--striped .el-table__body tr.el-table__row--striped.current-row td,
 .el-table__body tr.current-row > td {
-  background-color: #ffe96a;
+  background-color: $base-table-current-background !important;
 }
 
 // hover
@@ -289,7 +293,7 @@ body {
 .el-table__body tr.hover-row.el-table__row--striped > td,
 .el-table__body tr.hover-row > td,
 .el-table--enable-row-transition .el-table__body tr:hover td {
-  background-color: #fff6c7;
+  background-color: $base-table-hover-background !important;
 }
 
 // element ui table--列固定时, 层级处理
@@ -362,12 +366,12 @@ body {
 .gantt_grid_scale,
 .gantt_task_scale,
 .gantt_task_vscroll {
-  background: #133b78;
+  background: $base-light-color;
 }
 
 .gantt_grid_scale,
 .gantt_task_scale {
-  border-bottom: 1px solid #133b78;
+  border-bottom: 1px solid $base-light-color;
 }
 
 .gantt_grid_scale .gantt_grid_head_cell,

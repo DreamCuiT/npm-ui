@@ -9,7 +9,7 @@
     width: 100%;
     height: 50px;
     box-sizing: border-box;
-    background: #E9ECEF;
+    background: $layout-header-background;
     border-bottom: 1px solid $base-line-color;
   }
   .normal-nlcr-main {
@@ -20,8 +20,8 @@
       height: 100%;
     }
 
-    >.el-row,
-    >.el-row .el-col {
+    > .el-row,
+    > .el-row .el-col {
       height: 100%;
       .normal-nlcr-left,
       .normal-nlcr-right {
@@ -35,24 +35,24 @@
         }
       }
 
-      .splitBtn{
+      .splitBtn {
         width: 0px;
         height: 100%;
         float: left;
-        position:relative;
-        cursor:pointer;
+        position: relative;
+        cursor: pointer;
 
-        > i{
-          background:$base-light-color;
-          color:$base-white-color;
-          font-size:10px;
-          position:absolute;
-          top:40%;
+        > i {
+          background: $base-light-color;
+          color: $base-white-color;
+          font-size: 10px;
+          position: absolute;
+          top: 40%;
           width: 10px;
           height: 60px;
           line-height: 60px;
           border-radius: 0px 10px 10px 0px;
-          z-index:99;
+          z-index: 99;
         }
       }
 

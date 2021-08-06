@@ -2,6 +2,32 @@
 @import "commonStyle/common";
 @import "mixins/mixins";
 
+// element ui dialog样式覆盖
+.el-dialog {
+  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+
+  .el-dialog__header {
+    padding: 12px 10px;
+    margin-bottom: 0;
+    border-bottom: 1px solid $base-line-color;
+    box-sizing: border-box;
+
+    .el-dialog__title {
+      font-size: 14px;
+      color: $dialog-title-color;
+    }
+
+    .el-dialog__headerbtn {
+      top: 17px;
+    }
+  }
+}
+
+.el-dialog__body {
+  padding: 0;
+}
 
 .el-dialog {
   margin-top: 10vh !important;
@@ -63,21 +89,21 @@
           span {
             text-align: center;
             font-size: 16px;
-            color: #606266;
+            color: $dialog-title-color;
           }
         }
         .icons {
           display: flex;
           justify-content: flex-end;
           i {
-            color: #909399;
+            color: $dialog-icons-color;
             font-size: 18px !important;
             display: block;
             padding: 0 7px;
             cursor: pointer;
           }
           i:hover {
-            color:$base-light-color;
+            color: $base-light-color;
           }
         }
       }
@@ -119,8 +145,8 @@
       }
     }
     .el-dialog__body {
-      position:relative;
-      height:var(--height);
+      position: relative;
+      height: var(--height);
 
       .dialogBody {
         height: calc(100% - 50px);
@@ -143,15 +169,15 @@
           background: hsla(0, 0%, 53%, 0.1);
         }
 
-        &.hiddenDialogFooter{
-          height:100%;
+        &.hiddenDialogFooter {
+          height: 100%;
         }
       }
       .dialogFooter {
-        position:absolute;
-        bottom:0;
-        left:0;
-        width:100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
         padding: 10px 15px;
         border-top: 1px solid $base-line-color;
         text-align: right;
@@ -178,8 +204,8 @@
         height: calc(100% - 50px) !important;
         max-height: none !important;
 
-        &.hiddenDialogFooter{
-          height:100%!important;
+        &.hiddenDialogFooter {
+          height: 100% !important;
         }
       }
     }
@@ -187,7 +213,7 @@
       position: absolute;
       bottom: 0;
       width: 100%;
-      background: #fff;
+      background: $dialog-footer-background;
     }
   }
   .dragDialog {

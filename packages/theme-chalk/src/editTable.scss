@@ -2,20 +2,20 @@
 @import "commonStyle/common";
 @import "mixins/mixins";
 
-.el-icon-delete{
- font-size:20px;
- line-height:24px;
- cursor:pointer;
+.el-icon-delete {
+  font-size: 20px;
+  line-height: 24px;
+  cursor: pointer;
 
- &:hover{
-   color: $base-light-color;
- }
+  &:hover {
+    color: $base-light-color;
+  }
 
- &.is-disabled {
-   cursor: not-allowed;
-   color: #999;
-   &:hover {
-     color: #999
-   }
- }
+  &.is-disabled {
+    cursor: not-allowed;
+    color: $editTable-disabled-color;
+    &:hover {
+      color: $editTable-disabled-hover-color;
+    }
+  }
 }

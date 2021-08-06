@@ -8,25 +8,25 @@
     border-color: $base-light-color;
   }
 
-  .el-dropdown{
-    .el-button--small{
-      padding:7px 6px;
+  .el-dropdown {
+    .el-button--small {
+      padding: 7px 6px;
     }
   }
 
   .el-button--small {
     padding: 6px;
     margin-right: 5px;
-    margin-top:3px;
+    margin-top: 3px;
 
-    >i{
-      float:left;
+    > i {
+      float: left;
     }
 
-    >span{
-      float:left;
-      margin-left:2px;
-      margin-top:3px;
+    > span {
+      float: left;
+      margin-left: 2px;
+      margin-top: 3px;
     }
   }
 
@@ -34,8 +34,8 @@
   .el-button--primary.is-disabled:hover,
   .el-button--primary.is-disabled:focus,
   .el-button--primary.is-disabled:active {
-    color: #ffffff;
-    background-color: #a0afc5;
-    border-color: #a0afc5;
+    color: $button-disabled-color;
+    background-color: $button-disabled-background-color;
+    border-color: $button-disabled-border-color;
   }
 }
