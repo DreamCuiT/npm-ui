@@ -1,7 +1,18 @@
 <template>
-  <el-drawer :title="title" v-if="visible" :visible="visible" :direction="direction" :destroy-on-close="true"
-  :size="size" @close="close" :wrapperClosable="false" v-bind="drawerConfig" :custom-class="title?'':'custom-drawer'"
-  >
+  <el-drawer :title="title"
+             v-if="visible"
+             :visible="visible"
+             :direction="direction"
+             :destroy-on-close="true"
+             :size="size"
+             @close="close"
+             :wrapperClosable="false"
+             v-bind="drawerConfig"
+             :custom-class="title?'':'custom-drawer'">
+    <div slot="title"
+         v-if="$slots.titleHeader">
+      <slot name="titleHeader"></slot>
+    </div>
     <slot name="drawer"></slot>
   </el-drawer>
 </template>

@@ -2,6 +2,9 @@
   <el-form ref="form"
            :model="formData"
            :label-width="labelWidth"
+           :label-position="labelPosition"
+           v-bind="$attrs"
+           v-on="$listeners"
            class="formList"
            style="height:100%">
     <el-row :class="{'existBtn':(existDefaultBtn || existCustomBtn)}">
@@ -99,6 +102,7 @@ import upLoad from '~/mixins/upload'
 export default {
   name: 'P8Form',
   componentName: 'P8Form',
+  inheritAttrs: false,
   mixins: [upLoad],
   props: {
     comp: {
@@ -118,6 +122,10 @@ export default {
     labelWidth: {
       type: String,
       default: '100px'
+    },
+    labelPosition: {
+      type: String,
+      default: 'right'
     },
     api: {
       type: String,

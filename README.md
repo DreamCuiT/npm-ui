@@ -2,11 +2,19 @@
 
 > 组件库
 
-## Build Setup
+## Sever Setup
 
 ## 私服切换源
 
-npm install nrm -g
+## https://github.com/Pana/nrm/issues/93
+
+## 在某些版本的 node 中使用 nrm 报错 ERR_INVALID_ARG_TYPE
+
+## npm install nrm -g
+
+## npm install -g Pana/nrm 代替 npm install nrm -g 暂时可以使用 github 方式安装
+
+npm install -g Pana/nrm
 
 nrm add rongzhi http://192.168.0.191:8888/repository/npm-group/
 
@@ -21,10 +29,12 @@ npm --registry http://192.168.0.191:8888/repository/npm-group/ i p8-components-u
 
 安装成功如果运行报错，删除package-lock.json
 
-执行cnpm i后启动
+执行npm i后启动
 
 # serve with hot reload at localhost:8080
 npm run dev
+
+## Build Setup
 
 # build for production with minification
 npm run build

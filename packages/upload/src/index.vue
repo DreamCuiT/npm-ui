@@ -1,20 +1,21 @@
 <template>
   <div class="common-upload">
-    <el-upload :action="uploadUrl()" size="mini" name='thefile'
-      :class="{'el-upload--drag': uploadConfig.drag}"
-      with-credentials
-      :headers="headers"
-      :file-list="renderFiles"
-      :show-file-list="showList"
-      :list-type="listType"
-      :before-upload="beforeUpload"
-      :before-remove="beforeRemove"
-      :on-success="handleSuccess"
-      :on-remove="handleRemove"
-      :on-preview="handlePreview"
-      :on-exceed="handleExceed"
-      v-bind="uploadConfig"
-      >
+    <el-upload :action="uploadUrl()"
+               size="mini"
+               name='thefile'
+               :class="{'el-upload--drag': uploadConfig.drag}"
+               with-credentials
+               :headers="headers"
+               :file-list="renderFiles"
+               :show-file-list="showList"
+               :list-type="listType"
+               :before-upload="beforeUpload"
+               :before-remove="beforeRemove"
+               :on-success="handleSuccess"
+               :on-remove="handleRemove"
+               :on-preview="handlePreview"
+               :on-exceed="handleExceed"
+               v-bind="uploadConfig">
       <template v-if="uploadConfig.drag">
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -24,13 +25,22 @@
       </template>
       <template v-else-if="listType === 'picture-card'">
         <i class="el-icon-plus"></i>
-        <el-dialog :visible.sync="dialogImageVisible" :append-to-body="true">
-          <img width="100%" :src="dialogImageUrl" alt="">
+        <el-dialog :visible.sync="dialogImageVisible"
+                   :append-to-body="true">
+          <img width="100%"
+               :src="dialogImageUrl"
+               alt="">
         </el-dialog>
       </template>
-      <el-button v-else type="primary" size="mini" icon="el-icon-upload2">上传附件</el-button>
+      <el-button v-else
+                 type="primary"
+                 size="mini"
+                 icon="el-icon-upload2">上传附件</el-button>
     </el-upload>
-    <file-list v-if="!showList && !customList" :files="files" @remove="handleRemoveSecret"></file-list>
+    <file-list v-if="!showList && !customList"
+               :files="files"
+               v-bind="uploadConfig"
+               @remove="handleRemoveSecret"></file-list>
   </div>
 </template>
 
@@ -42,7 +52,7 @@ import FileList from './Components/fileList'
 export default {
   name: 'P8Upload',
   componentName: 'P8Upload',
-  mixins:[upLoad],
+  mixins: [upLoad],
   components: {
     FileList,
     'el-upload': Upload,

@@ -2,34 +2,32 @@
 @import "commonStyle/common";
 @import "mixins/mixins";
 
+.menuLayout.el-container {
+  height: 100%;
 
-  .menuLayout.el-container{
-    height:100%;
+  .el-header {
+    height: 50px !important;
+    padding: 0;
+  }
 
-    .el-header{
-      height:50px!important;
-      padding:0;
-    }
-
-    .el-main{
-      padding:0;
-      overflow:hidden;
-      background:$base-bg-color;
-      height: 100%;
-      >div{
-        height:100%!important;
-
-        >div{
-          height:100%;
-        }
+  .el-main {
+    padding: 0;
+    overflow: hidden;
+    background: $base-bg-color;
+    height: 100%;
+    > div {
+      height: 100% !important;
+      > div {
+        height: 100%;
       }
     }
   }
+}
 
-.el-menu-demo.el-menu--horizontal{
-  border-bottom:$base-line-color;
+.el-menu-demo.el-menu--horizontal {
+  border-bottom: $base-line-color;
 
-  &::before{
+  &::before {
     height: 1px;
     width: 100%;
     background: $base-line-color;
@@ -38,19 +36,19 @@
     left: 0;
   }
 
-  >.el-menu-item{
-    line-height:50px!important;
-    height:50px!important;
-    color:$base-menu-text-color;
-    font-weight:bold;
+  > .el-menu-item {
+    line-height: 50px !important;
+    height: 50px !important;
+    color: $base-menu-text-color;
+    font-weight: bold;
 
-    &.is-active{
-      color:$base-light-color;
+    &.is-active {
+      color: $base-light-color;
     }
 
-    &:hover{
-      color:$base-light-color;
-      border-bottom:2px solid $base-light-color!important;
+    &:hover {
+      color: $base-light-color;
+      border-bottom: 2px solid $base-light-color !important;
     }
   }
 }

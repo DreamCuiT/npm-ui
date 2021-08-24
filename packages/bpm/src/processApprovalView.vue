@@ -2,22 +2,38 @@
   <list-layout class="custom-list-layout">
     <template #north>
       <div style="float: right;">
-        <el-button style="font-size: 16px; padding: 6px" type="primary" size="mini" @click="zoom('large')" icon="el-icon-zoom-in"></el-button>
-        <el-button style="font-size: 16px; padding: 6px" type="primary" size="mini" @click="zoom('small')" icon="el-icon-zoom-out"></el-button>
-        <el-button style="font-size: 16px; padding: 6px" type="primary" size="mini" @click="zoom('reset')" icon="el-icon-refresh-left"></el-button>
+        <el-button style="font-size: 16px; padding: 6px"
+                   type="primary"
+                   size="mini"
+                   @click="zoom('large')"
+                   icon="el-icon-zoom-in"></el-button>
+        <el-button style="font-size: 16px; padding: 6px"
+                   type="primary"
+                   size="mini"
+                   @click="zoom('small')"
+                   icon="el-icon-zoom-out"></el-button>
+        <el-button style="font-size: 16px; padding: 6px"
+                   type="primary"
+                   size="mini"
+                   @click="zoom('reset')"
+                   icon="el-icon-refresh-left"></el-button>
       </div>
     </template>
     <template #center>
       <div class="bpmn-view-con">
-        <div id="bpmn-view-canvas" class="bpmn-view-canvas" ref="bpmn-view-canvas"></div>
+        <div id="bpmn-view-canvas"
+             class="bpmn-view-canvas"
+             ref="bpmn-view-canvas"></div>
         <ul class="bpmn-tip-left">
           <!-- <li v-for="item in BpmnObject.bpmnIcons" :key="item.icon">
             <span> <i :class="item.icon"></i>&nbsp;{{item.text}} </span>
           </li> -->
         </ul>
         <ul class="bpmn-tip-right">
-          <li v-for="item in BpmnObject.customStyle" :key="item.color">
-            <span> <i class="p8 icon-center-layout" :style="{background: item.color, color: item.color, borderRadius: '4px'}"></i>&nbsp;{{item.desc}} </span>
+          <li v-for="item in BpmnObject.customStyle"
+              :key="item.color">
+            <span> <i class="p8 icon-center-layout"
+                 :style="{background: item.color, color: item.color, borderRadius: '4px'}"></i>&nbsp;{{item.desc}} </span>
           </li>
         </ul>
       </div>
@@ -215,20 +231,30 @@ export default {
     },
     async createNewDiagram (xml) {
       let this_ = this
-      this.bpmnModeler.importXML(xml, (err) => {
-        if (err) {
+      // this.bpmnModeler.importXML(xml, (err) => {
+      //   if (err) {
 
-        } else {
-          this_.getApproveDataInit()
-        }
-      })
+      //   } else {
+      //     this_.getApproveDataInit()
+      //   }
+      // })
+
+      try {
+        const result = await this.bpmnModeler.importXML(xml)
+        const { warnings } = result
+        console.log(warnings)
+        this_.getApproveDataInit()
+        this.overlays = this.bpmnModeler.get('overlays')
+      } catch (err) {
+        console.log(err.message, err.warnings)
+      }
     },
     async success () {
-      this.getOverlays()
-      // this.handleElementStyle()
-      this.changeEleStyle()
-      this.customBpmnListener()
-      this.customFlowArrow()
+      await this.getOverlays()
+      await this.handleElementStyle()
+      await this.changeEleStyle()
+      await this.customBpmnListener()
+      await this.customFlowArrow()
     },
     getOverlays () {
       this.overlays = this.bpmnModeler.get('overlays') // 审批信息悬浮面板控制
@@ -292,7 +318,7 @@ export default {
           if (filterApprovalTemp.length === filterApproval.length) {
             // 说明不是会签节点
             let maxTime = Math.max.apply(Math, filterApproval.map((item, index) => {
-                return item.approvalTimeMillisecond
+              return item.approvalTimeMillisecond
             }))
             renderApproval = filterApproval.filter(item => item.approvalTimeMillisecond === maxTime)
           } else {
@@ -369,7 +395,7 @@ export default {
         }
       }
     },
-    overlaysMask (shapeId) { // 审批信息节点蒙版[根据状态填充背景]
+    async overlaysMask (shapeId) { // 审批信息节点蒙版[根据状态填充背景]
       const elementRegistry = this.bpmnModeler.get('elementRegistry') // 根据id获取对应元素
       let element = elementRegistry.get(shapeId)
       let maskDom = `
@@ -379,7 +405,7 @@ export default {
           border-radius: 10px;
           cursor: pointer"></div>
       `
-      this.overlays.add(element.id, 'note', {
+      await this.bpmnModeler.get('overlays').add(element.id, 'note', {
         position: {
           top: 0,
           left: 0
@@ -408,6 +434,8 @@ export default {
       if (!childElement.length) {
         return false
       }
+      this.approvalEleStyleHandle(canvas, childElement)
+      this.flowEleStyleHandle(canvas, childElement)
       // bpmn:UserTask
       // eslint-disable-next-line
       const userTask_ele = childElement.filter(ele => ele.type === 'bpmn:UserTask')
@@ -424,9 +452,8 @@ export default {
           canvas.addMarker(ele.id, 'custom-end')
         })
       }
-
-      this.approvalEleStyleHandle(canvas, childElement)
-      this.flowEleStyleHandle(canvas, childElement)
+      // this.approvalEleStyleHandle(canvas, childElement)
+      // this.flowEleStyleHandle(canvas, childElement)
     },
     approvalEleStyleHandle (canvas, childElement) {
       if (this.overlaysInfo && this.overlaysInfo.length) {
@@ -444,7 +471,7 @@ export default {
               canvas.addMarker(info.taskId, `custom-${info.actType}-current`)
             } else {
               // if ((info.actType === 'userTask' && info.yesOrNo) || (info.actType !== 'userTask' && !info.yesOrNo)) {
-                canvas.addMarker(info.taskId, `custom-${info.actType}`)
+              canvas.addMarker(info.taskId, `custom-${info.actType}`)
               // }
             }
           }
@@ -533,59 +560,60 @@ export default {
 }
 </script>
 <style lang="scss">
-  @import '../components/custom.style.scss';
-  .bpmn-view-con {
-    background-color: #ffffff;
+@import '../components/custom.style.scss';
+.bpmn-view-con {
+  background-color: #ffffff;
+  width: 100%;
+  height: 100%;
+  .bpmn-view-canvas {
+    float: left;
     width: 100%;
-    height: 100%;
-    .bpmn-view-canvas{
-      float: left;
-      width: 100%;
-      height: 90%;
-    }
-    .bpmn-tip-left, .bpmn-tip-right {
-      position: absolute;
-      top: 0;
-      padding: 10px;
-      li {
-        padding: 4px 0;
-        span {
-          display: flex;
-        }
-      }
-    }
-    .bpmn-tip-left {
-      left: 0;
-    }
-    .bpmn-tip-right {
-      right: 0;
-    }
+    height: 90%;
   }
-  .diagram-note {
-    width: 300px;
-    min-height: 40px;
-    border-radius: 6px;
-    background-color: rgba(6, 161, 252, 0.2);
-    box-sizing: border-box;
-    .diagram-note-item {
-      width: 100%;
-      display: flex;
-      align-items: center;
+  .bpmn-tip-left,
+  .bpmn-tip-right {
+    position: absolute;
+    top: 0;
+    padding: 10px;
+    li {
       padding: 4px 0;
-      line-height: 30px;
-      border-bottom: 1px solid #fafafa;
-      &.title {
-        font-size: 14px;
-      }
-      span:nth-child(1) {
-        width: 25%;
-        padding: 0 4px;
-        text-align: right;
-      }
-      span:nth-child(2) {
-        width: 75%;
-        padding: 0 4px;
+      span {
+        display: flex;
       }
     }
   }
+  .bpmn-tip-left {
+    left: 0;
+  }
+  .bpmn-tip-right {
+    right: 0;
+  }
+}
+.diagram-note {
+  width: 300px;
+  min-height: 40px;
+  border-radius: 6px;
+  background-color: rgba(6, 161, 252, 0.2);
+  box-sizing: border-box;
+  .diagram-note-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+    line-height: 30px;
+    border-bottom: 1px solid #fafafa;
+    &.title {
+      font-size: 14px;
+    }
+    span:nth-child(1) {
+      width: 25%;
+      padding: 0 4px;
+      text-align: right;
+    }
+    span:nth-child(2) {
+      width: 75%;
+      padding: 0 4px;
+    }
+  }
+}
 </style>
