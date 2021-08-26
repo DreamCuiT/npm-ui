@@ -1,7 +1,7 @@
 var path = require('path');
 var fs = require('fs');
-var nodeExternals = require('webpack-node-externals');
-var Components = require('../components.json');
+// var nodeExternals = require('webpack-node-externals');
+// var Components = require('../components.json');
 
 var utilsList = fs.readdirSync(path.resolve(__dirname, '../src/utils'));
 var mixinsList = fs.readdirSync(path.resolve(__dirname, '../src/mixins'));
@@ -26,11 +26,11 @@ var externals = {};
 //   externals[`element-ui/src/transitions/${file}`] = `element-ui/lib/transitions/${file}`;
 // });
 
-externals = [Object.assign({
-  vue: 'vue'
-}, externals), nodeExternals()];
+// externals = [Object.assign({
+//   vue: 'vue'
+// }, externals), nodeExternals()];
 
-exports.externals = externals;
+// exports.externals = externals;
 
 exports.alias = {
   main: path.resolve(__dirname, '../src'),

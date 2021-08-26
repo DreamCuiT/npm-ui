@@ -16,10 +16,16 @@ function resolve (dir) {
 
 
 module.exports = {
+  // mode: 'production',
   context: path.resolve(__dirname, '../'),
+  // optimization: {
+  //   splitChunks: {
+  //     // include all types of chunks
+  //     chunks: 'all'
+  //   }
+  // },
   entry: {
     index: ['./src/index.js'],
-    // inject: ['./src/plugins/inject.js'],
     api: ['./src/plugins/api.js']
   },
   output: {
@@ -33,7 +39,7 @@ module.exports = {
     umdNamedDefine: true,
   },
   externals: {
-    "vue": "vue",
+    "vue": 'vue',
     "axios": "axios",
     "element-ui": "element-ui",
     "moment": "moment",
@@ -43,6 +49,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       main: path.resolve(__dirname, '../src'),
+      '@': resolve('examples'),
       packages: path.resolve(__dirname, '../packages'),
       examples: path.resolve(__dirname, '../examples'),
       '~': path.resolve('src'),
@@ -77,7 +84,11 @@ module.exports = {
           plugins: [
             "@babel/plugin-transform-runtime",
             "@babel/plugin-syntax-jsx", 
-            "@babel/plugin-syntax-dynamic-import"
+            "@babel/plugin-syntax-dynamic-import",
+            [
+              "@babel/plugin-proposal-object-rest-spread",
+              { "loose": true, "useBuiltIns": true }
+            ]
           ]
         }
       },

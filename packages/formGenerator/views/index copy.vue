@@ -128,28 +128,25 @@ import ClipboardJS from 'clipboard'
 import FormDrawer from './FormDrawer'
 import JsonDrawer from './JsonDrawer'
 import RightPanel from './RightPanel'
-import {
-  inputComponents, selectComponents, layoutComponents, formConf
-} from '../components/generator/config'
-import { beautifierConf, titleCase, deepClone } from '../utils/index'
-import {
-  makeUpHtml, vueTemplate, vueScript, cssStyle
-} from '../components/generator/html'
+import CodeTypeDialog from './CodeTypeDialog'
+import DraggableItem from './DraggableItem'
+
+import { inputComponents, selectComponents, layoutComponents, formConf } from '../components/generator/config'
+import { makeUpHtml, vueTemplate, vueScript, cssStyle} from '../components/generator/html'
 import { makeUpJs } from '../components/generator/js'
 import { makeUpCss } from '../components/generator/css'
 import drawingDefalut from '../components/generator/drawingDefalut'
 import logo from '../assets/logo.png'
-import CodeTypeDialog from './CodeTypeDialog'
-import DraggableItem from './DraggableItem'
-import {
-  getDrawingList, saveDrawingList, getIdGlobal, saveIdGlobal, getFormConf
-} from '../utils/db'
+
+import { saveDrawingList, getIdGlobal, saveIdGlobal, getFormConf } from '../utils/db'
+import { beautifierConf, titleCase } from '../utils/index'
+import { deepClone } from '~/utils/common.js'
 import loadBeautifier from '../utils/loadBeautifier'
 
 let beautifier
 let oldActiveId
 let tempActiveData
-const drawingListInDB = getDrawingList()
+let drawingListInDB = []
 const formConfInDB = getFormConf()
 const idGlobal = getIdGlobal()
 
@@ -237,8 +234,10 @@ export default {
       immediate: true
     }
   },
-  mounted () {
+  async mounted () {
     console.log(this.drawingList, 'drawingList')
+    let data = await this.$api['formGenerator.designerDetails']()
+    drawingListInDB = data.designJson
     if (Array.isArray(drawingListInDB) && drawingListInDB.length > 0) {
       this.drawingList = drawingListInDB
     } else {

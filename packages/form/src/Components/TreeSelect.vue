@@ -129,12 +129,6 @@ export default {
         return []
       }
     },
-    defaultExpandedKeys: {
-      type: Array,
-      default () {
-        return []
-      }
-    },
     data: {
       type: Array,
       default () {
@@ -158,6 +152,9 @@ export default {
     },
     propsLabel () {
       return this.props.label
+    },
+    defaultExpandedKeys () {
+      return Array.isArray(this.value) ? this.value : [this.value]
     }
   },
   data () {
@@ -239,6 +236,12 @@ export default {
         }
       }
     },
+    setTreeDataState () {
+      const disabledValues = this.disabledValues
+      treeEach(this.data, (node) => {
+        node.disabled = disabledValues.includes(node[this.propsValue])
+      })
+    },
     setSelectedLabel () {
       const elTree = this.$refs.elTree
       const selectedNodes = elTree.getCheckedNodes(!this.checkStrictly)
@@ -279,7 +282,7 @@ export default {
       // this.setTreeDataState()
     },
     disabledValues () {
-      // this.setTreeDataState()
+      this.setTreeDataState()
     },
     reset () {
       this.clear()

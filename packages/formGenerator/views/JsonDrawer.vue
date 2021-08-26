@@ -38,8 +38,8 @@ import { Drawer } from 'element-ui'
 import { beautifierConf } from '../utils/index'
 import ClipboardJS from 'clipboard'
 import { saveAs } from 'file-saver'
-// import loadMonaco from '../utils/loadMonaco'
-// import loadBeautifier from '../utils/loadBeautifier'
+import loadMonaco from '../utils/loadMonaco'
+import loadBeautifier from '../utils/loadBeautifier'
 
 let beautifier
 let monaco

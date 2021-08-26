@@ -50,7 +50,7 @@
                         :label="item.labelText"
                         :prop="item.fieldName"
                         :label-width="item.labelWidth ? item.labelWidth : ''"
-                        :rules="item.rules || item.listType === 'secret' ? uploadDefaultRules() : []">
+                        :rules="uploadRules(item)">
             <common-upload ref="commonupload"
                            :files="form[item.fieldName] || []"
                            :listType="item.listType"
@@ -92,7 +92,7 @@
   </el-form>
 </template>
 <script>
-import { Form, FormItem, Row, Col, Button, Alert } from 'element-ui'
+import { Form, FormItem, Row, Col, Button, Alert,Select, Option } from 'element-ui'
 import FieldRender from './Components/FieldRender'
 import AddField from './Components/AddField'
 import CommonUpload from '../../upload'
@@ -104,6 +104,17 @@ export default {
   componentName: 'P8Form',
   inheritAttrs: false,
   mixins: [upLoad],
+   components: {
+    'el-form': Form,
+    'el-form-item': FormItem,
+    'el-row': Row,
+    'el-col': Col,
+    'el-button': Button,
+    'el-alert': Alert,
+    FieldRender,
+    AddField,
+    CommonUpload
+  },
   props: {
     comp: {
       type: Object
@@ -152,14 +163,40 @@ export default {
       renderedNum: 0,
       viewData: {},
       isDisable: false,
-      loadingVisible: '',
-      // uploadDefaultRules: this.uploadDefaultRules()
+      loadingVisible: ''
     }
   },
   mounted () {
 
   },
   computed: {
+    secretLevelRules () {
+      return function (data) {
+        let defaultRules = [{ required: true, message: '密级必选' }]
+        if ('defaultRule' in data){
+          isArray(data.defaultRule) && data.defaultRule.length && (defaultRules = data.defaultRule)
+        }
+        if ('rules' in data) {
+           return data.rules.concat(defaultRules)
+        } else {
+         return defaultRules
+        }
+      }
+    },
+    uploadRules () {
+      return function (data) {
+        let defaultRules = this.uploadDefaultRules()
+        if ('rules' in data) {
+          if (data.listType === 'secret') {
+            return data.rules.concat(defaultRules)
+          } else {
+            return data.rules
+          }
+        } else {
+         return data.listType === 'secret' ? defaultRules : []
+        }
+      }
+    },
     formData () {
       let formDataObj = {}
       this.dataSource.map(item => {
@@ -309,17 +346,6 @@ export default {
     removedFile (file, field) {
       this.formData[field.fieldName] = this.$refs.commonupload[0].commonRemoveFile(file, this.formData[field.fieldName])
     }
-  },
-  components: {
-    'el-form': Form,
-    'el-form-item': FormItem,
-    'el-row': Row,
-    'el-col': Col,
-    'el-button': Button,
-    'el-alert': Alert,
-    FieldRender,
-    AddField,
-    CommonUpload
   }
 }
 </script>

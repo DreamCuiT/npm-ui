@@ -1,3 +1,4 @@
+/* eslint-disable vue/no-unused-components */
 <template>
   <div class="hello">
     <!-- <h1>{{ msg }}</h1>
@@ -14,7 +15,7 @@
     <!--                 :form="formData"></p8-form>-->
     <!--      </template>-->
     <!--    </p8-normal-layout>-->
-    <keep-alive>
+    <!-- <keep-alive>
       <p8-drawer :visible="visible"
                  @close="handleClose">
         <template #drawer>
@@ -33,7 +34,7 @@
         </template>
       </p8-drawer>
     </keep-alive>
-    <el-button @click="visible = !visible">dddddd</el-button>
+    <el-button @click="visible = !visible">dddddd</el-button> -->
     <!-- <P8Dialog :visible="visible"
               @handle-cancel="handleCancel"
               @handle-ok="handleOk"
@@ -43,17 +44,17 @@
       </template>
     </P8Dialog> -->
     <!-- <p8-formgenerator :record='{"id": "efee05aa45d95985ad141460db59d253"}'></p8-formgenerator> -->
-    <p8-formApplication :form-conf="formConf"
+    <!-- <p8-formApplication :form-conf="formConf"
                         @setPageData="setPageData"
-                        @submit="save"></p8-formApplication>
+                        @submit="save"></p8-formApplication> -->
     <!-- <p8-upload></p8-upload> -->
     <!-- <p8-menu-layout></p8-menu-layout> -->
     <!-- <p8-select-user :visible='true'></p8-select-user> -->
     <!-- <p8-nlcr-layout></p8-nlcr-layout> -->
     <!-- <p8-split-pane split='vertical'></p8-split-pane> -->
-    <!-- <p8-bpm></p8-bpm> -->
-    <!-- <p8-process-approval></p8-process-approval> -->
-    <!-- <p8-process-definition></p8-process-definition> -->
+    <p8-bpm></p8-bpm>
+    <!-- <p8-process-approval></p8-process-approval>
+    <p8-process-definition></p8-process-definition> -->
     <!-- <p8-anchor></p8-anchor> -->
     <!-- <p8-cron></p8-cron> -->
     <!-- <p8-icon-selector></p8-icon-selector> -->

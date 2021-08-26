@@ -1,3 +1,3 @@
-import Parser from './Parser'
+import P8Parser from './Parser.vue'
 
-export default Parser
+export default P8Parser

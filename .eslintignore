@@ -1,0 +1,12 @@
+examples/play
+*.sh
+node_modules
+fonts
+lib
+coverage
+*.md
+*.scss
+*.woff
+*.ttf
+*.svg
+*.png

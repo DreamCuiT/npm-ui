@@ -24,8 +24,7 @@ export default {
       }
       // const normalKey = { fileIdKey: 'id', fileNameKey: 'fileName', confValueKey: 'confidentialite' }
       // bindKey = { ...normalKey, ...bindKey }
-      const userConfidentialiteList =
-        comp.$store.getters.userInfo.confidentialiteList || [];
+      const userConfidentialiteList = comp.$store.getters.userInfo.confidentialiteList || [];
       if (file[bindKey.confValueKey]) {
         let filter = userConfidentialiteList.filter(
           item => item.id === file[bindKey.confValueKey]

@@ -21,7 +21,7 @@ import ListLayout from 'packages/listLayout'
 import { Button } from 'element-ui'
 import BpmnModeler from 'bpmn-js/lib/Modeler'
 import propertiesPanelModule from 'bpmn-js-properties-panel'
-// import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda'
+import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda'
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda'
 import customTranslate from '../components/customTranslate/customTranslate'
 import { defaultXML } from '../components/defaultXML'
@@ -87,7 +87,7 @@ export default {
         },
         additionalModules: [
           // 右边的属性栏
-          // propertiesProviderModule,
+          propertiesProviderModule,
           propertiesPanelModule,
           // 汉化模块
           customTranslateMolude

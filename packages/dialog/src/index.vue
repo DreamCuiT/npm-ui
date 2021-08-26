@@ -22,9 +22,7 @@
         </div>
         <div class="icons">
           <!-- <i class="el-icon-minus" style="font-size: 24px" @click="minimize"></i> -->
-          <i :class="
-            isfullscreen ? 'p8 icon-dialog-exit-fullscreen' : 'p8 icon-dialog-fullscreen'
-          "
+          <i :class="isfullscreen ? 'p8 icon-dialog-exit-fullscreen' : 'p8 icon-dialog-fullscreen'"
              @click="isFullscreen"></i>
           <i class="p8 icon-close"
              style="font-size: 17px!important;"
@@ -95,6 +93,9 @@ export default {
       let isBody = (this.$refs.dragDialog.$el.firstElementChild.lastElementChild.className.indexOf('el-dialog__header') === -1)
       isBody && (this.$refs.dragDialog.$el.firstElementChild.lastElementChild.style.height = this.dialogHeight > this.dialogMaxHeight ? this.dialogMaxHeight + 'px' : this.dialogHeight + 'px')
     })
+  },
+  destroyed () {
+    this.isfullscreen = false
   },
   props: {
     width: {
@@ -203,6 +204,7 @@ export default {
         // const fixedY =
         dialogHeaderEl.onmousedown = (e) => {
           // 判断当前是否为全屏状态
+          // eslint-disable-next-line no-restricted-globals
           const path = event.path || (event.composedPath && event.composedPath())
           const isFull = path.find(s => {
             if (s.className === undefined) {

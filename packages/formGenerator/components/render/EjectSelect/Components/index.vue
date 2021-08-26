@@ -16,13 +16,13 @@
                    @handle-ok="fillBack"
                    @close="visible = false">
       <template #dialog>
-        <!-- <custom-table
+        <custom-table
           :code="code"
           :customHeight="350"
           :showWestTree="false"
           :headerVisible="false"
           @selection-change="selectChange"
-        ></custom-table> -->
+        ></custom-table>
       </template>
     </common-dialog>
   </div>
@@ -30,13 +30,14 @@
 <script>
 import { Input } from 'element-ui'
 import Dialog from 'packages/dialog/src'
-// import CustomTable from '@/views/Framework/ComponentsMananger/Grid/Components/tableRender'
+import CustomTable from './tableRender'
+
 export default {
   name: 'EjectSelect',
   components: {
     'el-input': Input,
     'common-dialog': Dialog,
-    // 'custom-table': CustomTable
+    'custom-table': CustomTable
   },
   props: {
     config: {
@@ -91,6 +92,7 @@ export default {
   },
   methods: {
     selectedValue: function (val) {
+      // eslint-disable-next-line vue/no-mutating-props
       this.formModel[this.config.__vModel__] = val
       let _this = this
       let param = {

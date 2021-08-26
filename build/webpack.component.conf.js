@@ -69,13 +69,16 @@ module.exports = {
           resolve('node_modules/webpack-dev-server/client')
         ],
         options: {
-
           presets: ["@vue/babel-preset-jsx",["@babel/preset-env",{ "useBuiltIns": "usage","corejs": 3 }]],
           sourceType: 'unambiguous',
           plugins: [
             "@babel/plugin-transform-runtime",
             "@babel/plugin-syntax-jsx", 
-            "@babel/plugin-syntax-dynamic-import"
+            "@babel/plugin-syntax-dynamic-import",
+            [
+              "@babel/plugin-proposal-object-rest-spread",
+              { "loose": true, "useBuiltIns": true }
+            ]
           ]
         }
       },

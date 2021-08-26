@@ -3,6 +3,9 @@ import Vue from 'vue'
 import ElementUI from 'element-ui'
 import { deepClone } from '~/utils/common'
 import render from '../../components/render/render.js'
+// import customRender from '../../components/render/customRender.js'
+
+import FormSecretLevel from '../../components/render/custom/FormSecretLevel'
 import MasterSlaveTable from '../../components/render/MasterSlaveTable'
 import FormContainer from '../../components/render/FormContainer'
 import CustomUpload from '../../components/render/CustomUpload'
@@ -115,6 +118,11 @@ function formBtns (h) {
 function renderFormItem (h, elementList, pageData) {
   return (
     <div class="formElement">
+      <el-col span={24} style="padding-left: 17px;padding-right: 17px;padding-top:10px;">
+          <el-form-item prop="SECRET_LEVEL" label="密级">
+            <form-secret-level formSecretLevel={this.secretLevel} onSecret={this.handlerChangeSecret}></form-secret-level>
+          </el-form-item>
+        </el-col>
       {
         elementList.map(scheme => {
           const config = scheme.__config__
@@ -163,7 +171,7 @@ function renderColFormItem (h, scheme, config, listeners, pageData) {
   */
   const customComponents = {
     'p8-upload': <CustomUpload config={scheme} uploadFiles={this.uploadFilesArr} onUpload={this.handleUpload} onRemove={this.handleUploadFileRemove}></CustomUpload>,
-    'eject-select': <EjectSelect config={scheme} formModel={this[this.formConf.formModel]} onData={this.ejectData.bind(this, scheme)}></EjectSelect>,
+    'eject-select': <EjectSelect config={scheme} formModel={this[this.formConf.formModel]} pageData={this.pageData} onData={this.ejectData.bind(this, scheme)}></EjectSelect>,
     'tree-select': <TreeSelect config={scheme} formModel={this[this.formConf.formModel]}></TreeSelect>,
     'custom-view': <CustomView config={scheme} pageData={this.pageData}></CustomView>
   }
@@ -181,6 +189,7 @@ export default {
   componentName: 'P8FormApplication',
   components: {
     render,
+    FormSecretLevel,
     MasterSlaveTable,
     FormContainer,
     CustomUpload,
@@ -210,6 +219,8 @@ export default {
         const that = this
         if (Object.keys(val).length) {
           that.uploadFilesArr = this.modifyRes.primary.uploadFiles
+          this.secretLevel = this.modifyRes.primary.table.SECRET_LEVEL
+          this[this.formConf.formModel]['SECRET_LEVEL'] = this.modifyRes.primary.table.SECRET_LEVEL
         }
       },
       immediate: true,
@@ -252,9 +263,14 @@ export default {
   data () {
     const data = {
       formConfCopy: deepClone(this.formConf),
-      [this.formConf.formModel]: {},
-      [this.formConf.formRules]: {},
+      [this.formConf.formModel]: { SECRET_LEVEL: '' },
+      [this.formConf.formRules]: {
+        SECRET_LEVEL: [
+          { required: true, message: '请输入密级', trigger: 'blur' }
+        ]
+      },
       childData: [],
+      secretLevel: '', // 密级
       formModel: {},
       pageData: {}, // 页面级参数、数据
       uploadFilesArr: [], // 文件信息[当加载完成 modifyRes存在时, 将uploadFilesArr进行更新]
@@ -327,19 +343,39 @@ export default {
       this.formConfCopy = deepClone(this.formConf)
       this.$refs[this.formConf.formRef].resetFields()
     },
+    handlerChangeSecret (val) {
+      this.secretLevel = val
+      this[this.formConf.formModel]['SECRET_LEVEL'] = val
+    },
     submitForm () {
       // 变量保存
       let _this = this
+      let pageSecretsArr = []
       this.formConfCopy.fields.map(item => {
-        if (item.__config__.variable !== undefined) {
+        if (item.__config__.variable && item.__config__.tag !== 'eject-select') {
           _this[_this.formConf.formModel][item.__config__.formFields] = item.__config__.defaultValue
+        }
+        if (item.type === 'viewField') {
+          if (item.viewField === '$WHOLE_DESCRIBE_ID_SELECT.SECRETLEVEL') {
+            let obj = {
+              name: '项目',
+              id: item.__config__.defaultValue
+            }
+            pageSecretsArr.push(obj)
+          } else if (item.viewField === '$PRJECT_TASK_ID_SELECT.SECRETLEVEL') {
+            let obj = {
+              name: '任务',
+              id: item.__config__.defaultValue
+            }
+            pageSecretsArr.push(obj)
+          }
         }
       })
       this.$refs[this.formConf.formRef].validate(valid => {
         if (!valid) return false
 
         // 触发sumit事件
-        this.$emit('submit', this.getPrimaryData(), this.getChildData())
+        this.$emit('validate', this.getPrimaryData(), this.getChildData(), pageSecretsArr)
         return true
       })
     },
@@ -414,8 +450,8 @@ export default {
       })
 
       let primaryData = Object.keys(this.modifyRes).length
-        ? { data: { ...primaryTable, ...formModelClone }, uploadFiles: this.uploadFilesArr }
-        : { data: formModelClone, uploadFiles: this.uploadFilesArr }
+        ? { data: { ...primaryTable, ...formModelClone, ...{ SECRET_LEVEL: _this.secretLevel } }, uploadFiles: this.uploadFilesArr }
+        : { data: { ...formModelClone, ...{ SECRET_LEVEL: _this.secretLevel } }, uploadFiles: this.uploadFilesArr }
       return primaryData
     },
     childTableData (data) {
@@ -459,9 +495,10 @@ export default {
   height: 100%;
 }
 .formElement {
-  height: calc(100% - 50px);
+  height: calc(100% - 118px);
   overflow-y: auto;
   padding: 10px;
+  padding-top: 0;
   box-sizing: border-box;
 }
 .p8-upload {
@@ -485,5 +522,15 @@ export default {
 }
 .masterSlaveTableHeight {
   height: 400px;
+}
+.formBtnStyle {
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  right: 100px;
+  top: 8px;
+  z-index: 2;
+  text-align: right;
+  box-sizing: border-box;
 }
 </style>

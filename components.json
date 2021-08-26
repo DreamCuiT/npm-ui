@@ -22,6 +22,7 @@
   "tabs": "./packages/tabs/index.js",
   "editTable": "./packages/editTable/index.js",
   "formApplication": "./packages/formApplication/index.js",
+  "formApplicationView": "./packages/formApplicationView/index.js",
   "formGenerator": "./packages/formGenerator/index.js",
   "wrapper": "./packages/wrapper/index.js"
 }

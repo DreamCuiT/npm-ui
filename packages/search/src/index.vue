@@ -228,6 +228,9 @@ export default {
               case 'datetimeRange':
                 inputVal += _this.setDateVal(item, queryParams)
                 break
+              case 'year':
+                inputVal += _this.setYearDateVal(item, queryParams)
+                break
               default:
                 inputVal += (item.labelText + ':' + (queryParams[item.fieldName] === true ? '是' : (queryParams[item.fieldName] === false ? '否' : queryParams[item.fieldName])) + _this.separator)
             }
@@ -339,6 +342,12 @@ export default {
         valStr = item.fieldName
       }
       valStr = (item.labelText + ':' + valStr + this.separator)
+      return valStr
+    },
+    setYearDateVal (item, queryParams) {
+      console.log(queryParams[item.fieldName], 'itemitemitemitemitemitemitemitemitemitemitem')
+      let yearStr = moment(queryParams[item.fieldName]).format('YYYY')
+      let valStr = (item.labelText + ':' + yearStr + this.separator)
       return valStr
     },
     handleParams (obj) {

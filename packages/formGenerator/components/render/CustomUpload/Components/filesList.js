@@ -16,19 +16,22 @@ let filesListComps = {
                     <span onClick={() => { this.fileDownload(file) }}>{file.fileName}</span>
                   </el-col>
                   <el-col span={6}>
-                    <el-select allow-clear placeholder={'请选择密级'} value={file.confidentialite} onChange={(val) => { this.selectChange(val, file) }}>
-                      {
-                        this.confidentialiteFileOption.map((confidentialite, confidentialiteIndex) => {
-                          return (
-                            <el-option
-                              key={confidentialite.value}
-                              label={confidentialite.label}
-                              value={confidentialite.value}>
-                            </el-option>
-                          )
-                        })
-                      }
-                    </el-select>
+                    <el-form-item prop="uploadFiles" rules={this.uploadDefaultRules(filesList)}
+                    >
+                      <el-select allow-clear placeholder={'请选择密级'} value={file.confidentialite} onChange={(val) => { this.selectChange(val, file) }}>
+                        {
+                          this.confidentialiteFileOption.map((confidentialite, confidentialiteIndex) => {
+                            return (
+                              <el-option
+                                key={confidentialite.value}
+                                label={confidentialite.label}
+                                value={confidentialite.value}>
+                              </el-option>
+                            )
+                          })
+                        }
+                      </el-select>
+                    </el-form-item>
                   </el-col>
                   <el-col span={3}>
                     <i class={'el-icon-close'} onClick={() => { this.removeSecret(file, fileIndex) }}></i>
@@ -98,6 +101,32 @@ export default {
       }).finally(() => {
         // this.search.exportLoading = false
       })
+    },
+    uploadDefaultRules (fileList) {
+      return [
+        {
+          validator: (rule, value) => {
+            return new Promise((resolve, reject) => {
+              if (fileList && fileList.length) {
+                let temp = 0
+                fileList.forEach(file => {
+                  if (!file.confidentialite) {
+                    temp += 1
+                  }
+                })
+                if (temp) {
+                  let rejectMsg = '请选择文件对应密级'
+                  reject(rejectMsg)
+                } else {
+                  resolve()
+                }
+              } else {
+                resolve()
+              }
+            })
+          }
+        }
+      ]
     }
   },
   render (h) {

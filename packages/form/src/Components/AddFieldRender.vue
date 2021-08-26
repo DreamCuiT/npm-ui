@@ -11,7 +11,10 @@
     <template v-if="fields.fieldName && fields.type === 'uploadView'">
       <common-file-view
         :uploadFiles="k[fields.fieldName]"
-        :filesLayout="fields.filesLayout"
+        :filesLayout="fields.filesLayout || 'card'"
+        :filesDownloadKey="
+          fields.filesDownloadKey || { id: 'id', fileName: 'fileName' }
+        "
       ></common-file-view>
     </template>
     <el-input
@@ -50,6 +53,7 @@
       v-else-if="fields.fieldName && fields.type === 'multiple'"
       v-model="k[fields.fieldName]"
       multiple
+      collapse-tags
       v-bind="fields.fieldConfig"
       :placeholder="fields.placeholder"
       style="width: 100%"

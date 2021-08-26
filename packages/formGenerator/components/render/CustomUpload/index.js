@@ -1,5 +1,4 @@
 import Vue from 'vue'
-// import { API_DEFAULT_CONFIG } from '@/config/settings'
 import { Upload, Button, Row, Col } from 'element-ui'
 import FilesListComp from './Components/filesList'
 export default Vue.component('CustomUpload', {

@@ -228,7 +228,25 @@
                 </template>
               </el-table-column>
             </template>
-
+            <!-- 列表自定义列 --- 编辑 -->
+            <template v-else-if="
+                item.scopedSlots && item.scopedSlots.customRender == 'edit'
+              ">
+              <el-table-column :key="index"
+                               :label="item.title"
+                               :prop="item.dataIndex"
+                               :type="item.type"
+                               :width="item.width"
+                               :min-width="item.minWidth"
+                               :align="item.align"
+                               :fixed="item.fixed">
+                <template slot-scope="scope">
+                  <slot :name="scope.column.property"
+                        :scope="scope"
+                        :data="tableData"></slot>
+                </template>
+              </el-table-column>
+            </template>
             <template v-else>
               <el-table-column v-if="item.filterable"
                                :prop="item.dataIndex"
@@ -238,9 +256,7 @@
                                :min-width="item.minWidth"
                                :key="index"
                                :type="item.type"
-                               :align="
-                  item.type === 'index' && !item.align ? 'center' : item.align
-                "
+                               :align="item.type === 'index' && !item.align ? 'center' : item.align"
                                :index="indexMethod"
                                :fixed="item.fixed"
                                v-bind="item.columnConfig"
@@ -345,10 +361,10 @@
 <script>
 import { Table, TableColumn, Pagination, Button, Tooltip, Divider, Dropdown, DropdownMenu, DropdownItem, Input, Popover } from 'element-ui'
 import { generateTree } from '~/utils/generateTree'
-import TableSetting from './TableSetting'
-// import { API_DEFAULT_CONFIG } from '@/config/settings'
 import { handleTableSpan, handleObjectSpanMethod } from './Function.js'
 import SearchFieldRender from './SearchFieldRender'
+import TableSetting from './TableSetting'
+
 export default {
   name: 'P8Table',
   componentName: 'P8Table',
@@ -476,14 +492,18 @@ export default {
     showSearchRow: { // table表头默认显示查询行
       type: Boolean,
       default: false
-    }
+    },
+    countSizeRowHeight: { //计算请求size数量-表格行高
+      type: Number,
+      default: 40
+    },
   },
   data () {
     const { API_DEFAULT_CONFIG } = this.$sysConfig
     const mh = document.documentElement.clientHeight - this.flex > this.minHeight
       ? document.documentElement.clientHeight - this.flex
       : this.minHeight
-    const calPageSize = Math.ceil((mh - 100) / 40)
+    const calPageSize = Math.ceil((mh - 100) / this.countSizeRowHeight)
     return {
       calPageSize: calPageSize,
       flexHeight: this.customHeight ? this.customHeight + 'px' : mh + 'px',

@@ -1,3 +1,4 @@
+/* eslint-disable vue/no-mutating-props */
 <template>
   <el-col v-show="fields.fieldName && fields.type !== 'hidden'"
           :span="fields.colLayout === 'doubleCol' ? 12 : 24">

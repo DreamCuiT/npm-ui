@@ -1,4 +1,4 @@
-import FormApplication from '../formGenerator/components/parser/parser';
+import FormApplication from '../formGenerator/components/parser/Parser.vue';
 
 /* istanbul ignore next */
 FormApplication.install = function(Vue) {

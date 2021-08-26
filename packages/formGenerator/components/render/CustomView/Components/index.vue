@@ -44,6 +44,7 @@ export default {
         const paramArr = this.config.viewField.split('.')
         if (data[paramArr[0]]) {
           this.displayData = data[paramArr[0]][paramArr[1]]
+          this.config.__config__.defaultValue = this.displayData
         }
       }
     }

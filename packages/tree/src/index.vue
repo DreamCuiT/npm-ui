@@ -115,7 +115,7 @@ export default {
           } else {
             that.treeData = Object.assign([], res)
           }
-          that.$emit('initTreeData', res)
+          that.$emit('initTreeData', that.treeData)
         }).catch(err => {
           console.log(err)
         })

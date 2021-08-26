@@ -126,26 +126,20 @@ import ClipboardJS from 'clipboard'
 import FormDrawer from './FormDrawer'
 import JsonDrawer from './JsonDrawer'
 import RightPanel from './RightPanel'
-import {
-  formConf
-} from '../components/generator/config'
+import { formConf } from '../components/generator/config'
 // import {
 //   inputComponents, selectComponents, layoutComponents, formConf
 // } from '../components/generator/config'
 import { beautifierConf, titleCase } from '../utils/index'
 import { deepClone } from '~/utils/common'
-import {
-  makeUpHtml, vueTemplate, vueScript, cssStyle
-} from '../components/generator/html'
+import { makeUpHtml, vueTemplate, vueScript, cssStyle } from '../components/generator/html'
 import { makeUpJs } from '../components/generator/js'
 import { makeUpCss } from '../components/generator/css'
 import drawingDefalut from '../components/generator/drawingDefalut'
 import logo from '../assets/logo.png'
 import CodeTypeDialog from './CodeTypeDialog'
 import DraggableItem from './DraggableItem'
-import {
-  saveDrawingList, getIdGlobal, saveIdGlobal
-} from '../utils/db'
+import { getIdGlobal, saveIdGlobal } from '../utils/db'
 import loadBeautifier from '../utils/loadBeautifier'
 
 let beautifier
@@ -194,7 +188,6 @@ export default {
       generateConf: null,
       showFileName: false,
       activeData: drawingDefalut[0],
-      saveDrawingListDebounce: debounce(340, saveDrawingList),
       saveIdGlobalDebounce: debounce(340, saveIdGlobal),
       drawingListInDB: null,
       formConfInDB: null,
@@ -220,7 +213,6 @@ export default {
     }
   },
   watch: {
-    // eslint-disable-next-line func-names
     'activeData.__config__.label': function (val, oldVal) {
       if (
         this.activeData.placeholder === undefined ||
@@ -239,7 +231,6 @@ export default {
     },
     drawingList: {
       handler (val) {
-        // this.saveDrawingListDebounce(val)
         if (val.length === 0) this.idGlobal = Date.now()
       },
       deep: true
@@ -254,7 +245,6 @@ export default {
   async mounted () {
     let data = await this.$api['formGenerator.designerDetails']({ desFormId: this.record.id })
     let drawingListData = data.designJson
-    // let drawingListData = await getDrawingList({ desFormId: this.record.id })
     this.drawingListInDB = drawingListData ? JSON.parse(drawingListData).fields : []
     if (drawingListData) {
       this.formConfInDB = JSON.parse(drawingListData)
@@ -286,8 +276,6 @@ export default {
     // 表单设计器默认不显示任何组件
     // this.activeFormItem(this.drawingList[0])
     if (this.formConfInDB) {
-      // await getDrawingList({ id: this.record.id }).fields
-      console.log(this.formConfInDB, 'formConfInDB')
       this.formConf = this.formConfInDB
     }
     loadBeautifier(btf => {
