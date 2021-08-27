@@ -17,7 +17,7 @@ keys.forEach(key => {
 function vModel (dataObject, defaultValue) {
   dataObject.props.value = defaultValue
 
-  dataObject.on.input = val => {
+  dataObject.on.input =  val => {
     this.$emit('input', val)
   }
 }
@@ -47,30 +47,39 @@ function emitEvents (confClone) {
 }
 
 function buildDataObject (confClone, dataObject, pageData) {
+  const variable = confClone.__config__.variable // 处理系统变量
+  const defaultValue = confClone.__config__.defaultValue
   Object.keys(confClone).forEach(key => {
     const val = confClone[key]
     if (key === '__vModel__') {
-      if (confClone.__config__.variable && confClone.__config__.variable.startsWith('$')) { // 处理系统参数变量
-        const paramArr = confClone.__config__.variable.trim().split('.')
+      if (variable && variable.startsWith('$')) { // 处理系统参数变量
+        const paramArr = variable.trim().split('.')
+        pageData[paramArr[0]][paramArr[1]] === undefined && console.error(`请检查,label:${confClone.__config__.label}；系统变量"${variable}"不存在!`)
+        pageData[paramArr[0]][paramArr[1]] === '' && console.error(`请检查,label:${confClone.__config__.label}；系统变量"${variable}"值为空!`)
         if (pageData[paramArr[0]]) {
-          let defaultValue = pageData[paramArr[0]][paramArr[1]]
-          vModel.call(this, dataObject, defaultValue)
-          confClone.__config__.defaultValue = defaultValue
+          // 系统变量不存在使用默认
+          let defaultValueSys = pageData[paramArr[0]][paramArr[1]] || defaultValue
+          vModel.call(this, dataObject, defaultValueSys)
+          // confClone.__config__.defaultValue = defaultValueSys
         } else if (paramArr[0] === '$COMPUTED' || paramArr[0] === '$LABEL') { // 计算器功能，目前只支持加法运算，支持资金label合计显示，803独有功能
-          vModel.call(this, dataObject, confClone.__config__.defaultValue)
+          vModel.call(this, dataObject, defaultValue)
         }
-      } else if (confClone.__config__.variable && confClone.__config__.variable.startsWith('#') && !confClone.__config__.defaultValue) { // 处理系统方法变量
-        const variableFunName = confClone.__config__.variable.trim().slice(1)
-        let defaultValue = this.$store.state.user.sysVars.methods[variableFunName]()
-        vModel.call(this, dataObject, defaultValue)
-        confClone.__config__.defaultValue = defaultValue
+      } else if (variable && variable.startsWith('#') && !defaultValue) { // 处理系统方法变量
+        const variableFunName = variable.trim().slice(1)
+        this.$store.state.user.sysVars.methods[variableFunName]() === undefined && console.error(`请检查,label:${confClone.__config__.label}；系统方法变量"${variable}"不存在!`)
+        this.$store.state.user.sysVars.methods[variableFunName]() === '' && console.error(`请检查,label:${confClone.__config__.label}；系统方法变量"${variable}"返回值值为空!`)
+        let defaultValueFunBack = this.$store.state.user.sysVars.methods[variableFunName]() || defaultValue
+        vModel.call(this, dataObject, defaultValueFunBack)
+        // confClone.__config__.defaultValue = defaultValueFunBack
       } else {
-        vModel.call(this, dataObject, confClone.__config__.defaultValue)
+        vModel.call(this, dataObject, defaultValue)
       }
     } else if (dataObject[key]) {
       dataObject[key] = { ...dataObject[key], ...val }
+      vModel.call(this, dataObject, defaultValue)
     } else {
       dataObject.attrs[key] = val
+      vModel.call(this, dataObject, defaultValue)
     }
   })
 
@@ -118,6 +127,7 @@ export default {
       const dataObject = makeDataObject()
       // const confClone = deepClone(this.conf)
       const confClone = this.conf
+      const tag = this.conf.__config__.tag
       const children = this.$slots.default || []
 
       // 如果slots文件夹存在与当前tag同名的文件，则执行文件中的代码
@@ -128,8 +138,7 @@ export default {
 
       // 将json表单配置转化为vue render可以识别的 “数据对象（dataObject）”
       buildDataObject.call(this, confClone, dataObject, this.watchPageData)
-
-      return h(this.conf.__config__.tag, dataObject, children)
+      return h(tag, dataObject, children)
     }
   },
   render (h) {
