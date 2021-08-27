@@ -13,14 +13,14 @@ import 'element-ui/lib/theme-chalk/index.css';
 // import "../packages/theme-chalk/src/index.scss";
 Vue.prototype.$bus = new Vue() 
 // 测试打包
-import p8 from '../dist/index'
+// import p8 from '../dist/index'
 // import api from '../dist/api'
 // 测试开发
-// import p8 from '../src/index'
-// import api from '../src/plugins/api'
+import p8 from '../src/index'
+import api from '../src/plugins/api'
 
-// import sysConfig from './sysConfig'
-// Vue.use(api, sysConfig)
+import sysConfig from './sysConfig'
+Vue.use(api, sysConfig)
 Vue.use(p8)
 Vue.use(Vuex)
 Vue.config.productionTip = false

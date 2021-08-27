@@ -16,13 +16,13 @@
                    @handle-ok="fillBack"
                    @close="visible = false">
       <template #dialog>
-        <!-- <custom-table
+        <custom-table
           :code="code"
           :customHeight="350"
-          :showWestTree="false"
+          :showWestTree="showWestTree"
           :headerVisible="false"
           @selection-change="selectChange"
-        ></custom-table> -->
+        ></custom-table>
       </template>
     </common-dialog>
   </div>
@@ -30,13 +30,14 @@
 <script>
 import { Input } from 'element-ui'
 import Dialog from 'packages/dialog/src'
-// import CustomTable from '@/views/Framework/ComponentsMananger/Grid/Components/tableRender'
+import CustomTable from './tableRender'
+
 export default {
   name: 'EjectSelect',
   components: {
     'el-input': Input,
     'common-dialog': Dialog,
-    // 'custom-table': CustomTable
+    'custom-table': CustomTable
   },
   props: {
     config: {
@@ -54,6 +55,15 @@ export default {
   model: {
     props: 'value',
     event: 'change'
+  },
+  computed: {
+    showWestTree () {
+      if('showWestTree' in this.config.__config__){
+        return this.config.__config__.ejectSelect.showWestTree
+      }else{
+        return false
+      }
+    }
   },
   data: function () {
     return {
@@ -91,15 +101,16 @@ export default {
   },
   methods: {
     selectedValue: function (val) {
+      // eslint-disable-next-line vue/no-mutating-props
       this.formModel[this.config.__vModel__] = val
       let _this = this
       let param = {
         id: this.config.__config__.selectComp,
         param: {},
         sqlParam: {},
-        // reportParam: {
-        //   [this.config.__config__.backfillParam.value]: val
-        // }
+        reportParam: {
+          [this.config.__config__.backfillParam.value]: val
+        }
       }
       param.reportParam[this.config.__config__.backfillParam.value] = val
       this.$api['formGenerator.getSelectionData'](param).then(function (res) {

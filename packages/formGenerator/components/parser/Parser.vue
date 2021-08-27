@@ -84,6 +84,7 @@ const layouts = {
 }
 
 function renderFrom (h, pageData) {
+  // formConfCopy 复制 formConf 表单配置json
   const { formConfCopy } = this
 
   return (
@@ -118,11 +119,6 @@ function formBtns (h) {
 function renderFormItem (h, elementList, pageData) {
   return (
     <div class="formElement">
-      <el-col span={24} style="padding-left: 17px;padding-right: 17px;padding-top:10px;">
-          <el-form-item prop="SECRET_LEVEL" label="密级">
-            <form-secret-level formSecretLevel={this.secretLevel} onSecret={this.handlerChangeSecret}></form-secret-level>
-          </el-form-item>
-        </el-col>
       {
         elementList.map(scheme => {
           const config = scheme.__config__
@@ -261,76 +257,85 @@ export default {
     }
   },
   data () {
+    const formModelKey = this.formConf.formModel
+    const formRulesKey = this.formConf.formRules
     const data = {
       formConfCopy: deepClone(this.formConf),
-      [this.formConf.formModel]: { SECRET_LEVEL: '' },
-      [this.formConf.formRules]: {
-        SECRET_LEVEL: [
-          { required: true, message: '请输入密级', trigger: 'blur' }
-        ]
-      },
+      [formRulesKey]: {},
+      [formModelKey]: {},
       childData: [],
       secretLevel: '', // 密级
       formModel: {},
-      pageData: {}, // 页面级参数、数据
+      pageData: {
+        '$SYSTEM_PARAMS_SELECT': this.$store.state.user.userInfo || '',
+        '$PROPPARAM': this.sysParams['$PROPPARAM'] || ''
+      }, // 页面级参数、数据
       uploadFilesArr: [], // 文件信息[当加载完成 modifyRes存在时, 将uploadFilesArr进行更新]
       docHeight: document.documentElement.clientHeight // 表单高度
     }
-    this.initFormData(data.formConfCopy.fields, data[this.formConf.formModel])
-    this.buildRules(data.formConfCopy.fields, data[this.formConf.formRules])
+    const fields = data.formConfCopy.fields
+    this.initFormData(fields, data[formModelKey])
+    this.buildRules(fields, data[formRulesKey])
     return data
   },
   mounted () {
-    // this.pageData['SYSTEM_PARAMS_SELECT'] = deepClone(this.$store.state.user.userInfo)
-    this.$set(this.pageData, '$SYSTEM_PARAMS_SELECT', deepClone(this.$store.state.user.userInfo))
-    this.$set(this.pageData, '$PROPPARAM', this.sysParams['$PROPPARAM'] || '')
     this.$bus.$emit('getPageData', this.pageData)
   },
   methods: {
     initFormData (componentList, formData) {
       componentList.forEach(cur => {
         const config = cur.__config__
-        if ((config.tag === 'el-checkbox-group' || (config.tag === 'el-select' && cur.multiple)) && typeof (config.defaultValue) === 'string') {
+        const vModel = cur.__vModel__
+        const multiple = cur.multiple
+        if ((config.tag === 'el-checkbox-group' || (config.tag === 'el-select' && multiple)) && typeof (config.defaultValue) === 'string') {
           config.defaultValue = config.defaultValue.split(',')
         }
-        if (!cur.__config__.selectChildTable && cur.__vModel__) formData[cur.__vModel__] = config.defaultValue
-        if (cur.__config__.layout === 'masterSlaveTable') {
-          formData[cur.__config__.childrenTable] = config.defaultValue
+        if (!config.selectChildTable && vModel) {
+          formData[vModel] = config.defaultValue || ''
         }
-        if (config.children) this.initFormData(config.children, formData)
+        // 主子表
+        if (config.layout === 'masterSlaveTable') {
+          formData[config.childrenTable] = config.defaultValue
+        }
+        // 递归children
+        if (Array.isArray(config.children) && config.children) {
+          this.initFormData(config.children, formData)
+        }
       })
     },
     buildRules (componentList, rules, childTableId) {
       componentList.forEach(cur => {
         const config = cur.__config__
+        const vModel = cur.__vModel__
         if (Array.isArray(config.regList)) {
+          // 必填
           if (config.required) {
             const required = { required: config.required, message: cur.placeholder }
+            required.message === undefined && (required.message = `${config.label}不能为空`)
             if (Array.isArray(config.defaultValue)) {
               required.type = 'array'
               required.message = `请至少选择一个${config.label}`
             }
-            required.message === undefined && (required.message = `${config.label}不能为空`)
             config.regList.push(required)
           }
+          // 子表中的表单元素校验时增加子表id加以区分
           if (config.selectChildTable) {
-            // 子表中的表单元素校验时增加子表id加以区分
-            rules[cur.__vModel__ + '_' + childTableId] = config.regList.map(item => {
-              // eslint-disable-next-line no-eval
+            rules[vModel + '_' + childTableId] = config.regList.map(item => {
               item.pattern && (item.pattern = eval(item.pattern))
               item.trigger = ruleTrigger && ruleTrigger[config.tag]
               return item
             })
           } else {
-            rules[cur.__vModel__] = config.regList.map(item => {
-              // eslint-disable-next-line no-eval
+            rules[vModel] = config.regList.map(item => {
               item.pattern && (item.pattern = eval(item.pattern))
               item.trigger = ruleTrigger && ruleTrigger[config.tag]
               return item
             })
           }
         }
+        // children
         if (config.children) {
+          // masterSlaveTable
           if (config.layout === 'masterSlaveTable') {
             this.buildRules(config.children, rules, config.childrenTable) // 传子表的id
           } else {
@@ -342,10 +347,6 @@ export default {
     resetForm () {
       this.formConfCopy = deepClone(this.formConf)
       this.$refs[this.formConf.formRef].resetFields()
-    },
-    handlerChangeSecret (val) {
-      this.secretLevel = val
-      this[this.formConf.formModel]['SECRET_LEVEL'] = val
     },
     submitForm () {
       // 变量保存
@@ -375,7 +376,7 @@ export default {
         if (!valid) return false
 
         // 触发sumit事件
-        this.$emit('validate', this.getPrimaryData(), this.getChildData(), pageSecretsArr)
+        this.$emit('submit', this.getPrimaryData(), this.getChildData(), pageSecretsArr)
         return true
       })
     },
@@ -455,6 +456,7 @@ export default {
       return primaryData
     },
     childTableData (data) {
+      console.log('sddddddddddddddddddddddd',data);
       let _this = this
       if (this.childData.length) {
         this.childData.map((item, index) => {
@@ -487,50 +489,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.formContainer {
-  margin: 0 !important;
-}
-.smartForm {
-  height: 100%;
-}
-.formElement {
-  height: calc(100% - 118px);
-  overflow-y: auto;
-  padding: 10px;
-  padding-top: 0;
-  box-sizing: border-box;
-}
-.p8-upload {
-  .el-upload {
-    min-height: 32px;
-  }
-  .p8-upload__secret-file-item {
-    padding: 4px 5px;
-    &:hover {
-      background-color: #e6f1f9;
-    }
-    .col-secret-file {
-      span {
-        cursor: pointer;
-        color: #606266;
-        font-size: 14px;
-        padding-left: 6px;
-      }
-    }
-  }
-}
-.masterSlaveTableHeight {
-  height: 400px;
-}
-.formBtnStyle {
-  position: fixed;
-  width: 100%;
-  height: 50px;
-  right: 100px;
-  top: 8px;
-  z-index: 2;
-  text-align: right;
-  box-sizing: border-box;
-}
-</style>

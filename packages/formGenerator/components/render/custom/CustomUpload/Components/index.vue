@@ -56,7 +56,6 @@ export default {
     }
   },
   data () {
-    const { API_DEFAULT_CONFIG } = this.$sysConfig
     return {
       uploadApi: '',
       actionApi: '',
@@ -101,7 +100,7 @@ export default {
       /**
        * 文件上传地址处理
        */
-      let { devBaseUrl, prodBaseUrl, isDevMode } = API_DEFAULT_CONFIG
+      let { devBaseUrl, prodBaseUrl, isDevMode } = this.$sysConfig.API_DEFAULT_CONFIG
       let urlPrefix = isDevMode ? `${devBaseUrl}` : `${prodBaseUrl}`
       this.uploadApi = urlPrefix + '/attachment/upload'
     },

@@ -90,7 +90,7 @@ export default Vue.component('MasterSlaveTable', {
         }) : [],
         removeId: this.removeId
       }
-      // console.log(childSaveData, 'childSaveData')
+      console.log(childSaveData, 'childSaveData')
       this.$emit('save', childSaveData)
     },
     // 多行展示模式
@@ -104,11 +104,11 @@ export default Vue.component('MasterSlaveTable', {
       }
       console.log('this.config------this.config', this.config, this.formModel)
       return (
-        <div id="list-layout">
-          <div id="list-header">
+        <div class="list-layout">
+          <div class="list-header">
             <el-button type="primary" round onClick={this.add}>新建</el-button>
           </div>
-          <div id="list-main">
+          <div class="list-main">
             <el-table ref="table" height="100%" data={this.formModel[this.config.__config__.childrenTable]}>
               {
                 this.config.__config__.children.map((item, index) => {

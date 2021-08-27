@@ -2,7 +2,6 @@
 // import promise from './promise'
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
-// import 'babel-polyfill'
 import contextmenu from '../directives/contextmenu.js';
 
 export default {

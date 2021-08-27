@@ -1,5 +1,11 @@
 import CustomUpload from '../../CustomUpload'
+import EjectSelect from '../../EjectSelect'
+import TreeSelect from '../../TreeSelect'
 export default {
+  components: {
+    EjectSelect,
+    TreeSelect
+  },
   props: {
     scope: {
       type: Object,

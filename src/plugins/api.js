@@ -81,7 +81,8 @@ const install = function (Vue, opts = {}) {
     }
     // Vue.prototype.$api = apiProxy(new ApiCounstructor({ apis: opts.APIOBJ, ...opts.API_DEFAULT_CONFIG })['api'])
     Vue.prototype.$api = new ApiCounstructor({ apis: opts.APIOBJ, ...opts.API_DEFAULT_CONFIG })['api']
-    Vue.prototype.$sysConfig = opts
+    Vue.prototype.$sysConfig = opts 
+    Vue.prototype.$ajax = axios
 }
 
 function axiosParamBuilder (options, data) {

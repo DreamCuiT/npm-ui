@@ -108,7 +108,7 @@ const install = function(Vue, opts = {}) {
       `error:${error.toString()}vm:${vm.toString()}info:${info.toString()}`
     );
   };
-
+  
   Vue.use(ElementUI, opts);
   Vue.use(ElementUI.Loading.directive);
   Vue.use(inject);

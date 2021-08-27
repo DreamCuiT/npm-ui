@@ -8,7 +8,7 @@ import customRender from '../../components/render/customRender.js'
 import MasterSlaveTable from '../../components/render/MasterSlaveTable'
 import CustomUpload from '../../components/render/CustomUpload'
 import EjectSelect from '../../components/render/EjectSelect'
-// import TreeSelect from '../../components/render/TreeSelect'
+import TreeSelect from '../../components/render/TreeSelect'
 import CustomView from '../../components/render/CustomView'
 import FormSecretLevel from '../../components/render/custom/FormSecretLevel'
 import FommonFileView from 'packages/fileView'
@@ -100,7 +100,7 @@ function renderFrom (h, pageData) {
   const { formConfCopy } = this
 
   return (
-    <el-row gutter={formConfCopy.gutter} class="formContainer" style={{ height: this.docHeight - 55 + 'px' }}>
+    <el-row gutter={formConfCopy.gutter} class="formContainerView" >
       <el-form
         class="smartForm"
         size={formConfCopy.size}
@@ -120,11 +120,6 @@ function renderFrom (h, pageData) {
 function renderFormItem (h, elementList, pageData) {
   return (
     <div class="formElementView">
-        <el-col span={24} style="padding-left:10px;padding-top:10px;padding-right:10px;">
-          <el-form-item  prop="SECRET_LEVEL" label="密级">
-            {this.secretLevel.length && this.secretLevel[0].label}
-          </el-form-item>
-        </el-col>
       {
         elementList.map(scheme => {
           const config = scheme.__config__
@@ -182,18 +177,12 @@ export default {
       handler (val) {
         this.formConfCopy = val
         this.pageData = { ...this.pageData, ...this.sysParams }
-        // this.initFormData(this.formConfCopy.fields, this[this.formConf.formModel])
-        // this.buildRules(this.formConfCopy.fields, this[this.formConf.formRules])
         this.formModel = this[this.formConf.formModel]
       },
       deep: true
     },
     formConfCopy: {
       handler (val) {
-        // console.log(this[this.formConf.formModel], 'formModel--watch', val)
-        // this.initFormData(val.fields, this[this.formConf.formModel])
-        // this.pageData = { ...this.pageData, ...this[this.formConf.formModel] }
-        // this.$emit('setPageData', this.pageData)
       },
       deep: true
     },
@@ -211,23 +200,24 @@ export default {
     }
   },
   data () {
+    const formModelKey = this.formConf.formModel
+    const formRulesKey = this.formConf.formRules
     const data = {
       formConfCopy: deepClone(this.formConf),
-      [this.formConf.formModel]: { SECRET_LEVEL: '' },
-      [this.formConf.formRules]: {
-        SECRET_LEVEL: [
-          { required: true, message: '请输入密级', trigger: 'blur' }
-        ]
-      },
+      [formRulesKey]: {},
+      [formModelKey]: {},
       childData: [],
-      secretLevel: [], // 密级
+      secretLevel: '', // 密级
       formModel: {},
-      pageData: {}, // 页面级参数、数据
+      pageData: {
+        '$SYSTEM_PARAMS_SELECT': this.$store.state.user.userInfo || '',
+        '$PROPPARAM': this.sysParams['$PROPPARAM'] || ''
+      }, // 页面级参数、数据
       uploadFilesArr: [], // 文件信息[当加载完成 modifyRes存在时, 将uploadFilesArr进行更新]
       docHeight: document.documentElement.clientHeight // 表单高度
     }
-    this.initFormData(data.formConfCopy.fields, data[this.formConf.formModel])
-    this.buildRules(data.formConfCopy.fields, data[this.formConf.formRules])
+    const fields = data.formConfCopy.fields
+    this.initFormData(fields, data[formModelKey])
     return data
   },
   mounted () {
@@ -240,52 +230,21 @@ export default {
     initFormData (componentList, formData) {
       componentList.forEach(cur => {
         const config = cur.__config__
-        if ((config.tag === 'el-checkbox-group' || (config.tag === 'el-select' && cur.multiple)) && typeof (config.defaultValue) === 'string') {
+        const vModel = cur.__vModel__
+        const multiple = cur.multiple
+        if ((config.tag === 'el-checkbox-group' || (config.tag === 'el-select' && multiple)) && typeof (config.defaultValue) === 'string') {
           config.defaultValue = config.defaultValue.split(',')
         }
-        if (!cur.__config__.selectChildTable && cur.__vModel__) formData[cur.__vModel__] = config.defaultValue
-        if (cur.__config__.layout === 'masterSlaveTable') {
-          formData[cur.__config__.childrenTable] = config.defaultValue
+        if (!config.selectChildTable && vModel) {
+          formData[vModel] = config.defaultValue || ''
         }
-        if (config.children) this.initFormData(config.children, formData)
-      })
-    },
-    buildRules (componentList, rules, childTableId) {
-      componentList.forEach(cur => {
-        const config = cur.__config__
-        if (Array.isArray(config.regList)) {
-          if (config.required) {
-            const required = { required: config.required, message: cur.placeholder }
-            if (Array.isArray(config.defaultValue)) {
-              required.type = 'array'
-              required.message = `请至少选择一个${config.label}`
-            }
-            required.message === undefined && (required.message = `${config.label}不能为空`)
-            config.regList.push(required)
-          }
-          if (config.selectChildTable) {
-            // 子表中的表单元素校验时增加子表id加以区分
-            rules[cur.__vModel__ + '_' + childTableId] = config.regList.map(item => {
-              // eslint-disable-next-line no-eval
-              item.pattern && (item.pattern = eval(item.pattern))
-              item.trigger = ruleTrigger && ruleTrigger[config.tag]
-              return item
-            })
-          } else {
-            rules[cur.__vModel__] = config.regList.map(item => {
-              // eslint-disable-next-line no-eval
-              item.pattern && (item.pattern = eval(item.pattern))
-              item.trigger = ruleTrigger && ruleTrigger[config.tag]
-              return item
-            })
-          }
+        // 主子表
+        if (config.layout === 'masterSlaveTable') {
+          formData[config.childrenTable] = config.defaultValue
         }
-        if (config.children) {
-          if (config.layout === 'masterSlaveTable') {
-            this.buildRules(config.children, rules, config.childrenTable) // 传子表的id
-          } else {
-            this.buildRules(config.children, rules)
-          }
+        // 递归children
+        if (Array.isArray(config.children) && config.children) {
+          this.initFormData(config.children, formData)
         }
       })
     },
@@ -366,50 +325,76 @@ export default {
     },
     // 单行展示模式
     singleLineMode (h, scheme) {
-      return (
-        <div>
-          {
-            this[this.formConf.formModel][scheme.__config__.childrenTable].map((i, idx) => {
-              return (
-                <el-row>
-                  {
-                    scheme.__config__.children.map((item, index) => {
-                      if (item.__config__.tag === 'p8-upload') {
-                        let rowUplaodFiles = i.uploadFiles ? i.uploadFiles : []
-                        this.$set(i, 'uploadFiles', rowUplaodFiles)
-                      }
-                      let labelWidth = item.__config__.labelWidth ? `${item.__config__.labelWidth}px` : null
-                      if (item.__config__.tag === 'el-select' || item.__config__.tag === 'eject-select') {
-                        return (<select-view schemes={item} reportParam={i[item.__vModel__]} onData={this.ejectData.bind(this, scheme)}></select-view>)
-                      } else if (item.__config__.tag === 'tree-select') {
-                        return (<select-tree schemes={item} reportParam={i[item.__vModel__]}></select-tree>)
-                      } else if (item.__config__.tag === 'custom-view') {
-                        return (<el-col class={item.hidden ? 'formDesignHiddenTrue' : ''} span={item.__config__.span}>
-                          <el-form-item label-width={labelWidth} label={item.__config__.showLabel ? item.__config__.label : ''}
-                          >
-                            {
-                              <CustomView config={item} pageData={this.pageData} onData={this.ejectData.bind(this, scheme)}></CustomView>
-                            }
-                          </el-form-item>
-                        </el-col>)
-                      } else {
-                        return (<el-col class={item.hidden ? 'formDesignHiddenTrue' : ''} span={item.__config__.span}>
-                          <el-form-item label-width={labelWidth} label={item.__config__.showLabel ? item.__config__.label : ''}
-                          >
-                            {
-                              i[item.__vModel__]
-                            }
-                          </el-form-item>
-                        </el-col>)
-                      }
-                    })
+      const configParent = scheme.__config__
+      // 子表数据唯一标识
+      const childrenTable = configParent.childrenTable
+      // 表单model属性key
+      const formModelKey = this.formConf.formModel
+      const dataParent = this[formModelKey][childrenTable]
+      // 子表没有数据渲染
+      if(dataParent.length === 0){
+          return (
+            <div>
+              {
+                configParent.children.map((item, index) =>{
+                  const configChild = item.__config__
+                  const vModelChild = item.__vModel__
+                  return (<el-row><el-col class={item.hidden ? 'formDesignHiddenTrue' : ''} span={configChild.span}>
+                          <el-form-item label={configChild.showLabel ? configChild.label : ''}><span></span></el-form-item>
+                        </el-col></el-row>)
+                })
+              }
+          </div>
+         )
+      } else {
+         // 子表有数据渲染
+        return (
+          <div>
+            {
+              dataParent.map((i, idx) => {
+                configParent.children.map((item, index) => {
+                  const configChild = item.__config__
+                  const vModelChild = item.__vModel__
+                  const labelWidth = configChild.labelWidth ? `${configChild.labelWidth}px` : null
+
+                  if (configChild.tag === 'p8-upload') {
+                    this.$set(i, 'uploadFiles', i.uploadFiles ? i.uploadFiles : [])
                   }
-                </el-row>
-              )
-            })
-          }
-        </div>
-      )
+
+                  if (configChild.tag === 'el-select' || configChild.tag === 'eject-select') {
+
+                    return (<el-row><select-view schemes={item} reportParam={i[vModelChild]} onData={this.ejectData.bind(this, scheme)}></select-view></el-row>)
+
+                  } else if (configChild.tag === 'tree-select') {
+
+                    return (<el-row><select-tree schemes={item} reportParam={i[vModelChild]}></select-tree></el-row>)
+
+                  } else if (configChild.tag === 'custom-view') {
+
+                    return (<el-row><el-col class={item.hidden ? 'formDesignHiddenTrue' : ''} span={configChild.span}>
+                      <el-form-item label-width={labelWidth} label={configChild.showLabel ? configChild.label : ''}>
+                        {
+                          <CustomView config={item} pageData={this.pageData} onData={this.ejectData.bind(this, scheme)}></CustomView>
+                        }
+                      </el-form-item>
+                    </el-col></el-row>)
+
+                  } else {
+
+                    return (<el-row><el-col class={item.hidden ? 'formDesignHiddenTrue' : ''} span={configChild.span}>
+                      <el-form-item label-width={labelWidth} label={configChild.showLabel ? configChild.label : ''}>
+                        {
+                          i[vModelChild]
+                        }
+                      </el-form-item>
+                    </el-col></el-row>)
+                  }
+                })
+                })
+            }
+          </div>
+        )
+      }
     }
   },
   render (h) {
@@ -420,6 +405,7 @@ export default {
     MasterSlaveTable,
     CustomUpload,
     EjectSelect,
+    TreeSelect,
     FormSecretLevel,
     'common-file-view': FommonFileView,
     'select-view': {
@@ -534,59 +520,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.formContainer {
-  margin: 0 !important;
-}
-.smartForm {
-  height: 100%;
-}
-.formElementView {
-  height: calc(100% - 60px);
-  overflow-y: auto;
-  padding: 10px;
-  padding-top: 0;
-  box-sizing: border-box;
-}
-.p8-upload {
-  .el-upload {
-    min-height: 32px;
-  }
-  .p8-upload__secret-file-item {
-    padding: 4px 5px;
-    &:hover {
-      background-color: #e6f1f9;
-    }
-    .col-secret-file {
-      span {
-        cursor: pointer;
-        color: #606266;
-        font-size: 14px;
-        padding-left: 6px;
-      }
-    }
-  }
-}
-.masterSlaveTableHeight {
-  height: 400px;
-}
-.formBtnStyle {
-  position: fixed;
-  width: 100%;
-  height: 50px;
-  right: 100px;
-  top: 8px;
-  z-index: 2;
-  text-align: right;
-  box-sizing: border-box;
-}
-.el-form-item--small .el-form-item__label {
-  color: #606266;
-  font-size: 13px;
-  font-weight: bold;
-}
-.el-form-item--small .el-form-item__content {
-  font-size: 13px;
-  color: #888888;
-}
-</style>

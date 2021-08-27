@@ -19,7 +19,7 @@
         <custom-table
           :code="code"
           :customHeight="350"
-          :showWestTree="false"
+          :showWestTree="showWestTree"
           :headerVisible="false"
           @selection-change="selectChange"
         ></custom-table>
@@ -55,6 +55,15 @@ export default {
   model: {
     props: 'value',
     event: 'change'
+  },
+  computed: {
+    showWestTree () {
+      if('showWestTree' in this.config.__config__){
+        return this.config.__config__.ejectSelect.showWestTree
+      }else{
+        return false
+      }
+    }
   },
   data: function () {
     return {
@@ -99,9 +108,9 @@ export default {
         id: this.config.__config__.selectComp,
         param: {},
         sqlParam: {},
-        // reportParam: {
-        //   [this.config.__config__.backfillParam.value]: val
-        // }
+        reportParam: {
+          [this.config.__config__.backfillParam.value]: val
+        }
       }
       param.reportParam[this.config.__config__.backfillParam.value] = val
       this.$api['formGenerator.getSelectionData'](param).then(function (res) {
