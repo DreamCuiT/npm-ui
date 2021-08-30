@@ -44,10 +44,10 @@
       </template>
     </P8Dialog> -->
     <!-- <p8-formgenerator :record='{"id": "efee05aa45d95985ad141460db59d253"}'></p8-formgenerator> -->
-    <p8-formApplication :form-conf="formConf"
+    <!-- <p8-formApplication :form-conf="formConf"
                         :modify-res="modifyRes"
                         @setPageData="setPageData"
-                        @submit="save"></p8-formApplication>
+                        @submit="save"></p8-formApplication> -->
     <!-- <p8-upload></p8-upload> -->
     <!-- <p8-menu-layout></p8-menu-layout> -->
     <!-- <p8-select-user :visible='true'></p8-select-user> -->
@@ -72,8 +72,6 @@
 </template>
 
 <script>
-// import Vue from 'vue'
-// import { Button } from 'element-ui';
 // import {
 //   P8Form, P8Drawer, P8FormGenerator, P8FormParser, P8NormalLayout, P8MenuLayout, P8SelectUser, P8Bpm, P8ProcessApproval, P8ProcessDefinition, P8Anchor, P8Cron, P8IconSelector,
 //   P8Popconfirm,
@@ -89,7 +87,20 @@
 //   P8Dialog
 // } from '../../dist/index'
 import {
-  P8Form, P8Drawer, P8FormGenerator, P8FormParser, P8NormalLayout, P8MenuLayout, P8SelectUser, P8Bpm, P8ProcessApproval, P8ProcessDefinition, P8Anchor, P8Cron, P8IconSelector,
+  P8Table,
+  P8Form, 
+  P8Drawer, 
+  P8FormGenerator, 
+  P8FormParser, 
+  P8NormalLayout, 
+  P8MenuLayout, 
+  P8SelectUser, 
+  P8Bpm, 
+  P8ProcessApproval, 
+  P8ProcessDefinition, 
+  P8Anchor, 
+  P8Cron, 
+  P8IconSelector,
   P8Popconfirm,
   P8Import,
   P8Wrapper,

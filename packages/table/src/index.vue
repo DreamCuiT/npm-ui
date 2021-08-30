@@ -10,20 +10,13 @@
                 border
                 :data="tableData"
                 row-key="id"
+                v-on="$listeners"
                 v-bind="tableConfig"
                 :default-sort="defaultSort"
-                :row-style="rowStyle"
-                :cell-style="cellStyle"
+                :span-method="margeHandle"
                 :header-cell-class-name="headerCellClass"
-                @selection-change="handleSelectionChange"
                 @select="select"
-                @select-all="selectAll"
-                @cell-click="cellClick"
-                @row-click="rowClick"
-                @row-dblclick="rowDblclick"
-                @sort-change="sortChange"
-                @current-change="currentChange"
-                :span-method="margeHandle">
+                @select-all="selectAll">
         <template v-for="(item, index) in renderColumns">
           <template v-if="item.isshow && item.isshow">
             <!-- 列表自定义列 -->
@@ -74,8 +67,12 @@
                       color: #0070c5;
                       font-weight: bold;
                     "></i>
-                  <div class="colSearch" v-if="showSearchRow">
-                    <search-field-render v-if="item.filterable && !item.iconDisplay" :item="item" @columnReset="columnReset" @columnFiter="columnFiter"></search-field-render>
+                  <div class="colSearch"
+                       v-if="showSearchRow">
+                    <search-field-render v-if="item.filterable && !item.iconDisplay"
+                                         :item="item"
+                                         @columnReset="columnReset"
+                                         @columnFiter="columnFiter"></search-field-render>
                   </div>
                 </template>
                 <template slot-scope="scope">
@@ -101,7 +98,8 @@
                 <template slot="header"
                           slot-scope="scope">
                   <span class="custom_label">{{ scope.column.label }}</span>
-                  <div class="colSearch" v-if="showSearchRow"></div>
+                  <div class="colSearch"
+                       v-if="showSearchRow"></div>
                 </template>
                 <template slot-scope="scope"
                           v-if="item.formatter ? item.formatter(scope.row) : true">
@@ -135,7 +133,8 @@
                 <template slot="header"
                           slot-scope="scope">
                   <span class="custom_label">{{ scope.column.label }}</span>
-                  <div class="colSearch" v-if="showSearchRow"></div>
+                  <div class="colSearch"
+                       v-if="showSearchRow"></div>
                 </template>
                 <template slot-scope="scope">
                   <template v-if="hiddenRootOperation && scope.row.whetherRoot">
@@ -265,7 +264,8 @@
                 <template slot="header"
                           slot-scope="scope">
                   <span class="custom_label">{{ scope.column.label }}</span>
-                  <span class="caret-wrapper-custom" v-if="item.sortable"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span>
+                  <span class="caret-wrapper-custom"
+                        v-if="item.sortable"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span>
                   <el-popover v-if="item.iconDisplay"
                               placement="bottom-start"
                               width="200"
@@ -288,8 +288,11 @@
                        slot="reference"
                        @click.stop="item.filter.visible = !item.filter.visible"></i>
                   </el-popover>
-                  <div class="colSearch" v-else-if="showSearchRow">
-                    <search-field-render :item="item" @columnReset="columnReset" @columnFiter="columnFiter"></search-field-render>
+                  <div class="colSearch"
+                       v-else-if="showSearchRow">
+                    <search-field-render :item="item"
+                                         @columnReset="columnReset"
+                                         @columnFiter="columnFiter"></search-field-render>
                   </div>
                   <i class="p8 icon-drilling"
                      v-if="item.drillable"
@@ -319,13 +322,15 @@
                                v-bind="item.columnConfig"
                                :formatter="item.formatter"
                                :sortable="item.sortable ? 'custom' : false">
-                  <template slot="header"
+                <template slot="header"
                           slot-scope="scope">
                   <span class="custom_label">{{ scope.column.label }}</span>
-                  <span class="caret-wrapper-custom" v-if="item.sortable"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span>
-                  <div class="colSearch" v-if="showSearchRow"></div>
-                  </template>
-                </el-table-column>
+                  <span class="caret-wrapper-custom"
+                        v-if="item.sortable"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span>
+                  <div class="colSearch"
+                       v-if="showSearchRow"></div>
+                </template>
+              </el-table-column>
             </template>
           </template>
         </template>
@@ -403,7 +408,7 @@ export default {
     },
     paginationInfo: {
       type: Object,
-      default: () => {}
+      default: () => { }
     },
     tableRefresh: {// 调用列表接口后的回调方法
       type: Function,
@@ -481,6 +486,10 @@ export default {
       type: Boolean,
       default: false
     },
+    isRadioSelect: { // 是否需要单选功能(前提: table带勾选功能), true:隐藏全选
+      type: Boolean,
+      default: false
+    },
     customButtonConfig: { // 智能报表中按钮的禁用规则
       type: Array,
       default: () => []
@@ -503,14 +512,14 @@ export default {
     const mh = document.documentElement.clientHeight - this.flex > this.minHeight
       ? document.documentElement.clientHeight - this.flex
       : this.minHeight
-    const calPageSize = Math.ceil((mh - 100) / this.countSizeRowHeight)
     return {
-      calPageSize: calPageSize,
+      calPageSize: Math.ceil((mh - 100) / this.countSizeRowHeight),
       flexHeight: this.customHeight ? this.customHeight + 'px' : mh + 'px',
       isListLoading: false, // 列表加载
+      radioSelectionRow: null,// 单选选中数据
       page: { // 翻页数据
         current: 1,
-        size: calPageSize,
+        size: this.calPageSize,
         total: 0,
         orders: []
       },
@@ -519,7 +528,6 @@ export default {
       thirdMenuData: [], // 三级菜单
       columnFilterParam: {}, // 列上增加输入框筛选条件
       buttonDisabledLimit: [...this.$store.state.project.buttonLimit, ...this.customButtonConfig],
-
       buttonLimitFlag: false, // 判断行按钮是否需要禁用，默认不绑定禁用逻辑
       tableSettingVisible: false,
       api_default_config: API_DEFAULT_CONFIG,
@@ -534,6 +542,9 @@ export default {
     }
   },
   computed: {
+    selection () {
+      return this.$refs.table.selection
+    },
     renderComp () {
       return this.comp
     },
@@ -584,14 +595,7 @@ export default {
       immediate: true
     }
   },
-  mounted () {
-    const that = this
-    // 如果配置了flex属性, 则在组件加载完成后配置一个reisze监听,保证表格的高度为动态计算
-    if (this.flex !== 0) {
-      window.addEventListener('resize', this._initTableSize)
-    } else {
-      this.flexHeight = 'auto'
-    }
+  created () {
     if (this.columns.length) {
       this.columns.map(item => {
         if (item.defaultSort) {
@@ -599,22 +603,14 @@ export default {
             column: item.dataIndex,
             asc: item.asc
           }
-          that.page.orders = [sortObj]
-          let defaultSortObj = {
+          this.page.orders = [sortObj]
+          this.defaultSort = {
             prop: item.dataIndex,
             order: item.asc ? 'ascending' : 'descending'
           }
-          that.defaultSort = defaultSortObj
         }
       })
     }
-    this.queryList()
-    // 判断是否存在操作列，存在的话再请求button.info
-    let exitOperation = this.columns.filter(item => item.scopedSlots && (item.scopedSlots.customRender === 'operation'))
-    if (exitOperation.length) {
-      this.getButtonData()
-    }
-
     const currentPath = this.$route.path
     const rootRouter = this.$store.state.routers.addRouters
     let thirdMenu = []
@@ -643,6 +639,20 @@ export default {
 
     if (!this.api) {
       this.tableData = this.noApiTableData
+    }
+    // 判断是否存在操作列，存在的话再请求button.info
+    let exitOperation = this.columns.filter(item => item.scopedSlots && (item.scopedSlots.customRender === 'operation'))
+    if (exitOperation.length) {
+      this.getButtonData()
+    }
+  },
+  mounted () {
+    this.queryList()
+    // 如果配置了flex属性, 则在组件加载完成后配置一个reisze监听,保证表格的高度为动态计算
+    if (this.flex !== 0) {
+      window.addEventListener('resize', this._initTableSize)
+    } else {
+      this.flexHeight = 'auto'
     }
   },
   beforeDestroy () {
@@ -919,35 +929,26 @@ export default {
     triggerEvent (event, record) {
       this.$emit(event, record)
     },
-    rowStyle (obj) {
-      this.$emit('row-style', obj)
-    },
-    cellStyle (obj) {
-      this.$emit('cell-style', obj)
-    },
-    handleSelectionChange (val) {
-      this.$emit('selection-change', val)
-    },
     select (selection, row) {
-      this.$emit('select', selection, row)
+      if (isRadioSelect) {
+        this.$refs.table.clearSelection()
+        this.$refs.table.toggleRowSelection(row, true)
+        if (this.radioSelectionRow) {
+          this.radioSelectionRow.id === row.id && !selection.length && this.$refs.table.toggleRowSelection(row, false)
+        } 
+        this.radioSelectionRow = row
+        if(selection.length === 0) this.radioSelectionRow = null
+        const radioSelection = this.radioSelectionRow ? [this.radioSelectionRow] : []
+        this.$emit('select', radioSelection, this.radioSelectionRow)
+      } else {
+        this.$emit('select', selection, row)
+      }
     },
     selectAll (selection) {
       this.$emit('select-all', this.tableData)
     },
-    currentChange (currentRow, oldCurrentRow) {
-      this.$emit('current-change', currentRow, oldCurrentRow)
-    },
-    cellClick (row, column, cell, event) {
-      this.$emit('cell-click', row, column, cell, event)
-    },
-    rowClick (row, column, event) {
-      this.$emit('row-click', row, column, event)
-    },
-    rowDblclick (row, column, event) {
-      this.$emit('row-dblclick', row, column, event)
-    },
     headerCellClass (row) {
-      if (this.disabledCheckAll) {
+      if (this.disabledCheckAll || this.isRadioSelect) {
         if (row.columnIndex === 0) {
           return 'disabled-check-all'
         }
@@ -959,7 +960,6 @@ export default {
         this.page.current = 1
       }
       this.queryList()
-      // console.warn('2020-09-07:commonTable中监听了参数自动触发queryList方法，目前只有保存与删除功能在使用searchData()，大家在今后的开发中传参刷新列表不需要再调用该方法了！！！！')
     },
     setItemKey (item) {
       item.key = item.id
@@ -1024,8 +1024,8 @@ export default {
             that.$emit('requested-table-data', that.data)
             that.spanMargeArrHandle()
             setTimeout(() => {
-               that.$refs.table.doLayout()
-             })
+              that.$refs.table.doLayout()
+            })
             resolve(res)// 调用列表接口成功后的回调方法
           }).catch(function (error) {
             //   that.isListLoading = false

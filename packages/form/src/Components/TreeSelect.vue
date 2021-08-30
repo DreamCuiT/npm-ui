@@ -69,11 +69,8 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import Emitter from 'element-ui/lib/mixins/emitter'
-
-import { treeFind } from 'operation-tree-node'
-// import treeEach from 'operation-tree-node/dist/treeEach.esm'
+import { treeEach, treeFind } from 'operation-tree-node'
 import { Popover, Scrollbar, Input, Tree } from 'element-ui'
 
 export default {
@@ -111,7 +108,7 @@ export default {
     },
     size: {
       type: String,
-      default: Vue.prototype.$ELEMENT ? Vue.prototype.$ELEMENT.size : ''
+      default: this.$ELEMENT ? this.$ELEMENT.size : ''
     },
     popoverMinWidth: {
       type: Number,

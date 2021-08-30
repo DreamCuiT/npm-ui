@@ -1,8 +1,8 @@
 import APIOBJ from './api'
 
 const API_DEFAULT_CONFIG  = {
-  devBaseUrl: 'http://192.168.0.18:9090',
-  prodBaseUrl: 'http://192.168.0.96:9090',
+  devBaseUrl: 'http://192.168.0.253:9090',
+  prodBaseUrl: 'http://192.168.0.253:9090',
   isDevMode: process.env.NODE_ENV !== 'production',
   isDebug: false,
   sep: '.'

@@ -48,10 +48,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      main: path.resolve(__dirname, '../src'),
-      '@': resolve('examples'),
-      packages: path.resolve(__dirname, '../packages'),
-      examples: path.resolve(__dirname, '../examples'),
+      'main': path.resolve(__dirname, '../src'),
+      'packages': path.resolve(__dirname, '../packages'),
+      'examples': path.resolve(__dirname, '../examples'),
       '~': path.resolve('src'),
 
     },
@@ -115,7 +114,8 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      }, {
+      }, 
+      {
         test: /\.css$/,
         use: [
           'style-loader',
@@ -128,7 +128,7 @@ module.exports = {
           { loader: 'vue-style-loader' },
           { loader: 'css-loader', options: { sourceMap: true } },
           { loader: 'sass-loader', options: { sourceMap: true } }
-        ] 
+        ]
       }
     ]
   },
@@ -145,7 +145,7 @@ module.exports = {
     child_process: 'empty'
   },
   plugins: [
-    new uglify(),
+    // new uglify(),
     // new CompressionWebpackPlugin(),
     // new MonacoWebpackPlugin(),
     // new webpack.optimize.UglifyJsPlugin({

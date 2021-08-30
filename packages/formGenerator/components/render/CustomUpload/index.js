@@ -111,11 +111,18 @@ export default Vue.component('CustomUpload', {
       formData.append(params.filename, params.file)
       this.$ajax.post(this.uploadApi, formData, { headers: { 'Authorization': that.$store.getters.token} }).then(function (res) {
         params.onSuccess(res)
+      }).catch(e => {
+        console.error('上传失败！',e);
+        this.$message({
+          type: 'error',
+          message: '上传请失败！'
+        })
       })
     },
     handleSuccess (response, file, fileList) {
       console.log(response, file, fileList, 'handleSuccess---handleSuccess',file.response[0])
-      let uploadFile = file.response.data.data[0]
+      !file.response[0] && console.error('上传文件返回取值"file.response[0]"')
+      let uploadFile = file.response[0]
       if (uploadFile) {
         uploadFile.type = this.config.__config__.fieldType // fieldType 表单设计时,upload组件右侧面板填写的值
         this.$set(uploadFile, 'confidentialite', '') // 这里$set将密级字段放入文件对象中, 避免接口返回的文件信息无密级字段时, 密级选择回填不刷新的问题
@@ -148,7 +155,7 @@ export default Vue.component('CustomUpload', {
       if (!suffix || (this.uploadFileType !== 'all' && this.uploadFileType.indexOf(suffix) < 0)) {
         this.$message({
           type: 'warning',
-          message: '请上传指定的文件类型'
+          message: '请上传指定的文件类型！'
         })
         return false
       }
@@ -157,7 +164,7 @@ export default Vue.component('CustomUpload', {
       if (currFileSize > this.maxSize && this.maxSize !== 0) {
         this.$message({
           type: 'error',
-          message: `文件已超过${this.config.__config__.fileSize + this.config.__config__.sizeUnit}, 请重新上传`
+          message: `文件已超过${this.config.__config__.fileSize + this.config.__config__.sizeUnit}, 请重新上传！`
         })
         return false
       }
@@ -249,8 +256,7 @@ export default Vue.component('CustomUpload', {
             before-remove={this.beforeRemove}
             http-request={this.customHttpRequest}
             {...{ props: { 'on-success': this.handleSuccess } }}
-            propsOnRemove={this.handleRemove}
-          >
+            propsOnRemove={this.handleRemove}>
             <el-button type="primary" icon="el-icon-upload2"> {this.config.__config__.buttonText} </el-button>
           </el-upload>
           <span style="font-size: 12px;color: #999; padding-left: 16px">支持文件类型: {this.config.accept ? this.config.accept : '所有类型'}</span>

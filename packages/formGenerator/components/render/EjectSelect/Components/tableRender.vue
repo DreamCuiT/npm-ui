@@ -83,7 +83,7 @@ import FormRender from './editRender.vue'
 import ViewRender from './viewRender.vue'
 
 export default {
-  name: 'FunctionTest666',
+  name: 'ejectSelectTableRender',
   components: {
     NormalLayout,
     CommonTable,
@@ -167,6 +167,7 @@ export default {
     }
   },
   created: function (){
+    this.getTableInfo(this.code)
     if (!this.showWestTree) {
       this.normalLayout = {
         west: {
@@ -179,11 +180,10 @@ export default {
     }
   },
   mounted: function (){
-    this.getTableInfo(this.code)
   },
   computed: {
     componentLoader () {
-      return () => import(`@/${this.componentPath}.vue`)
+      return () => import(`~/${this.componentPath}.vue`)
     }
   },
   watch: {
@@ -204,7 +204,7 @@ export default {
   methods: {
     getTableInfo (code) {
       let _this = this
-      this.$api['formGenerator.tableGetInfo']({ reportCode: this.code }).then(res => {
+      this.$api['formGenerator.tableGetInfo']({ reportCode: code }).then(res => {
         _this.tableInfo = res
         let columnData = []
         // 报表列信息
@@ -325,6 +325,8 @@ export default {
           })
         }
         _this.rebuildParam(_this.reportParam)
+      }).catch(e=>{
+        console.error(e);
       })
     },
     tableRefresh (param) {
@@ -456,12 +458,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-#list-layout.grid-table-render {
-  #list-main {
-    padding: 10px;
-    margin: 0;
-  }
-}
-</style>

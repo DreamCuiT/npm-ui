@@ -456,7 +456,6 @@ export default {
       return primaryData
     },
     childTableData (data) {
-      console.log('sddddddddddddddddddddddd',data);
       let _this = this
       if (this.childData.length) {
         this.childData.map((item, index) => {

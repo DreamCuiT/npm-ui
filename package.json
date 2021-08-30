@@ -10,7 +10,7 @@
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "test": "npm run unit",
-    "build": "npm run build:theme && webpack --display-error-details --config build/webpack.build.conf.js",
+    "build": "rimraf ./dist && npm run build:theme && webpack --display-error-details --config build/webpack.build.conf.js",
     "build:theme": "node build/gen-cssfile && gulp build --gulpfile packages/theme-chalk/gulpfile.js && cp-cli packages/theme-chalk dist/theme-chalk"
   },
   "dependencies": {},
@@ -62,7 +62,7 @@
     "monaco-editor": "^0.24.0",
     "monaco-editor-webpack-plugin": "^3.1.0",
     "node-notifier": "^5.1.2",
-    "operation-tree-node": "^1.0.8",
+    "operation-tree-node": "^1.0.9",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
     "portfinder": "^1.0.13",
