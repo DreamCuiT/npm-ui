@@ -1,0 +1,165 @@
+<template>
+    <div>
+        <common-dialog
+                :visible="visible"
+                width="70%"
+                :dialogHeight="500"
+                @close="handleCancel"
+                :showHandleBtn="false"
+                :dialogConfig="dialogConfig"
+                :close-on-click-modal="false"
+                :close-on-press-escape="false">
+            <template #dialog>
+                <form-list
+                        labelWidth="100px"
+                        ref="form"
+                        :dataSource="dataSource"
+                        :form="formData"
+                        :api="saveApi"
+                        @saved="saved"
+                        @rendered="rendered"
+                >
+                    <template #dutyPeople>
+                        <el-input v-model="formData.dutyPeople" @click.native="visibleDutyPeopleName=true">
+                        </el-input>
+                    </template>
+                </form-list>
+            </template>
+        </common-dialog>
+        <select-user v-if="visibleDutyPeopleName" :visible="visibleDutyPeopleName"
+                     :selectType="selectType" @close-dialog="closeDutyPeopleName"></select-user>
+    </div>
+</template>
+
+<script>
+    import { P8Form as FormList } from '~/index'
+    import { P8Dialog as CommonDialog } from '~/index'
+    import { P8SelectUser as SelectUser } from '~/index'
+    import { Input } from '~/index'
+    export default {
+        name: 'AddInfo',
+        components: {
+            SelectUser,
+            FormList,
+            CommonDialog,
+            'el-input': Input
+        },
+        props: {
+            visible: {
+                type: Boolean
+            },
+            record: {
+                type: Object
+            }
+        },
+        data () {
+            const dataSource = [
+                {
+                    type: 'textarea',
+                    labelText: '不符合现象描述',
+                    fieldName: 'noConformity',
+                    colLayout: 'singleCol',
+                    rules: [{ required: true, message: '必填' }]
+                },
+                {
+                    type: 'textarea',
+                    labelText: '整改措施及举一反三要求',
+                    fieldName: 'drawInferences',
+                    colLayout: 'singleCol',
+                    rules: [{ required: true, message: '必填' }]
+                },
+                {
+                    type: 'blank',
+                    labelText: '责任人',
+                    fieldName: 'dutyPeople',
+                    slotName: 'dutyPeople',
+                    placeholder: '请选择',
+                    colLayout: 'doubleCol',
+                    rules: [
+                        {
+                            required: true,
+                            message: '必填'
+                        }
+                    ]
+                },
+                {
+                    type: 'datetime',
+                    labelText: '计划完成时间',
+                    fieldName: 'planEndTime',
+                    colLayout: 'doubleCol',
+                    fieldConfig: {
+                        'value-format': 'yyyy-MM-dd'
+                    },
+                    rules: [
+                        {
+                            required: true,
+                            message: '必填'
+                        }
+                    ]
+                },
+                {
+                    type: 'text',
+                    labelText: '完成形式',
+                    fieldName: 'finishForm',
+                    colLayout: 'doubleCol',
+                    rules: [{ required: true, message: '必填' }]
+                },
+                {
+                    type: 'textarea',
+                    labelText: '完成情况',
+                    fieldName: 'finishSituation',
+                    colLayout: 'singleCol'
+                },
+                {
+                    type: 'upload',
+                    labelText: '', // 控件显示的文本
+                    fieldName: 'getFiles',
+                    defaultValue: [],
+                    colLayout: 'singleCol',
+                    uploadConfig: {
+                        drag: true,
+                        // 上传附件按钮形式：单击或拖动到某区域上传设置为'drag:true'，单击按钮上传不做设置
+                        limit: 1
+                    },
+                    listType: 'secret'
+                    // 带密级的上传附件为'secret'，不带密级的listType分为'text'、'picture'、'picture-card'
+                }
+            ]
+            return {
+                saveApi: 'qualitySystemAssess.saveInfo',
+                dialogConfig: {
+                    modal: true,
+                    appendToBody: true,
+                    modalAppendToBody: true
+                },
+                isCustomValidate: true,
+                dataSource,
+                formData: {
+                    getFiles: []
+                },
+                visibleDutyPeopleName: false,
+                selectType: '1'
+            }
+        },
+        methods: {
+            rendered () {},
+            saved (res) {
+                this.formData.id = res
+                this.$emit('saveInfo', this.formData)
+                this.handleCancel(res)
+            },
+            closeDutyPeopleName (selectedRows) {
+                this.visibleDutyPeopleName = false
+                this.formData.dutyPeople = selectedRows[0].realName
+                this.formData = Object.assign({}, this.formData)
+            },
+            handleCancel (e) {
+                this.$emit('close-info')
+            }
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>

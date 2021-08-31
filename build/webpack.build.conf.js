@@ -26,7 +26,8 @@ module.exports = {
   // },
   entry: {
     index: ['./src/index.js'],
-    api: ['./src/plugins/api.js']
+    api: ['./src/plugins/api.js'],
+    vender: ['vue','vue-router','vuex','element-ui','axios','monaco-editor','moment','bpmn-js','echarts']
   },
   output: {
     path: config.build.assetsRoot,
@@ -38,13 +39,15 @@ module.exports = {
     library: 'P8',
     umdNamedDefine: true,
   },
-  externals: {
-    "vue": 'vue',
-    "axios": "axios",
-    "element-ui": "element-ui",
-    "moment": "moment",
-    "monaco-editor": "monaco-editor"
-  },
+  // 不需要webpack处理，编译进文件中，在我们需要，使用它的时候可以通过CMD、AMD、或者window全局方式访问
+  // externals: {
+  //   "vue": 'vue',
+  //   "axios": "axios",
+  //   "element-ui": "element-ui",
+  //   "moment": "moment",
+  //   "monaco-editor": "monaco-editor",
+  //   "echarts": "echarts"
+  // },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
@@ -126,8 +129,13 @@ module.exports = {
         test:/\.scss/,
         use:[
           { loader: 'vue-style-loader' },
-          { loader: 'css-loader', options: { sourceMap: true } },
-          { loader: 'sass-loader', options: { sourceMap: true } }
+          { loader: 'css-loader'},
+          { loader: 'sass-loader'},
+          { loader: 'sass-resources-loader',
+            options: {
+              resources: path.resolve(__dirname, "../p8VuePlatform/src/assets/commonStyle/common.scss")
+            }
+          }
         ]
       }
     ]
@@ -167,5 +175,25 @@ module.exports = {
   //        logLevel: 'info'
   //          }
   // ),
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['vendor'],
+      minChunks: ['commons'] ,
+      filename: 'common.bundle.[chunkhash].js',
+      minChunks:function(module){
+        return (
+            module.resource &&
+            /\.js$/.test(module.resource) &&
+            module.resource.indexOf(
+              path.join(__dirname, '../node_modules')
+            ) === 0 && ['vue','vue-router','vuex','element-ui','axios','monaco-editor','moment','bpmn-js','echarts'].indexOf( module.resource.substr(module.resource.lastIndexOf('/')+1).toLowerCase() ) != -1
+          )
+    }
+    }),
+    new webpack.optimize.CompressionWebpackPlugin({
+      name: 'vendor',
+      minchunk: ({resource}) => {
+        resource && resource.indexOf('node_modules') && resource.match(/\.js$/)
+      }
+    })
   ]
 }

@@ -37,7 +37,7 @@ exports.cssLoaders = function (options) {
       loaders.push({
         loader: loader + '-loader',
         options: Object.assign({}, loaderOptions, {
-          sourceMap: options.sourceMap
+          sourceMap: options.sourceMap,
         })
       })
     }
@@ -59,8 +59,13 @@ exports.cssLoaders = function (options) {
     css: generateLoaders(),
     postcss: generateLoaders(),
     less: generateLoaders('less'),
-    // sass: generateLoaders('sass', { indentedSyntax: true }),
-    // scss: generateLoaders('sass'),
+    sass: generateLoaders('sass', { indentedSyntax: true}),
+    scss: generateLoaders('sass').concat({ 
+      loader: 'sass-resources-loader',
+      options: {
+        resources: path.resolve(__dirname, "../p8VuePlatform/src/assets/commonStyle/common.scss")
+      }
+    }),
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus')
   }

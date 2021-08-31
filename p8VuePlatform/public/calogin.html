@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+    <script type="text/javascript" src="${base}/lib/javascript/jquery/jquery.min.js"></script>
+    <#include '/WEB-INF/ui/list.ftl'/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8"/>
+    <title>CA登录认证</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <script>
+        var strRadom="";
+        var strPin="";
+        var rtn="";
+        var Rtn="";
+        var Rtn1="";
+        var Rtn2="";
+        var Rtn3="";
+        var CAServerIP = "10.66.65.33";
+        function LoginSys(CAServerIP,strRadom)
+        {
+            rtn = usb_ocx.VgetnameFirst(CAServerIP,"1");
+            if (rtn.match("#."))//包含＃
+            {
+                if(rtn == "#2")
+                {
+                   // strPin = window.login.password.value;
+                   // rtn = usb_ocx.Vgetname(strPin,CAServerIP,"1");
+                    if (rtn.match("#."))//包含＃
+                    {
+                        if ("#8" == rtn)
+                            alert("Pin码输入错误！");
+                        else
+                            alert("没有插入key或者key错误！");
+
+                        window.location.href=base+'/loginPage.do';
+
+                        return "";
+                    }
+                    else
+                    {
+
+                        var str=rtn.split("\\");
+
+                        SubmitForm(str[2],strRadom);
+                        return rtn;
+                    }
+                }
+                else
+                {
+                    //alert("登陆错误" + rtn)
+                    alert("没有插入key或者key错误！");
+                    return "";
+                }
+            }
+            else
+            {
+                var str=rtn.split("\\");
+                SubmitForm(str[2],strRadom);
+                return rtn;
+            }
+        }
+
+        function SubmitForm(strUserName,strRadom)
+        {
+
+//            $("#Cer").val("MIICiTCCAfKgAwIBAgIEMeZfHzANBgkqhkiG9w0BAQQFADB9MQswCQYDVQQGEwJDYTEPMA0GA1UEBxMGTmVwZWFuMR4wHAYDVQQLExVObyBMaWFiaWxpdHkgQWNjZXB0ZWQxHzAdBgNVBAoTFkZvciBEZW1vIFB1cnBvc2VzIE9ubHkxHDAaBgNVBAMTE0VudHJ1c3QgRGVtbyBXZWIgQ0EwHhcNOTYwNzEyMTQyMDE1WhcNOTYxMDEyMTQyMDE1WjB0MSQwIgYJKoZIhvcNAQkBExVjb29rZUBpc3NsLmF0bC5ocC5jb20xCzAJBgNVBAYTAlVTMScwJQYDVQQLEx5IZXdsZXR0IFBhY2thcmQgQ29tcGFueSAoSVNTTCkxFjAUBgNVBAMTDVBhdWwgQS4gQ29va2UwXDANBgkqhkiG9w0BAQEFAANLADBIAkEA6ceSq9a9AU6g+zBwaL/yVmW1/9EE8s5you1mgjHnj0wAILuoB3L6rm6jmFRy7QZTG43IhVZdDua4e+5/n1ZslwIDAQABo2MwYTARBglghkgBhvhCAQEEBAMCB4AwTAYJYIZIAYb4QgENBD8WPVRoaXMgY2VydGlmaWNhdGUgaXMgb25seSBpbnRlbmRlZCBmb3IgZGVtb25zdHJhdGlvbiBwdXJwb3Nlcy4wDQYJKoZIhvcNAQEEBQADgYEAi8qcF3zfFqy1sV8NhjwLVwOKuSfhR/Z8mbIEUeSTlnH3QbYt3HWZQ+vXI8mvtZoBc2FzlexKeIkAZXCesqGbs6z6nCt16P6tmdfbZF3I3AWzLquPcOXjPf4HgstkyvVBn0ApjAFN418KF/Cx4qyHB4cjdvLrRjjQLnb2+ibo7QU=");
+//            $("#UserSign").val("MIIEVjCCAz6gAwIBAgIOQTAyMDAwMDAwMDAwRjEwDQYJKoZIhvcNAQEEBQAwODEPMA0GA1UEBhQG5Lit5Zu9MRIwEAYDVQQKFAnoiKrlpKnpg6gxETAPBgNVBAMUCENB5Lit5b+DMCIYDzIwMDUxMDI0MTAxMjAwWhgPMjAwODEwMjQwMDAwMDBaMIGpMQ8wDQYDVQQGFAbkuK3lm70xDzANBgNVBAoUBuWMl+S6rDENMAsGA1UECxQETFJBMjEQMA4GA1UEAxQH5rWL6K+VNzEMMAoGA1UEKhQDc2hpMQ8wDQYDVQQMFAbnp5HlkZgxFTATBgNVBCkUDCNocS5jZXNoaTcjIzEPMA0GA1UELBQG5pmu6YCaMR0wGwYJKoZIhvcNAQkBFg5jZXNoaTdAaHEuY2FzYzCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA3xARzPnCsdJ2MJYZDyTJy5ds+sZ+XcO+6WmpD/oZ4AngWdAgNk9jonKXGkEsoHh4qMSAzslGBELY3EGkbri9v+j8KS6hStq4ec71r0MwIBz5bYgFg3ZMaPJ4ELesQi7VQshJ2NLX78We5Lba4nQfZ9a+4Bm9Pv6DMTbsrEu/9ycCAwEAAYIVADAwMDAwNDUyMzQ1NDM2NTc2NzM0o4IBUzCCAU8wJAYDVR0RBB0wG6AZBgorBgEEAYI3FAIDoAsMCWNlc2hpN0BocTA+BgNVHR8ENzA1MCqgKKAmhiRodHRwOi8veGhxLmhxLmNhc2MvY2VydC9DUkxDZXJ0aS5DUkwwB6AFoAOGAQEwHwYDVR0jBBgwFoAUNpIBRfzdU/MgYHDepTw4hAJ/9WgwHQYDVR0OBBYEFJuT5hMm05QGLrx5IwtyfMF54F/EMAsGA1UdDwQEAwIGwDApBgNVHSUEIjAgBggrBgEFBQcDBAYIKwYBBQUHAwIGCisGAQQBgjcUAgIwKQYJKwYBBAGCNxQCBBweGgBTAG0AYQByAHQAYwBhAHIAZABVAHMAZQByMEQGCSqGSIb3DQEJDwQ3MDUwDgYIKoZIhvcNAwICAgCAMA4GCCqGSIb3DQMEAgIAgDAHBgUrDgMCBzAKBggqhkiG9w0DBzANBgkqhkiG9w0BAQQFAAOCAQEAJI+WymG4k8nwWJseI7Ozhv5UYIwn5ulWCIXqnrsezsS8Oaffajt3TN4rPhuKO7t0d870cHfzh0uHUoE32a7oH+dqd5aY+MDsAsEOEDqSOD74WIYDVa/aDhCVebJ6q7YG+I0rcj/JVZDkHZdxiucbmPsqcVAUCqsA5p8+W6iggcAObTBfhr9XmVkBJ5yel4wfFGHlMF+eR6Sx0y1SDBvnxJHYf2WN3hARLPoEEkZ9hc/ZogQ5Fgjf0FyCl3C/NMZbOBqjgqzznwvhcPfCUv/s4SlTeh/vJEQUxHPaWt4yFbGbY69uxLXPyGPvnqN1VVGJTQr0xIzVHON+XiQfP2G6/Q==");
+//            $("#Radom").val(strRadom);
+            GetCer();
+            GetSignUser(strUserName,strRadom);
+            $("form").submit();
+        }
+
+        function GetCer()
+        {
+            Rtn=usb_ocx.readCert("3","1");
+            $("#Cer").val(Rtn);
+        }
+        function GetSignUser(m_User,m_Radom)
+        {
+            Rtn1=usb_ocx.concat(m_User,"","");
+            Rtn2=usb_ocx.concat(m_Radom,Rtn1,"");//把随机串＋登陆名转换成base64串；
+            Rtn3=usb_ocx.dataSignCertEx(Rtn2,"1","0");
+            $("#UserSign").val(Rtn3);
+            $("#Radom").val(m_Radom);
+        }
+
+        $(function(){
+            $.post('${base}/strRadom.do',function(data){
+                strRadom=data.toString();
+                LoginSys(CAServerIP,strRadom);
+               //  $("form").submit();
+            });
+
+        });
+    </script>
+    <script type="text/javascript" src="${base}/lib/javascript/lang-cn.js"></script>
+    <style>
+        .login-role{
+            position: absolute;
+            width: 240px;
+            padding: 5px 10px;
+            left: 50%;
+            border-radius:  3px;
+            top: calc(50% + 70px);
+            margin-left: -150px;
+            text-align: center;
+            background: #ffffff;
+            box-shadow: 0px 0px 10px #1a9eff;
+            cursor: pointer;
+
+        }
+        .login-role:hover{
+            color: #ffffff;
+            background: #4ea640;
+        }
+    </style>
+</head>
+<body>
+<form action="${base}/caLogin.do" method=post id=login name=login>
+    <input id="Cer" name="Cer" type="hidden">
+    <input id="UserSign" name="UserSign" type="hidden">
+    <input id="Radom" name="Radom" type="hidden">
+</form>
+</body>
+<object classid="clsid:9703D810-ACC0-4C22-83C7-3FD9ED198B6E" id="usb_ocx" name="usb_ocx" style="VISIBILITY:hidden"
+        codebase="IB_USBKEY.ocx" width="100" height="50">
+</object>
+
+<!-- 此段代码为复制2.0CA登录 路径： /user/caLogin -->
+</html>

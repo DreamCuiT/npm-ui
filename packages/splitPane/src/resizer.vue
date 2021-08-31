@@ -29,7 +29,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .splitter-pane-resizer {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;

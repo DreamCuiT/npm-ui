@@ -197,23 +197,23 @@ export default {
       this.jsCode = makeUpJs(this.formData, type)
       this.cssCode = makeUpCss(this.formData)
 
-      loadBeautifier(btf => {
-        beautifier = btf
-        this.htmlCode = beautifier.html(this.htmlCode, beautifierConf.html)
-        this.jsCode = beautifier.js(this.jsCode, beautifierConf.js)
-        this.cssCode = beautifier.css(this.cssCode, beautifierConf.html)
+      // loadBeautifier(btf => {
+      //   beautifier = btf
+      //   this.htmlCode = beautifier.html(this.htmlCode, beautifierConf.html)
+      //   this.jsCode = beautifier.js(this.jsCode, beautifierConf.js)
+      //   this.cssCode = beautifier.css(this.cssCode, beautifierConf.html)
 
-        loadMonaco(val => {
-          monaco = val
-          this.setEditorValue('editorHtml', 'html', this.htmlCode)
-          this.setEditorValue('editorJs', 'js', this.jsCode)
-          this.setEditorValue('editorCss', 'css', this.cssCode)
-          if (!this.isInitcode) {
-            this.isRefreshCode = true
-            this.isIframeLoaded && (this.isInitcode = true) && this.runCode()
-          }
-        })
-      })
+      //   loadMonaco(val => {
+      //     monaco = val
+      //     this.setEditorValue('editorHtml', 'html', this.htmlCode)
+      //     this.setEditorValue('editorJs', 'js', this.jsCode)
+      //     this.setEditorValue('editorCss', 'css', this.cssCode)
+      //     if (!this.isInitcode) {
+      //       this.isRefreshCode = true
+      //       this.isIframeLoaded && (this.isInitcode = true) && this.runCode()
+      //     }
+      //   })
+      // })
     },
     onClose () {
       this.isInitcode = false

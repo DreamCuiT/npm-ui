@@ -2,7 +2,9 @@
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
+const webpack = require("webpack");
 const vueLoaderConfig = require('./vue-loader.conf')
+const packagesjson = require('../package.json')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -12,7 +14,7 @@ const createLintingRule = () => ({
   test: /\.(js|vue)$/,
   loader: 'eslint-loader',
   enforce: 'pre',
-  include: [resolve('examples'), resolve('test'),resolve('packages')],
+  include: [resolve('examples'), resolve('test'),resolve('packages'),resolve('p8VuePlatform')],
   options: {
     formatter: require('eslint-friendly-formatter'),
     emitWarning: !config.dev.showEslintErrorsInOverlay
@@ -20,9 +22,10 @@ const createLintingRule = () => ({
 })
 
 module.exports = {
-  context: path.resolve(__dirname, '../examples'),
+  context: path.resolve(__dirname, '../p8VuePlatform'),
   entry: {
-    app: '../examples/main.js'
+    app: '../p8VuePlatform/src/main.js',
+    vender: ['vue','vue-router','vuex','element-ui','axios','moment','bpmn-js','echarts','p8-dhtmlx-gantt','p8-gojs']
   },
   output: {
     path: config.build.assetsRoot,
@@ -35,12 +38,21 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('examples'),
+      '@': resolve('p8VuePlatform/src'),
       main: path.resolve(__dirname, '../src'),
       packages: path.resolve(__dirname, '../packages'),
       examples: path.resolve(__dirname, '../examples'),
       '~': path.resolve('src'),
     }
+  },
+  // 不需要webpack处理，编译进文件中，在我们需要，使用它的时候可以通过CMD、AMD、或者window全局方式访问
+  externals: {
+    // "vue": 'vue',
+    // "axios": "axios",
+    // "element-ui": "element-ui",
+    // "moment": "moment",
+    // "monaco-editor": "monaco-editor",
+    // "echarts": "echarts"
   },
   module: {
     rules: [
@@ -55,10 +67,9 @@ module.exports = {
         loader: 'babel-loader',
         include: [
           resolve('src'),
-          resolve('examples'),
+          resolve('p8VuePlatform'),
           resolve('packages'),
           resolve('node_modules/bpmn-js'),
-          resolve('node_modules/@babel/parser/lib'),
           resolve('node_modules/diagram-js/lib'),
           resolve('node_modules/@bpmn-io/element-templates-validator'),
           resolve('node_modules/bpmn-js-properties-panel/lib'),
@@ -66,7 +77,9 @@ module.exports = {
           resolve('node_modules/bpmn-js/lib/util/ModelUtil'),
           resolve('node_modules/element-ui/src'),
           resolve('node_modules/element-ui/packages'),
-          resolve('node_modules/webpack-dev-server/client')
+          resolve('node_modules/webpack-dev-server/client'),
+          resolve('node_modules/vue-grid-layout'),
+          resolve('node_modules/monaco-editor')
         ],
         options: {
           presets: ["@vue/babel-preset-jsx",["@babel/preset-env",{ "useBuiltIns": "usage","corejs": 3 }]],
@@ -78,7 +91,8 @@ module.exports = {
             [
               "@babel/plugin-proposal-object-rest-spread",
               { "loose": true, "useBuiltIns": true }
-            ]
+            ],
+            "dynamic-import-webpack"
           ]
         }
       },
@@ -105,20 +119,28 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      },{
-        test: /\.scss$/,
-        use: [
-          { loader: 'vue-style-loader' },
-          { loader: 'css-loader', options: { sourceMap: true } },
-          { loader: 'sass-loader', options: { sourceMap: true } },
-          { loader: 'sass-resources-loader',
-            options: {
-              sourceMap: true,
-              resources: path.resolve(__dirname, "../examples/assets/commonStyle/*.scss")
-            }
-          }
-        ]
-      }
+      },
+      // {
+      //   test: /\.css$/,
+      //   use: [
+      //     { loader: 'style-loader'},
+      //     { loader: 'css-loader'}
+      //   ]
+      // },
+      // {
+      //   test: /\.scss$/,
+      //   use: [
+      //     { loader: 'vue-style-loader' },
+      //     { loader: 'style-loader'},
+      //     { loader: 'css-loader'},
+      //     { loader: 'sass-loader'},
+      //     // { loader: 'sass-resources-loader',
+      //     //   options: {
+      //     //     resources: path.resolve(__dirname, "../p8VuePlatform/src/assets/commonStyle/common.scss")
+      //     //   }
+      //     // }
+      //   ]
+      // }
     ]
   },
   node: {
@@ -132,5 +154,20 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  }
+  },
+  plugins: [
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   names: ['vendor'],
+    //   minChunks: ['commons'] ,
+    //   minChunks:function(module){
+    //     return (
+    //         module.resource &&
+    //         /\.js$/.test(module.resource) &&
+    //         module.resource.indexOf(
+    //           path.join(__dirname, '../node_modules')
+    //         ) === 0 && ['vue','vue-router','vuex','element-ui','axios','monaco-editor','moment','bpmn-js','echarts','p8-dhtmlx-gantt','p8-gojs'].indexOf( module.resource.substr(module.resource.lastIndexOf('/')+1).toLowerCase() ) != -1
+    //       )
+    //  }
+    // })
+  ]
 }

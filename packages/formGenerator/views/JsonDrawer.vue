@@ -38,8 +38,8 @@ import { Drawer } from 'element-ui'
 import { beautifierConf } from '../utils/index'
 import ClipboardJS from 'clipboard'
 import { saveAs } from 'file-saver'
-import loadMonaco from '../utils/loadMonaco'
-import loadBeautifier from '../utils/loadBeautifier'
+// import loadMonaco from '../utils/loadMonaco'
+// import loadBeautifier from '../utils/loadBeautifier'
 
 let beautifier
 let monaco
@@ -86,15 +86,15 @@ export default {
       }
     },
     onOpen () {
-      loadBeautifier(btf => {
-        beautifier = btf
-        this.beautifierJson = beautifier.js(this.jsonStr, beautifierConf.js)
+      // loadBeautifier(btf => {
+      //   beautifier = btf
+      //   this.beautifierJson = beautifier.js(this.jsonStr, beautifierConf.js)
 
-      loadMonaco(val => {
-        monaco = val
-        this.setEditorValue('editorJson', this.beautifierJson)
-      })
-      })
+      // loadMonaco(val => {
+      //   monaco = val
+      //   this.setEditorValue('editorJson', this.beautifierJson)
+      // })
+      // })
     },
     onClose () { },
     setEditorValue (id, codeStr) {

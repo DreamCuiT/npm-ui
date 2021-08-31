@@ -9,8 +9,8 @@ import router from './router'
 import store from './store/store'
 
 import { IEVersion } from '~/utils/common'
-import 'element-ui/lib/theme-chalk/index.css';
-// import "../packages/theme-chalk/src/index.scss";
+// import 'element-ui/lib/theme-chalk/index.css';
+import "../packages/theme-chalk/src/index.scss";
 Vue.prototype.$bus = new Vue() 
 // 测试打包
 // import p8 from '../dist/index'

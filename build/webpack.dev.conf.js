@@ -23,11 +23,11 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   // these devServer options should be customized in /config/index.js
   devServer: {
     clientLogLevel: 'warning',
-    historyApiFallback: {
-      rewrites: [
-        { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
-      ],
-    },
+    // historyApiFallback: {
+    //   rewrites: [
+    //     { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
+    //   ],
+    // },
     hot: true,
     contentBase: false, // since we use CopyWebpackPlugin.
     compress: true,
@@ -53,14 +53,18 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
+      templateParameters: {
+        BASE_URL: `../p8VuePlatform/public/`
+      },
       filename: 'index.html',
-      template: 'index.html',
+      template: '../p8VuePlatform/public/index.html',
+      favicon: '../p8VuePlatform/public/favicon.ico',
       inject: true
     }),
     // copy custom static assets
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, '../static'),
+        from: path.resolve(__dirname, '../p8VuePlatform/public/static'),
         to: config.dev.assetsSubDirectory,
         ignore: ['.*']
       }
