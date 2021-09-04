@@ -63,12 +63,16 @@
       </span>
       <el-input v-if="fields.fieldName && fields.type === 'text'"
                 v-model="formData[fields.fieldName]"
+                autosize
+                :maxlength="fields.maxlength?fields.maxlength:120"
                 v-bind="fields.fieldConfig"
                 :placeholder="fields.placeholder"
                 clearable></el-input>
       <el-input v-else-if="fields.fieldName && fields.type === 'textarea'"
                 type="textarea"
+                :maxlength="fields.maxlength?fields.maxlength:500"
                 :placeholder="fields.placeholder"
+                autosize
                 v-model="formData[fields.fieldName]"
                 v-bind="fields.fieldConfig"
                 clearable></el-input>
@@ -112,7 +116,9 @@
                    :disabled-values="fields.disabledValues"
                    :check-strictly="fields.checkStrictly"
                    :clearable="fields.clearable"
+                   :show-checkbox="fields.showCheckbox"
                    v-model="formData[fields.fieldName]"
+                   :ref="`treeselect${fields.fieldName}`"
                    style="width: 100%"></tree-select>
       <el-input-number v-else-if="fields.fieldName && fields.type === 'number'"
                        :min="fields.minName ? formData[fields.minName] : fields.min || fields.min === 0 ? fields.min : 1 "
@@ -156,6 +162,7 @@
                       type="date"
                       :placeholder="fields.placeholder"
                       style="width: 100%"
+                      :picker-options="pickerOptions"
                       :clearable="fields.fieldConfig && Object.keys(fields.fieldConfig).indexOf('clearable') > -1 ? fields.fieldConfig.clearable : true"
                       @change="fields.eventHandle && fields.eventHandle.change && comp[fields.eventHandle.change](formData[fields.fieldName])">
       </el-date-picker>
@@ -208,58 +215,208 @@ export default {
       default: () => {
         return {}
       }
+    },
+    logdata: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     }
   },
   data: () => {
     return {
-      options: []
+      watchTag: null,
+      watchOptionsTag: null,
+      options: [],
+      treeData: [],
+      pickerOptions: {}
     }
   },
-  mounted () {
+  created () {
+  },
+  async mounted () {
     let that = this
-    if (this.fields.optionUrl && this.fields.optionUrl.api) {
-      this.$api[this.fields.optionUrl.api](this.fields.optionUrl.params ? this.fields.optionUrl.params : {}).then(res => {
-        if (that.fields.optionUrl.label || that.fields.optionUrl.value) {
-          if (res[0].children) {
-            let props = {
-              label: that.fields.optionUrl.label || null,
-              value: that.fields.optionUrl.value || null
-            }
-            that.options = that.treeDataHandle(res, props)
-          } else {
-            that.options = res.map(item => {
-              if (that.fields.optionUrl.label) {
-                item.label = item[that.fields.optionUrl.label]
-              }
-              if (that.fields.optionUrl.value) {
-                item.value = item[that.fields.optionUrl.value]
-              }
-              return item
-            })
-            if (that.fields.type === 'treeSelect') {
-              that.options = generateTree(that.options, that.fields.optionUrl.pId)
-            }
-          }
-        } else {
-          if (that.fields.type === 'treeSelect') {
-            if (res[0].children) {
-              that.options = res
+    // 开始时间与结束时间相互限制
+    if (this.fields.pickerOptions && Object.keys(this.fields.pickerOptions).length) {
+      this.pickerOptions = {
+        disabledDate: time => {
+          // comparedFieldName比较字段名
+          let dateVal = this.formData[this.fields.pickerOptions.comparedFieldName]
+          if (dateVal) {
+            if (this.fields.pickerOptions.disabledRelation === 'start') {
+              return time.getTime() > new Date(dateVal).getTime()
             } else {
-              that.options = generateTree(res, that.fields.optionUrl.pId)
+              return time.getTime() < new Date(dateVal).getTime() - 24 * 60 * 60 * 1000
             }
-          } else {
-            that.options = res
           }
         }
-        this.$emit('field-mounted')
-      }).catch(err => {
-        console.log(err)
-      })
+      }
+    }
+    if (this.fields.optionUrl && this.fields.optionUrl.api) {
+      let res = await this.$api[this.fields.optionUrl.api](this.fields.optionUrl.params ? this.fields.optionUrl.params : {})
+      // .then(res => {
+      if (that.fields.optionUrl.label || that.fields.optionUrl.value) {
+        if (res[0].children) {
+          let props = {
+            label: that.fields.optionUrl.label || null,
+            value: that.fields.optionUrl.value || null
+          }
+          that.options = that.treeDataHandle(res, props)
+        } else {
+          that.options = res.map(item => {
+            if (that.fields.optionUrl.label) {
+              item.label = item[that.fields.optionUrl.label]
+            }
+            if (that.fields.optionUrl.value) {
+              item.value = item[that.fields.optionUrl.value]
+            }
+            return item
+          })
+          if (that.fields.type === 'treeSelect') {
+            that.options = generateTree(that.options, that.fields.optionUrl.pId)
+          }
+        }
+      } else {
+        if (that.fields.type === 'treeSelect') {
+          that.treeData = res
+          if (res[0].children) {
+            that.options = res
+          } else {
+            that.options = generateTree(res, that.fields.optionUrl.pId)
+          }
+        } else {
+          that.options = res
+        }
+      }
+      this.$emit('field-mounted')
+      // }).catch(err => {
+      //   console.log(err)
+      // })
     } else {
       that.$emit('field-mounted')
     }
+    this.watchFormData()
+    this.watchFieldOptions()
   },
   methods: {
+    // 下拉数据或者其他fields.options初始化完成
+    watchFieldOptions () {
+      if (this.watchOptionsTag) {
+        this.watchOptionsTag()
+      }
+      this.watchOptionsTag = this.$watch('fields.options', (newValue, oldValue) => {
+        if (newValue.length) {
+          let isEqualN = JSON.stringify(newValue) === JSON.stringify(oldValue)
+          // 只在第一次赋值options时需要触发，后面再赋值就不需要触发
+          !isEqualN && (oldValue === undefined || oldValue.length === 0) && this.watchFormData()
+        }
+      }, {
+        deep: true
+      })
+    },
+    // 数据初始化完成记录初始值
+    watchFormData () {
+      if (this.fields.type === 'view') return
+      const fieldType = ['treeSelect', 'select', 'multiple', 'checkboxGroup']
+      let before = deepClone(this.formData)[this.fields.fieldName]
+      if (fieldType.includes(this.fields.type)) {
+        before = this.getLabel(this.fields, before)
+      }
+      const { fieldName: column, labelText: columnName } = this.fields
+      if (this.watchTag) {
+        this.watchTag()
+      }
+      this.watchTag = this.$watch('formData.' + this.fields.fieldName + '', (newValue, oldValue) => {
+        let after = newValue
+        if (fieldType.includes(this.fields.type)) {
+          after = this.getLabel(this.fields, newValue)
+        }
+        this.$emit('update-logdata', {
+          [this.fields.fieldName]: {
+            column,
+            columnName,
+            before,
+            after
+          }
+        })
+      }, {
+        immediate: true
+      })
+    },
+    getLabel (fields, value) {
+      let label = ''
+      let options = []
+      switch (fields.type) {
+        case 'select':
+          options = (fields.options && fields.options.length) ? fields.options : this.options
+          if (Array.isArray(value)) {
+            if (value.length === 1) {
+              label = options.filter(item => {
+                return value[0].includes(item.value)
+              })
+            } else {
+              label = options.filter(item => {
+                return value.join(',').includes(item.value)
+              })
+            }
+          } else {
+            label = options.filter(item => {
+              return item.value === value
+            })
+          }
+          label = label.length === 1 ? label[0].label : label.map((obj, index) => { return obj.label }).join(',')
+          break
+        case 'treeSelect':
+          options = (fields.treeData && fields.treeData.length ? fields.treeData : this.treeData)
+          if (Array.isArray(value)) {
+            if (value.length === 1) {
+              label = options.filter(item => {
+                return value[0].includes(item.value)
+              })
+            } else {
+              label = options.filter(item => {
+                return value.join(',').includes(item.value)
+              })
+            }
+          } else {
+            label = options.filter(item => {
+              return item.value === value
+            })
+          }
+          label = label.length === 1 ? label[0].label : label.map((obj, index) => { return obj.label }).join(',')
+          // label = this.$refs['treeselect' + fields.fieldName].selectedLabel
+          break
+        case 'multiple':
+          options = (fields.options && fields.options.length) ? fields.options : this.options
+          if (Array.isArray(value)) {
+            if (value.length === 1) {
+              label = options.filter(item => {
+                return value[0].includes(item.value)
+              })
+            } else {
+              label = options.filter(item => {
+                return value.join(',').includes(item.value)
+              })
+            }
+          }
+          label = label.length === 1 ? label[0].label : label.map((obj, index) => { return obj.label }).join(',')
+          break
+        case 'checkboxGroup':
+          options = (fields.options && fields.options.length) ? fields.options : this.options
+          if (Array.isArray(value)) {
+            label = options.filter(item => {
+              return value.join(',').includes(item.value)
+            })
+          } else {
+            label = options.filter(item => {
+              return item.value === value
+            })
+          }
+          label = label.length === 1 ? label[0].label : label.map((obj, index) => { return obj.label }).join(',')
+          break
+      }
+      return label
+    },
     treeDataHandle (treeData, props = { label: '', value: '' }) {
       treeData.forEach(node => {
         if (props.label) {

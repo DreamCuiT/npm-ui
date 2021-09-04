@@ -5,6 +5,7 @@
         <li v-for="item in uploadFiles" :key="item.id" class="files-item--row">
           <el-link @click="downloadfileHandle(item)"><i class="el-icon-document"></i>&nbsp;{{item.fileName}}</el-link>
           <span class="files-confidentialite--row" v-if="item.confidentialite">密级: <span v-text="confidentialiteLabel(item)"></span></span>
+          <span class="files-confidentialite--row" v-if="showTypeSelect && item.type">附件类型: <span v-text="getFileTypeLabel(item)"></span></span>
         </li>
       </ul>
     </template>
@@ -12,6 +13,7 @@
       <ul class="files-type--card">
         <li v-for="item in renderFiles" :key="item.id" class="files-item--card" :class="fileTypeToStyle(item)" @click="downloadfileHandle(item)">
           <el-link :underline="false" @click="downloadfileHandle(item)">{{item.fileName}}({{confidentialiteLabel(item)}})</el-link>
+          <span class="files-confidentialite--row" v-if="showTypeSelect && item.type">附件类型: <span v-text="getFileTypeLabel(item)"></span></span>
           <span class="icon-download" :class="fileTypeToStyle(item)"><i class="el-icon-download"></i></span>
         </li>
       </ul>
@@ -50,6 +52,9 @@ export default {
     }
   },
   computed: {
+    showTypeSelect () {
+      return this.$attrs.showTypeSelect
+    },
     renderFiles () {
       let confidentialiteList = this.$store.state.user.confidentialiteList
       if ((this.uploadFiles && this.uploadFiles.length) && (confidentialiteList && confidentialiteList.length)) {
@@ -86,6 +91,9 @@ export default {
     },
     confidentialiteLabel (file) {
       return this.getConfidentialiteLabel(file, 'confidentialite')
+    },
+    FileTypeLabel (file) {
+      return this.getFileTypeLabel(file, 'type')
     }
   }
 }

@@ -84,6 +84,14 @@
       color: $base-pagination-text-color;
     }
   }
+  .el-pagination.is-background {
+    .el-pager li:not(.disabled).active{
+
+    }
+    &.btn-prev:disabled, &.btn-next:disabled{
+      
+    }
+  }
 
   .caret-wrapper {
     height: 16px;

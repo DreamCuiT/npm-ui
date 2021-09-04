@@ -112,6 +112,15 @@ export default {
       if (filter.length) {
         return filter[0].label;
       }
+    },
+    getFileTypeLabel(file, confValueKey = "type") {
+      const typeOptions = this.$store.state.user.customFileTypeList;
+      let filter = typeOptions.filter(
+        item => item.value === file[confValueKey]
+      );
+      if (filter.length) {
+        return filter[0].label;
+      }
     }
   }
 };

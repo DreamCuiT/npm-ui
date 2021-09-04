@@ -82,6 +82,10 @@ export default {
     event: 'change'
   },
   props: {
+    leafOnly: {
+      type: Boolean,
+      default: true
+    },
     clearable: Boolean,
     defaultExpandAll: Boolean,
     checkStrictly: {
@@ -126,6 +130,12 @@ export default {
         return []
       }
     },
+    defaultExpandedKeys: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
     data: {
       type: Array,
       default () {
@@ -149,9 +159,6 @@ export default {
     },
     propsLabel () {
       return this.props.label
-    },
-    defaultExpandedKeys () {
-      return Array.isArray(this.value) ? this.value : [this.value]
     }
   },
   data () {
@@ -199,7 +206,8 @@ export default {
       }
     },
     checkChange () {
-      this.valueChange(this.$refs.elTree.getCheckedKeys(!this.checkStrictly))
+      const selectedKeys = this.leafOnly ? this.$refs.elTree.getCheckedKeys((!this.checkStrictly)) : this.$refs.elTree.getCheckedKeys(this.leafOnly)
+      this.valueChange(selectedKeys)
       this.setSelectedLabel()
     },
     checkSelected (value) {
@@ -241,7 +249,7 @@ export default {
     },
     setSelectedLabel () {
       const elTree = this.$refs.elTree
-      const selectedNodes = elTree.getCheckedNodes(!this.checkStrictly)
+      const selectedNodes = this.leafOnly ? elTree.getCheckedNodes((!this.checkStrictly)) : elTree.getCheckedNodes(this.leafOnly)
       this.selectedLabel = selectedNodes
         .map((item) => item[this.propsLabel])
         .join(',')

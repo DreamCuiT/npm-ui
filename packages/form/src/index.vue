@@ -27,6 +27,7 @@
                         :prop="item.fieldName"
                         :label-width="item.labelWidth ? item.labelWidth : ''">
             <add-field :add-fields-layout="item.addFieldLayout"
+                       :ref="`addField${item.fieldName}`"
                        :addFields="item.children"
                        :fieldName="item.fieldName"
                        :formData="form"
@@ -51,9 +52,11 @@
                         :prop="item.fieldName"
                         :label-width="item.labelWidth ? item.labelWidth : ''"
                         :rules="uploadRules(item)">
-            <common-upload ref="commonupload"
+            <common-upload :ref="`commonupload${item.fieldName}`"
                            :files="form[item.fieldName] || []"
                            :listType="item.listType"
+                           :num=item.num
+                           :params=item.params
                            :maxLimit="item.maxLimit"
                            :uploadConfig="item.uploadConfig || {}"
                            @upload="(file) => { uploadFile(file, item) }"
@@ -63,6 +66,8 @@
         </el-col>
 
         <field-render v-else
+                      :ref="`fieldRender${item.fieldName}`"
+                      @update-logdata="updateLogdata"
                       @field-mounted="sumRender"
                       :fields="item"
                       :key="item.fieldName"
@@ -92,7 +97,9 @@
   </el-form>
 </template>
 <script>
-import { Form, FormItem, Row, Col, Button, Alert,Select, Option } from 'element-ui'
+import { Form, FormItem, Row, Col, Button, Alert, Select, Option } from 'element-ui'
+import  Moment  from 'moment'
+import { deepClone } from '~/utils/common'
 import FieldRender from './Components/FieldRender'
 import AddField from './Components/AddField'
 import CommonUpload from '../../upload'
@@ -104,7 +111,7 @@ export default {
   componentName: 'P8Form',
   inheritAttrs: false,
   mixins: [upLoad],
-   components: {
+  components: {
     'el-form': Form,
     'el-form-item': FormItem,
     'el-row': Row,
@@ -125,6 +132,10 @@ export default {
     },
     dataSource: {
       type: Array
+    },
+    isCustomLogdate: {// 保存时自否有自定义新旧值处理
+      type: Boolean,
+      default: false
     },
     isCustomValidate: {// 保存时自否有自定义校验
       type: Boolean,
@@ -159,27 +170,28 @@ export default {
   },
   data () {
     return {
+      num: 1,
       formElementNum: 0,
       renderedNum: 0,
       viewData: {},
       isDisable: false,
-      loadingVisible: ''
+      loadingVisible: '',
+      logdata: {}
     }
   },
   mounted () {
-
   },
   computed: {
     secretLevelRules () {
       return function (data) {
         let defaultRules = [{ required: true, message: '密级必选' }]
-        if ('defaultRule' in data){
+        if ('defaultRule' in data) {
           isArray(data.defaultRule) && data.defaultRule.length && (defaultRules = data.defaultRule)
         }
         if ('rules' in data) {
-           return data.rules.concat(defaultRules)
+          return data.rules.concat(defaultRules)
         } else {
-         return defaultRules
+          return defaultRules
         }
       }
     },
@@ -193,7 +205,7 @@ export default {
             return data.rules
           }
         } else {
-         return data.listType === 'secret' ? defaultRules : []
+          return data.listType === 'secret' ? defaultRules : []
         }
       }
     },
@@ -223,12 +235,74 @@ export default {
         }
         return item
       })
+    },
+    // 新旧值参数获取
+    getLogFormatData () {
+      return {
+        createType: this.getCreateType(this.form),
+        objectId: this.getObjectId(this.form),
+        objectName: this.getObjectName(this.form),
+        objectSecretGrade: this.getObjectSecretGrade(this.form),
+        logData: this.getLogdata
+      }
+    },
+    getLogdata () {
+      return Object.values(this.logdata).filter(i => { return (i.before !== i.after) && i.after !== null })
+    },
+    getLogdataChiledren () {
+      return []
     }
   },
   watch: {
-
+    formData: {
+      handler: function (newvalue, oldvalue) {
+        if (newvalue.id && this.num <= 1) {
+          this.num += 1
+          this.$nextTick(function () {
+            this.initDataDone()
+          })
+        }
+      },
+      deep: true
+    }
   },
   methods: {
+    // 新旧值参数获取
+    getCreateType (data) {
+      if ('id' in data && data.id) {
+        return '2'
+      } else {
+        return '1'
+      }
+    },
+    getObjectId (data) {
+      if ('id' in data) {
+        return data.id
+      } else {
+        return ''
+      }
+    },
+    getObjectName (data) {
+      if ('name' in data) {
+        return data.name
+      } else if ('realName' in data) {
+        return data.realName
+      } else {
+        return ''
+      }
+    },
+    getObjectSecretGrade (data) {
+      if ('secretGrade' in data) {
+        return data.secretGrade
+      } else {
+        return ''
+      }
+    },
+    updateLogdata (value) {
+      Object.keys(value).forEach(item => {
+        this.$set(this.logdata, item, value[item])
+      })
+    },
     sumRender () {
       this.renderedNum++
       if (this.formElementNum === this.renderedNum) {
@@ -286,9 +360,17 @@ export default {
       this.validate().then((queryParams) => {
         let saveParams = { ...queryParams, ...this.otherParam }
         if (this.isCustomValidate) {
-          this.$emit('custom-validate', saveParams)
+          if (this.isCustomLogdate) {
+            this.$emit('custom-validate', saveParams)
+          } else {
+            this.$emit('custom-validate', { ...saveParams, ...{ logDetail: this.getLogFormatData } })
+          }
         } else {
-          this.submitForm(saveParams, this.api)
+          if (this.isCustomLogdate) {
+            this.submitForm(saveParams, this.api)
+          } else {
+            this.submitForm({ ...saveParams, ...{ logDetail: this.getLogFormatData } }, this.api)
+          }
         }
       }).catch(() => {
         console.log('上传文件失败！')
@@ -329,13 +411,31 @@ export default {
       if (res === false) {
         return
       }
-      this.$message({
-        message: '保存成功！',
-        type: 'success'
-      })
-      this.$emit('saved', res)
-      this.loadingVisible = ''
-      this.isDisable = false
+      // 处理接口返回信息
+      if (res !== undefined && res.id === undefined) {
+        if (res.message !== undefined) {
+          this.$message({
+            message: res.message,
+            type: res.type
+          })
+        } else {
+          this.$message({
+            message: '提交成功！',
+            type: 'success'
+          })
+          this.$emit('saved', res)
+          this.loadingVisible = ''
+          this.isDisable = false
+        }
+      } else {
+        this.$message({
+          message: '保存成功！',
+          type: 'success'
+        })
+        this.$emit('saved', res)
+        this.loadingVisible = ''
+        this.isDisable = false
+      }
     },
     setViewFields (data) { // 给查看页面赋值
       this.viewData = data
@@ -345,6 +445,36 @@ export default {
     },
     removedFile (file, field) {
       this.formData[field.fieldName] = this.$refs.commonupload[0].commonRemoveFile(file, this.formData[field.fieldName])
+    },
+    initDataDone () {
+      // 非fieldRender添加监听
+      this.dataSource.forEach(i => {
+        if (i.type === 'blank') {
+          let before = deepClone(this.formData)[i.fieldName] || ''
+          const { fieldName: column, labelText: columnName } = i
+          this.$watch('formData.' + i.fieldName + '', (newValue, oldValue) => {
+            let after = newValue
+            this.updateLogdata({
+              [i.fieldName]: {
+                column,
+                columnName,
+                before,
+                after
+              }
+            })
+          })
+        }
+      })
+      // fieldRende添加监听
+      this.$refs.fieldRender && this.$refs.fieldRender.forEach(i => {
+        if (i.fields.type !== 'view') {
+          i.watchFormData()
+        }
+      })
+      // addField添加监听
+      this.$refs.addField && this.$refs.addField.forEach(i => {
+        i.initDataDone()
+      })
     }
   }
 }
