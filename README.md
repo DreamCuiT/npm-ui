@@ -4,22 +4,7 @@
 
 ## Build Setup
 
-## 私服切换源
-
-npm install nrm -g
-
-nrm add rongzhi http://192.168.0.191:8888/repository/npm-group/
-
-nrm use rangzhi
-
 ```bash
-# install dependencies
-npm install p8-components-ui
-
-## 或者定义临时源
-npm --registry http://192.168.0.191:8888/repository/npm-group/ i p8-components-ui
-
-cnpm i
 
 # serve with hot reload at localhost:8080
 npm run dev
